@@ -1,10 +1,10 @@
+import { TDocumentDefinitions } from 'pdfmake/interfaces';
 import data from './MOCK_DATA.json'
 
 interface ContentDefinition{
   mobile:string;
   id:number
 }
-
 
 function pdf({mobile,id}:ContentDefinition){
   const table=[
@@ -295,13 +295,13 @@ function pdf({mobile,id}:ContentDefinition){
 }
 
 
-const contentDefinition = {
+const contentDefinition:any = {
   pageSize: {
     width: 1100,
     height: 650,
   },
   pageMargins: [20, 10, 20, 10],
-  content: [] as ContentDefinition[],
+  content: [],
 };
 
 
@@ -313,4 +313,4 @@ const contentDefinition = {
     contentDefinition.content.push(JSON.parse(JSON.stringify(pdf({mobile,id}))))
   }
 
-module.exports = contentDefinition;
+export default contentDefinition;

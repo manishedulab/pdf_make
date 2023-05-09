@@ -1,11 +1,12 @@
-import express,{Request,Response,NextFunction,Application} from 'express';
-const app = express();
-const contentDefinition =require('./pdf')
-const Hallticket = require('./hallTicket')
-const pdfMake = require('pdfmake');
-const Certificate = require('./certificate');
+import express, { Request, Response } from 'express';
+import contentDefinition from './pdf'
+import Hallticket from './hallTicket'
+import pdfMake from 'pdfmake'
+import Certificate from './certificate'
 
-var fonts = {
+const app = express();
+
+const fonts = {
     Roboto: {
         normal: 'roboto/Roboto-Regular.ttf',
         bold: 'roboto/Roboto-Bold.ttf',
@@ -18,7 +19,7 @@ var fonts = {
 let pdfmake = new pdfMake(fonts);
 
 // Define the endpoint that generates and returns the PDF document
-app.get('/generate-pdf', (req, res) => {
+app.get('/generate-pdf', (req:Request, res:Response) => {
   const pdfDocGenerator = pdfmake.createPdfKitDocument(contentDefinition);
   res.setHeader('Content-Type', 'application/pdf');
   res.setHeader('Content-Disposition', 'inline');
@@ -27,7 +28,7 @@ app.get('/generate-pdf', (req, res) => {
 });
 
 // Define the endpoint that generates and returns the PDF document
-app.get('/generate-hallticket-pdf', (req, res) => {
+app.get('/generate-hallticket-pdf', (req:Request, res:Response) => {
   const pdfDocGenerator = pdfmake.createPdfKitDocument(Hallticket);
   res.setHeader('Content-Type', 'application/pdf');
   res.setHeader('Content-Disposition', 'inline');
@@ -36,7 +37,7 @@ app.get('/generate-hallticket-pdf', (req, res) => {
 });
 
 // Define the endpoint that generates and returns the PDF document
-app.get('/generate-certificate', (req, res) => {
+app.get('/generate-certificate', (req:Request, res:Response) => {
   const pdfDocGenerator = pdfmake.createPdfKitDocument(Certificate);
   res.setHeader('Content-Type', 'application/pdf');
   res.setHeader('Content-Disposition', 'inline');

@@ -561,7 +561,7 @@ function hallTicketPdf( {name, seatNo, studentId, gender, course, dateOfBirth, m
 
 
   
-const Hallticket = {
+const Hallticket:any = {
   pageSize: {
     width: 870,
     height: 940,
@@ -594,4 +594,4 @@ for (let i = 0; i <1; i++) {
   Hallticket.content.push(JSON.parse(JSON.stringify(hallTicketPdf({name, seatNo, studentId, gender, course, dateOfBirth, medium}))))
 }
 
-module.exports = Hallticket;
+export default Hallticket;

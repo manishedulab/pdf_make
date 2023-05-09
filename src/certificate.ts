@@ -489,7 +489,7 @@ function certificatepdf( {name, seatNo, studentId, gender, course, medium}:Certi
     return table;
 }
   
-const Certificate = {
+const Certificate:any = {
   pageSize: {
     width: 870,
     height: 620,
@@ -521,4 +521,4 @@ for (let i = 0; i <1; i++) {
   Certificate.content.push(JSON.parse(JSON.stringify(certificatepdf({ name, seatNo, studentId, gender, course, medium}))))
 }
 
-module.exports = Certificate;
+export default Certificate;
