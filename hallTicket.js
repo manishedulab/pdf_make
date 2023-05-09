@@ -1,8 +1,8 @@
 const { text } = require("express");
-const data = require("./MOCK_DATA (1).json")
+const data = require("./MOCK_DATA (3).json")
 
 
-function pdf(){
+function pdf( name, seatNo, studentId, gender, course, dob, medium ){
     const table=[
       //main heading
       { 
@@ -46,7 +46,7 @@ function pdf(){
       // heading
       {
         table: {
-          widths: [20,100,220,456],
+          widths: [20,100,220,455],
           headerRows: 1,
           body: [
             [
@@ -54,29 +54,32 @@ function pdf(){
                 text: "SI.\nNo.",
                 alignment: "center",
                 bold:true,
+                border: [false, true, false, true]
               },
               {
                 text: "Enroll./Roll No.",
                 valign: "bottom",
                 alignment: "center",
                 bold:true,
+                border: [false, true, false, true]
               },
               {
                 text:'Student Name',
                 alignment: "center",
                 verticalAlignment: "bottom",
                 bold:true,
+                border: [false, true, false, true]
               },
               {
                 text:'Appearing Subjects',
                 alignment: "center",
                 bold:true,
+                border: [false, true, false, true]
               }
             ],
           ],
         },
         layout: {
-          noBorders: true,
           //set custom borders size and color
           hLineWidth: function (i, node) {
             return (i === 0 || i === node.table.body.length) ? 2 : 0;
@@ -105,19 +108,19 @@ function pdf(){
               body: [
                 [
                   { 
-                    text: "1",
+                    text: `${studentId}`,
                     alignment: "center",
                     bold:true,
                   },
                   {
-                    text: "111111111111",
+                    text: `${seatNo}`,
                     valign: "bottom",
                     lineHeight: 2.5,
                     alignment: "center",
                     bold:true,
                   },
                   {
-                    text:'manjshiths manshdidf amshdcidh',
+                    text: `${name}`,
                     alignment: "center",
                     verticalAlignment: "bottom",
                     bold:true,
@@ -134,7 +137,7 @@ function pdf(){
                   text:"Birth Date:\t"
                 },
                 {
-                  text:"23-jun-1998",
+                  text: `${dob}`,
                 }
               ],
               absolutePosition: { x: 160, y: 160 },
@@ -181,7 +184,7 @@ function pdf(){
                         text:"Gender:\t"
                       },
                       {
-                        text:"MALE",
+                        text: `${gender}`,
                         bold:true,
                       }
                     ],
@@ -193,7 +196,7 @@ function pdf(){
                           text:"Medium:\t"
                         },
                         {
-                          text:"Gujarati",
+                          text: `${medium}`,
                           bold:true,
                         }
                       ],
@@ -247,7 +250,7 @@ function pdf(){
                     {
                       text:[
                         {
-                          text:"APPearing:\t"
+                          text:"Appearing:\t"
                         },
                         {
                           text:"Whole",
@@ -492,7 +495,7 @@ function pdf(){
             text:'\nI  Certify  that  ',
           },
           {
-            text:'BHABHOR  DIXITKUMAR  CHANDUBHAI',
+            text: `${name}`,
             decoration: "underline",
             bold:true
           },
@@ -500,7 +503,7 @@ function pdf(){
             text:'  is  eligible  for  admission  in  Course  ',
           },
           {
-            text:'M.F.D.  M.Ed.  (New)2year  scheme-3',
+            text: `${course}`,
             decoration: "underline",
             bold:true
           },
@@ -508,7 +511,7 @@ function pdf(){
             text:'  as  per  Gujarat  University  Ordinance.  It  is  furthur  certified  that  said  student  has  satisfactarily  complated  the  course  of  studies  presecribed  for  the  Course  '
           },
           {
-            text:'\nM.F.D.  M.Ed.  (New)2year  scheme-3',
+            text: `${course}`,
             decoration: "underline",
             bold:true
           },
@@ -519,7 +522,7 @@ function pdf(){
             text:'\nI  also  certify  that  the  detail  filled  in  this  form  have  been  verified  and  found  correct  as  per  college  record.'
           },
         ],     
-        margin:[5,0,0,0],
+        margin:[5,0,5,0],
         lineHeight:1.3    
       },
       {
@@ -551,18 +554,26 @@ const Hallticket = {
       {
         canvas: [
           { type: 'line', x1: 20, y1:10 , x2: pageSize.width - 20, y2: 10, lineWidth: 2 }, //Up line
-          { type: 'line', x1: 20, y1: 9, x2: 20, y2: pageSize.height - 9, lineWidth: 2 }, //Left line
+          { type: 'line', x1: 19, y1: 9, x2: 19, y2: pageSize.height - 9, lineWidth: 2 }, //Left line
           { type: 'line', x1: 20, y1: pageSize.height - 10, x2: pageSize.width - 20, y2: pageSize.height - 10, lineWidth: 2 }, //Bottom line
           { type: 'line', x1: pageSize.width - 20, y1: 9, x2: pageSize.width - 20, y2: pageSize.height - 9, lineWidth: 2 }, //Rigth line
         ]
       }
     ]
   },
-  content: pdf(),
+  content: [],
 };
 
-for (let i = 0; i <5; i++) {
-  Hallticket.content.push(JSON.parse(JSON.stringify(pdf(data[i]["mobile_no"]))))
+for (let i = 0; i <1; i++) {
+  const name = data[i]['student_name']
+  const seatNo = data[i]['exam_seat_number']
+  const studentId = data[i]['student_id']
+  const gender = data[i]['gender']
+  const course = data[i]['course']
+  const dateOfBirth = data[i]['date_of_birth']
+  const medium = data[i]['language']
+
+  Hallticket.content.push(JSON.parse(JSON.stringify(pdf( name, seatNo, studentId, gender, course, dateOfBirth, medium ))))
 }
 
 module.exports = Hallticket;

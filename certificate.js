@@ -1,7 +1,9 @@
 const { text } = require("express");
+const data = require("./MOCK_DATA (3).json")
 
 
-function pdf(){
+
+function pdf( name, seatNo, studentId, gender, course, dob, medium ){
     const table=[
       //main heading
       { 
@@ -53,23 +55,27 @@ function pdf(){
                 text: "SI.\nNo.",
                 alignment: "center",
                 bold:true,
+                border: [false, true, false, true]
               },
               {
                 text: "Enroll./Roll No.",
                 valign: "bottom",
                 alignment: "center",
                 bold:true,
+                border: [false, true, false, true]
               },
               {
                 text:'Student Name',
                 alignment: "center",
                 verticalAlignment: "bottom",
                 bold:true,
+                border: [false, true, false, true]
               },
               {
                 text:'Appearing Subjects',
                 alignment: "center",
                 bold:true,
+                border: [false, true, false, true]
               }
             ],
           ],
@@ -104,19 +110,19 @@ function pdf(){
               body: [
                 [
                   { 
-                    text: "1",
+                    text: `${studentId}`,
                     alignment: "center",
                     bold:true,
                   },
                   {
-                    text: "111111111111",
+                    text: `${seatNo}`,
                     valign: "bottom",
                     lineHeight: 2.5,
                     alignment: "center",
                     bold:true,
                   },
                   {
-                    text:'manjshiths manshdidf amshdcidh',
+                    text: `${name}`,
                     alignment: "center",
                     verticalAlignment: "bottom",
                     bold:true,
@@ -168,7 +174,7 @@ function pdf(){
                         text:"Gender:\t"
                       },
                       {
-                        text:"MALE",
+                        text: `${gender}`,
                         bold:true,
                       }
                     ],
@@ -180,7 +186,7 @@ function pdf(){
                           text:"Medium:\t"
                         },
                         {
-                          text:"Gujarati",
+                          text: `${medium}`,
                           bold:true,
                         }
                       ],
@@ -422,7 +428,7 @@ function pdf(){
             text:'\nI  Certify  that  ',
           },
           {
-            text:'BHABHOR  DIXITKUMAR  CHANDUBHAI',
+            text: `${name}`,
             decoration: "underline",
             bold:true
           },
@@ -430,7 +436,7 @@ function pdf(){
             text:'  is  eligible  for  admission  in  Course  ',
           },
           {
-            text:'M.F.D.  M.Ed.  (New)2year  scheme-3',
+            text: `${course}`,
             decoration: "underline",
             bold:true
           },
@@ -438,7 +444,7 @@ function pdf(){
             text:'  as  per  Gujarat  University  Ordinance.  It  is  furthur  certified  that  said  student  has  satisfactarily  complated  the  course  of  studies  presecribed  for  the  Course  '
           },
           {
-            text:'\nM.F.D.  M.Ed.  (New)2year  scheme-3',
+            text: `${course}`,
             decoration: "underline",
             bold:true
           },
@@ -449,7 +455,7 @@ function pdf(){
             text:'\nI  also  certify  that  the  detail  filled  in  this  form  have  been  verified  and  found  correct  as  per  college  record.'
           },
         ],     
-        margin:[5,0,0,0],
+        margin:[5,0,5,0],
         lineHeight:1.3    
       },
       {
@@ -488,7 +494,19 @@ const Certificate = {
       }
     ]
   },
-  content: pdf(),
+  content: [],
 };
+
+for (let i = 0; i <1; i++) {
+  const name = data[i]['student_name']
+  const seatNo = data[i]['exam_seat_number']
+  const studentId = data[i]['student_id']
+  const gender = data[i]['gender']
+  const course = data[i]['course']
+  const dateOfBirth = data[i]['date_of_birth']
+  const medium = data[i]['language']
+
+  Certificate.content.push(JSON.parse(JSON.stringify(pdf( name, seatNo, studentId, gender, course, dateOfBirth, medium ))))
+}
 
 module.exports = Certificate;
