@@ -1,3 +1,4 @@
+import { TDocumentDefinitions } from "pdfmake/interfaces";
 import data from "./MOCK_DATA (3).json"
 
 interface HallticketItem {
@@ -10,7 +11,7 @@ interface HallticketItem {
   medium: string;
 }
 
-interface pageSize{
+interface PageSize{
   width: number,
   height: number
 }
@@ -557,30 +558,28 @@ function hallTicketPdf( {name, seatNo, studentId, gender, course, dateOfBirth, m
 }
 
 
-
-
-
-  
 const Hallticket:any = {
   pageSize: {
     width: 870,
     height: 940,
   },
   pageMargins: [19, 10, 20, 10],
-  background: function (pageSize:pageSize) {
+  background: function (pageSize:PageSize) {
+    console.log(pageSize)
     return [
       {
         canvas: [
-          { type: 'line', x1: 20, y1:10 , x2: pageSize.width - 20, y2: 10, lineWidth: 2 }, //Up line
-          { type: 'line', x1: 19, y1: 9, x2: 19, y2: pageSize.height - 9, lineWidth: 2 }, //Left line
-          { type: 'line', x1: 20, y1: pageSize.height - 10, x2: pageSize.width - 20, y2: pageSize.height - 10, lineWidth: 2 }, //Bottom line
-          { type: 'line', x1: pageSize.width - 20, y1: 9, x2: pageSize.width - 20, y2: pageSize.height - 9, lineWidth: 2 }, //Rigth line
+          { type: 'line', x1: 20, y1:10 , x2: 870 - 20, y2: 10, lineWidth: 2 }, //Up line
+          { type: 'line', x1: 20, y1: 9, x2: 20, y2: 940 - 9, lineWidth: 2 }, //Left line
+          { type: 'line', x1: 20, y1: 940 - 10, x2: 870 - 20, y2: 940 - 10, lineWidth: 2 }, //Bottom line
+          { type: 'line', x1: 870 - 20, y1: 9, x2: 870 - 20, y2: 940 - 9, lineWidth: 2 }, //Rigth line
         ]
       }
     ]
   },
   content: [] as HallticketItem[],
 };
+
 
 for (let i = 0; i <1; i++) {
   const name = data[i]['student_name']

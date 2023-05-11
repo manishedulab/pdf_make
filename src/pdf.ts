@@ -1,4 +1,3 @@
-import { TDocumentDefinitions } from 'pdfmake/interfaces';
 import data from './MOCK_DATA.json'
 
 interface ContentDefinition{
@@ -152,7 +151,7 @@ function pdf({mobile,id}:ContentDefinition){
                 },
                 "\n",
                 { 
-                  text: `Mobile No.:12345465`,
+                  text: `Mobile No.:${mobile}`,
                   bold:true,
                 },
                 "\n",
@@ -301,11 +300,8 @@ const contentDefinition:any = {
     height: 650,
   },
   pageMargins: [20, 10, 20, 10],
-  content: [],
+  content: [] as ContentDefinition[],
 };
-
-
-
 
   for (let i = 0; i <1; i++) {
     const mobile = data[i]["mobile_no"]

@@ -1,7 +1,6 @@
-const { text } = require("express");
 const data = require("./MOCK_DATA (3).json")
 
-interface Certificate {
+interface certificate {
   name: string;
   seatNo: number;
   studentId: number;
@@ -10,13 +9,13 @@ interface Certificate {
   medium: string;
 }
 
-interface pageSize{
-  width: number,
-  height: number
+type PageSize = {
+  width: number;
+  height: number;
 }
 
 
-function certificatepdf( {name, seatNo, studentId, gender, course, medium}:Certificate ){
+function certificatepdf( {name, seatNo, studentId, gender, course, medium}:certificate ){
     const table=[
       //main heading
       { 
@@ -495,19 +494,22 @@ const Certificate:any = {
     height: 620,
   },
   pageMargins: [19, 10, 20, 10],
-  background: function (pageSize:pageSize) {
+  content: [] as certificate[],
+  background: function ( pageSize: PageSize ) {
     return [
       {
         canvas: [
-          { type: 'line', x1: 20, y1:10 , x2: pageSize.width - 20, y2: 10, lineWidth: 2 }, //Up line
-          { type: 'line', x1: 20, y1: 9, x2: 20, y2: pageSize.height - 9, lineWidth: 2 }, //Left line
-          { type: 'line', x1: 20, y1: pageSize.height - 10, x2: pageSize.width - 20, y2: pageSize.height - 10, lineWidth: 2 }, //Bottom line
-          { type: 'line', x1: pageSize.width - 20, y1: 9, x2: pageSize.width - 20, y2: pageSize.height - 9, lineWidth: 2 }, //Rigth line
+          { type: 'line', x1: 20, y1:10 , x2:870 - 20, y2: 10, lineWidth: 2 }, //Up line
+          { type: 'line', x1: 20, y1: 9, x2: 20, y2: 620 - 9, lineWidth: 2 }, //Left line
+          { type: 'line', x1: 20, y1: 620 - 10, x2: 870 - 20, y2: 620 - 10, lineWidth: 2 }, //Bottom line
+          { type: 'line', x1: 870 - 20, y1: 9, x2: 870 - 20, y2: 620 - 9, lineWidth: 2 }, //Rigth line
         ]
+        // canvas: [
+        //   { type: 'line', x1: 20, y1: 10, x2: 870-20, y2: 10, dash: {length: 5, space: 8} } // dotted line
+        // ]
       }
     ]
   },
-  content: [] as Certificate[],
 };
 
 for (let i = 0; i <1; i++) {

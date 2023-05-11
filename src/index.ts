@@ -1,9 +1,13 @@
 import express, { Request, Response } from 'express';
-import contentDefinition from './pdf'
-import Hallticket from './hallTicket'
-import pdfMake from 'pdfmake'
+import pdfMake from 'pdfmake';
+import contentDefinition from './pdf';
+import Hallticket from './hallTicket';
 import Certificate from './certificate'
+import Notice from './noticePdf';
 
+// const contentDefinition = require('./pdf');
+// const Hallticket = require('./hallTicket');
+// const Certificate = require('./certificate');
 const app = express();
 
 const fonts = {
@@ -45,6 +49,14 @@ app.get('/generate-certificate', (req:Request, res:Response) => {
   pdfDocGenerator.end();
 });
 
+// Define the endpoint that generates and returns the PDF document
+app.get('/generate-notice', (req:Request, res:Response) => {
+  const pdfDocGenerator = pdfmake.createPdfKitDocument(Notice);
+  res.setHeader('Content-Type', 'application/pdf');
+  res.setHeader('Content-Disposition', 'inline');
+  pdfDocGenerator.pipe(res);
+  pdfDocGenerator.end();
+});
 // Start the server
 app.listen(3001, () => {
   console.log('Server started on port 3001');
