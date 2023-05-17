@@ -4,6 +4,9 @@ import contentDefinition from './pdf';
 import Hallticket from './hallTicket';
 import Certificate from './certificate'
 import Notice from './noticePdf';
+import MarkSheet from './marksheet';
+import StatementOfMark from './StatementOfMark(KT)';
+import MarkStatement from './markStatement';
 
 // const contentDefinition = require('./pdf');
 // const Hallticket = require('./hallTicket');
@@ -22,7 +25,7 @@ const fonts = {
 
 let pdfmake = new pdfMake(fonts);
 
-// Define the endpoint that generates and returns the PDF document
+//* Define the endpoint that generates and returns the PDF document
 app.get('/generate-pdf', (req:Request, res:Response) => {
   const pdfDocGenerator = pdfmake.createPdfKitDocument(contentDefinition);
   res.setHeader('Content-Type', 'application/pdf');
@@ -31,7 +34,7 @@ app.get('/generate-pdf', (req:Request, res:Response) => {
   pdfDocGenerator.end();
 });
 
-// Define the endpoint that generates and returns the PDF document
+//* Define the endpoint that generates and returns the PDF document
 app.get('/generate-hallticket-pdf', (req:Request, res:Response) => {
   const pdfDocGenerator = pdfmake.createPdfKitDocument(Hallticket);
   res.setHeader('Content-Type', 'application/pdf');
@@ -40,7 +43,7 @@ app.get('/generate-hallticket-pdf', (req:Request, res:Response) => {
   pdfDocGenerator.end();
 });
 
-// Define the endpoint that generates and returns the PDF document
+//* Define the endpoint that generates and returns the PDF document
 app.get('/generate-certificate', (req:Request, res:Response) => {
   const pdfDocGenerator = pdfmake.createPdfKitDocument(Certificate);
   res.setHeader('Content-Type', 'application/pdf');
@@ -49,7 +52,7 @@ app.get('/generate-certificate', (req:Request, res:Response) => {
   pdfDocGenerator.end();
 });
 
-// Define the endpoint that generates and returns the PDF document
+//* Define the endpoint that generates and returns the PDF document
 app.get('/generate-notice', (req:Request, res:Response) => {
   const pdfDocGenerator = pdfmake.createPdfKitDocument(Notice);
   res.setHeader('Content-Type', 'application/pdf');
@@ -57,7 +60,35 @@ app.get('/generate-notice', (req:Request, res:Response) => {
   pdfDocGenerator.pipe(res);
   pdfDocGenerator.end();
 });
-// Start the server
+
+//* Define the endpoint that generates and returns the PDF document
+app.get('/generate-marksheet', (req:Request, res:Response) => {
+  const pdfDocGenerator = pdfmake.createPdfKitDocument(MarkSheet);
+  res.setHeader('Content-Type', 'application/pdf');
+  res.setHeader('Content-Disposition', 'inline');
+  pdfDocGenerator.pipe(res);
+  pdfDocGenerator.end();
+});
+
+//* Define the endpoint that generates and returns the PDF document
+app.get('/generate-markstatement-kt', (req:Request, res:Response) => {
+  const pdfDocGenerator = pdfmake.createPdfKitDocument(StatementOfMark);
+  res.setHeader('Content-Type', 'application/pdf');
+  res.setHeader('Content-Disposition', 'inline');
+  pdfDocGenerator.pipe(res);
+  pdfDocGenerator.end();
+});
+
+//* Define the endpoint that generates and returns the PDF document
+app.get('/generate-markstatement', (req:Request, res:Response) => {
+  const pdfDocGenerator = pdfmake.createPdfKitDocument(MarkStatement);
+  res.setHeader('Content-Type', 'application/pdf');
+  res.setHeader('Content-Disposition', 'inline');
+  pdfDocGenerator.pipe(res);
+  pdfDocGenerator.end();
+});
+
+//* Start the server
 app.listen(3001, () => {
   console.log('Server started on port 3001');
 });
