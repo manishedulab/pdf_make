@@ -7,6 +7,8 @@ import Notice from './noticePdf';
 import MarkSheet from './marksheet';
 import StatementOfMark from './StatementOfMark(KT)';
 import MarkStatement from './markStatement';
+import HSNC_Hallticket from './HSNC_hallticket';
+import HSNC_timetable from './HSNC_timetable';
 
 // const contentDefinition = require('./pdf');
 // const Hallticket = require('./hallTicket');
@@ -82,6 +84,24 @@ app.get('/generate-markstatement-kt', (req:Request, res:Response) => {
 //* Define the endpoint that generates and returns the PDF document
 app.get('/generate-markstatement', (req:Request, res:Response) => {
   const pdfDocGenerator = pdfmake.createPdfKitDocument(MarkStatement);
+  res.setHeader('Content-Type', 'application/pdf');
+  res.setHeader('Content-Disposition', 'inline');
+  pdfDocGenerator.pipe(res);
+  pdfDocGenerator.end();
+});
+
+//* Define the endpoint that generates and returns the PDF document
+app.get('/hsnc', (req:Request, res:Response) => {
+  const pdfDocGenerator = pdfmake.createPdfKitDocument(HSNC_Hallticket);
+  res.setHeader('Content-Type', 'application/pdf');
+  res.setHeader('Content-Disposition', 'inline');
+  pdfDocGenerator.pipe(res);
+  pdfDocGenerator.end();
+});
+
+//* Define the endpoint that generates and returns the PDF document
+app.get('/hsnc-time', (req:Request, res:Response) => {
+  const pdfDocGenerator = pdfmake.createPdfKitDocument(HSNC_timetable);
   res.setHeader('Content-Type', 'application/pdf');
   res.setHeader('Content-Disposition', 'inline');
   pdfDocGenerator.pipe(res);

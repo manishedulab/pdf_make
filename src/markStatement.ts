@@ -232,8 +232,6 @@ for (let k = 0; k < data.length; k++) {
     ],
   };
 
-  console.log(result)
-  console.log(totalCredit)
   table4 = {
     headerRows: 1,
     widths: [325, 40, 25, 40, 21, 40, 40, 25, 40, "*", "*", "*", "*", 70],
@@ -507,7 +505,7 @@ function mark(table2: any, table3: any, table4:any) {
         {
           table: table4,
         },
-      ],
+    ],
   ];
   return table;
 }
