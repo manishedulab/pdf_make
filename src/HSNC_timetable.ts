@@ -1,73 +1,41 @@
-import { TDocumentDefinitions } from "pdfmake/interfaces";
-import data from "./MOCK_DATA (3).json"
-import { table } from "console";
+// import { TimeTable } from "../types/pdf";
 
-interface HallticketItem {
-  name: string;
-  seatNo: number;
-  studentId: number;
-  gender: string;
-  course: string;
-  dateOfBirth: string;
-  medium: string;
-}
-
-interface PageSize{
-  width: number,
-  height: number
-}
-
-const data2 = [
-    { "srno": 1, "date": "2023-05-15","Day":"Saturday", "time": "08:30 AM TO 10:30 AM", "Subject Code": "US-PCS-201", "subject name": "Introduction to Computer Science cbhschs  d bhdu  h  bb h yhh bh j bg " },
-    { "srno": 2, "date": "2023-05-17","Day":"Monday", "time": "08:30 AM TO 10:30 AM", "Subject Code": "US-PCS-202", "subject name": "Data Structures and Algorithms" },
-    { "srno": 3, "date": "2023-05-20","Day":"Tuesday", "time": "08:30 AM TO 10:30 AM", "Subject Code": "US-PCS-203", "subject name": "Database Management Systems" },
-    { "srno": 4, "date": "2023-05-22","Day":"Wendnesday", "time": "08:30 AM TO 10:30 AM", "Subject Code": "US-PCS-204", "subject name": "Operating Systems" },
-    { "srno": 5, "date": "2023-05-25","Day":"Thursday", "time": "08:30 AM TO 10:30 AM", "Subject Code": "US-PCS-205", "subject name": "Computer Networks" },
-    { "srno": 6, "date": "2023-05-28","Day":"Friday", "time": "08:30 AM TO 10:30 AM", "Subject Code": "US-PCS-206", "subject name": "Software Engineering" },
-    { "srno": 7, "date": "2023-05-30","Day":"Monday", "time": "08:30 AM TO 10:30 AM", "Subject Code": "US-PCS-207", "subject name": "Software Engineering" }
-  ]
+function examTimeTable(data2: any[]) {
 
   const table2 = {
     headerRows: 1,
-    widths: [30,80,90,150,130,270],
+    widths: [30, 80, 90, 150, 130, 270],
     body: [
-      ...data2.map((value) => [
+      ...data2.map((value: any) => [
         {
           text: value.srno,
           margin: 7,
-        //   lineHeight: 2,
           border: [true, false, true, true],
-
         },
         {
           text: value.date,
           margin: 7,
-        //   lineHeight: 2,
           border: [true, false, true, true],
         },
         {
-            text: value.Day,
-            margin: 7,
-            // lineHeight: 2,
-            border: [true, false, true, true],
-          },
+          text: value.Day,
+          margin: 7,
+          border: [true, false, true, true],
+        },
         {
           text: value.time,
-          alignment: "center",
+          alignment: 'center',
           margin: 7,
-        //   lineHeight: 2,
           border: [true, false, true, true],
         },
         {
-          text: value["Subject Code"],
-          alignment: "center",
+          text: value['subjectCode'],
+          alignment: 'center',
           margin: 7,
-        //   lineHeight: 2,
           border: [true, false, true, true],
         },
         {
-          text: value["subject name"],
-        //   alignment: "center",
+          text: value['subjectName'],
           margin: 7,
           border: [true, false, true, true],
         },
@@ -75,251 +43,283 @@ const data2 = [
     ],
   };
 
-  
+  let collegeLogo="";
 
-function hallTicketPdf( {name, seatNo, studentId, gender, course, dateOfBirth, medium }:HallticketItem){
-    const table=[
-      //main heading
-      { 
+
+// console.log('first',value.collegeName)
+
+  if(data2[0].collegeName){
+    switch (data2[0].collegeName) {
+      case "Hassaram Rijhumal College":
+        collegeLogo = `${process.cwd()}/public/collegeLogo/HR.png`;
+        break;
+      case "Kishinchand Chellaram College":
+        collegeLogo = `${process.cwd()}/public/collegeLogo/KCC Logo final.png`;
+        break;
+      case "Bombay Teachers' Training College":
+        collegeLogo = `${process.cwd()}/public/collegeLogo/BTTC golden.png`;
+        break;
+      case "School of Applied Sciences":
+        collegeLogo = `${process.cwd()}/public/collegeLogo/SAS_Logo_final.png`;
+        break;
+      case "Niranjan Hiranandani School of Management and Real Estate":
+        collegeLogo = `${process.cwd()}/public/collegeLogo/NHSMRE_Logo_2.png`;
+        break;
+      case "D.M. Harish School of Law":
+        collegeLogo = `${process.cwd()}/public/collegeLogo/DMHSL.png`;
+        break;
+      case  "School of Humanities and Social Sciences":
+        collegeLogo = `${process.cwd()}/public/collegeLogo/SHS LOGO.png`;
+        break;
+      case  "School of Performing Arts":
+        collegeLogo = `${process.cwd()}/public/collegeLogo/SOPA_Logo.png`;
+        break;
+      case  "Chellaram School of Yoga and Wellness":
+        collegeLogo = `${process.cwd()}/public/collegeLogo/SOY_final.png`;
+        break;
+      default:
+        collegeLogo = "";
+    }
+    
+  }
+
+
+
+  function timeTablePdf() {
+
+
+    const table = [
+      // main heading
+      {
         table: {
-          widths: [150,520,150],
+          widths: [150, 520, 150],
           headerRows: 1,
           body: [
             [
-                {
-                    image: "img/Hsnc-university-logo.png",
-                    margin: [0, 0, 20, 0],
-                    alignment: "center",
-                    width: 70,
-                },
+              {
+                image: `${process.cwd()}/public/collegeLogo/HSNCULogo.png`,
+                margin: [0, 0, 20, 0],
+                alignment: 'center',
+                width: 70,
+              },
               {
                 text: [
-                  { 
+                  {
                     bold: true,
                     lineHeight: 1.2,
-                    text: "HSNC University Mumbai",
+                    text: 'HSNC University Mumbai',
                     fontSize: 18,
-                    alignment: "center",
+                    alignment: 'center',
                     margin: [0, 50, 0, 0],
                   },
-                  "\n",
-                  { 
+                  '\n',
+                  {
                     lineHeight: 1.2,
-                    text: "Kishinchand Chellaram College",
+                    // data2.length > 0 and has collegeName ? collegeName : null,
+                    text: data2.length > 0 ? data2[0].collegeName : null,
                     fontSize: 18,
-                    alignment: "center",
+                    alignment: 'center',
                     margin: [0, 50, 0, 0],
-                    bold:true,
+                    bold: true,
                   },
-                  "\n",
-                  { 
+                  '\n',
+                  {
                     lineHeight: 1.5,
-                    text: "Vidyasagar Principal K.M. Kundnani Chowk, 124, Dinshaw Vacha Rd, Churchgate, Mumbai Maharashtra 400020",
-                    alignment: "center",
+                    text: '',
+                    alignment: 'center',
                     fontSize: 12,
-                  }
+                  },
                 ],
               },
               {
-                image: "img/KCC_Mumbai_logo.svg.png",
+                image: `${collegeLogo}`,
                 margin: [20, 0, 20, 0],
-                alignment: "center",
+                alignment: 'center',
                 width: 70,
-            },
+              },
             ],
           ],
         },
-        layout: "noBorders"
+        layout: 'noBorders',
       },
       {
         canvas: [
-          { type: 'line', x1: 0, y1:0 , x2:805, y2: 0, lineWidth: 1 }
-        ]
+          {
+            type: 'line', x1: 0, y1: 0, x2: 805, y2: 0, lineWidth: 1,
+          },
+        ],
       },
-      { 
-        margin:[0,5,0,0],
+      {
+        margin: [0, 5, 0, 0],
         table: {
-          widths: [150,520,150],
+          widths: [150, 520, 150],
           headerRows: 1,
           body: [
             [
-                {
-                    text:""
-                },
+              {
+                text: '',
+              },
               {
                 text: [
-                  { 
+                  {
                     bold: true,
                     lineHeight: 1.6,
-                    text: "EXAM SCHEDULE - EVEN-2022-23",
-                    alignment: "center",
+                    text: 'EXAM SCHEDULE - EVEN-2022-23',
+                    alignment: 'center',
                     // decoration: "underline"
                   },
-                  "\n",
+                  '\n',
                 ],
               },
               {
-                text:""
+                text: '',
               },
             ],
           ],
         },
-        layout: "noBorders"
+        layout: 'noBorders',
       },
       {
-        text:[
-            {
-                text:"Exam Name",
-                alignment:"center", 
-            },
-            {
-                text:":  EXTERNAL",
-                bold:true,
-            }
-        ],
-        margin:[30,0,0,0]
-      },"\n",
+        // text: [
+        //   {
+        //     text: 'Exam Name',
+        //     alignment: 'center',
+        //   },
+        //   {
+        //     text: ':  EXTERNAL',
+        //     bold: true,
+        //   },
+        // ],
+        // margin: [30, 0, 0, 0],
+        text:""
+      }, '\n',
       {
         table: {
-            widths: [550,230],
-            headerRows: 1,
-            body: [
-              [
+          widths: [550, 230],
+          headerRows: 1,
+          body: [
+            [
+              {
+                text: [
                   {
-                      text:[
-                        {
-                            text:"Programme ",
-                            
-                        },
-                        {
-                            text:":  B.SC.(COMPUTER SCIENCE) - BSC(CS)",
-                            bold:true
-                        }
-                      ],
-                      margin:[10,0,0,0]
+                    text: 'Programme ',
                   },
-                {
-                  text:[
-                    {
-                        text:"Semester "
-                    },
-                    {
-                        text:":  II",
-                        bold:true
-                    }
-                  ],
-                  alignment:"right"
-                },
-              ],
-            ],
-          },
-          layout: "noBorders"
-      },"\n\n",
-      {
-            table: {
-                widths: [30,80,90,150,130,270],
-                headerRows: 1,
-                body: [
-                    [
-                        {
-                            text:"S.No",
-                            bold:true,
-                            alignment:"center",
-                            lineHeight:1.5,
-                            margin:[0,5,0,0],
-                        },
-                        {
-                            text:"Date",
-                            bold:true,
-                            alignment:"center",
-                            margin:[0,5,0,0],
-                        },
-                        {
-                            text:"Day",
-                            bold:true,
-                            alignment:"center",
-                            margin:[0,5,0,0],
-                        },
-                        {
-                            text:"Session",
-                            bold:true,
-                            alignment:"center",
-                            margin:[0,5,0,0],
-                        },
-                        {
-                            text:"Subject Code",
-                            bold:true,
-                            alignment:"center",
-                            margin:[0,5,0,0],
-                        },
-                        {
-                            text:"Subject Name",
-                            bold:true,
-                            alignment:"center",
-                            margin:[0,5,0,0],
-                        },
-                    ]
+                  {
+                    text: ':  B.SC.(COMPUTER SCIENCE) - BSC(CS)',
+                    bold: true,
+                  },
                 ],
-            },
+                margin: [10, 0, 0, 0],
+              },
+              {
+                text: [
+                  {
+                    text: 'Semester ',
+                  },
+                  {
+                    text: `:  ${data2.length > 0 ? data2[0].semesterName : null}`,
+                    bold: true,
+                  },
+                ],
+                alignment: 'right',
+              },
+            ],
+          ],
+        },
+        layout: 'noBorders',
+      }, '\n\n',
+      {
+        table: {
+          widths: [30, 80, 90, 150, 130, 270],
+          headerRows: 1,
+          body: [
+            [
+              {
+                text: 'S.No',
+                bold: true,
+                alignment: 'center',
+                lineHeight: 1.5,
+                margin: [0, 5, 0, 0],
+              },
+              {
+                text: 'Date',
+                bold: true,
+                alignment: 'center',
+                margin: [0, 5, 0, 0],
+              },
+              {
+                text: 'Day',
+                bold: true,
+                alignment: 'center',
+                margin: [0, 5, 0, 0],
+              },
+              {
+                text: 'Session',
+                bold: true,
+                alignment: 'center',
+                margin: [0, 5, 0, 0],
+              },
+              {
+                text: 'Subject Code',
+                bold: true,
+                alignment: 'center',
+                margin: [0, 5, 0, 0],
+              },
+              {
+                text: 'Subject Name',
+                bold: true,
+                alignment: 'center',
+                margin: [0, 5, 0, 0],
+              },
+            ],
+          ],
+        },
       },
       {
-        table:table2,
-      }
-    ]
+        table: table2,
+      },
+    ];
     return table;
-}
-
-const date = new Date()
-const currentDate = date.toLocaleString().replace(/,/g, '');
-// console.log('first',currentDate)
-
-const HSNC_timetable:any = {
-  pageSize: "A3",
-  pageMargins: [20, 20, 20, 20],
-  footer: function(currentPage: number, pageCount: number) {
-    return[
-        {canvas: [
-            { type: 'line', x1: 0, y1:0 , x2:805, y2: 0, lineWidth: 1 },
-          ],
-          margin:[20,-20,20,20]  
-        },"\n",
+  }
+  const date = new Date();
+  const currentDate = date.toLocaleString().replace(/,/g, '');
+  const hsncTimeTable: any = {
+    pageSize: 'A3',
+    pageMargins: [20, 20, 20, 20],
+    footer(currentPage: number, pageCount: number) {
+      return [
         {
-        
-        columns:[
-            
-            { 
-                // alignment: 'right',
-                text: `Date : ${currentDate}`
+          canvas: [
+            {
+              type: 'line', x1: 0, y1: 0, x2: 805, y2: 0, lineWidth: 1,
+            },
+          ],
+          margin: [20, -20, 20, 20],
+        }, '\n',
+        {
+          columns: [
+            {
+              // alignment: 'right',
+              text: `Date : ${currentDate}`,
             },
             {
-                text:'Page'+ currentPage.toString() + ' of ' + pageCount.toString(),
-                alignment: 'right',  
+              text: `Page${currentPage.toString()} of ${pageCount.toString()}`,
+              alignment: 'right',
             },
           ],
-          margin:[20,-25,20,20]  
-    }]
-    
+          margin: [20, -25, 20, 20],
+        }];
     },
-  content: [] as HallticketItem[],
-};
-
-
-for (let i = 0; i <1; i++) {
-  const name = data[i]['student_name']
-  const seatNo = data[i]['exam_seat_number']
-  const studentId = data[i]['student_id']
-  const gender = data[i]['gender']
-  const course = data[i]['course']
-  const dateOfBirth = data[i]['date_of_birth']
-  const medium = data[i]['language']
-
-  const hallTicket = JSON.parse(JSON.stringify(hallTicketPdf({ name, seatNo, studentId, gender, course, dateOfBirth, medium })));
-  HSNC_timetable.content.push(hallTicket);
-
-  // Insert a page break after each hall ticket except the last one
-  if (i < 0) {
-    HSNC_timetable.content.push({ text: '', pageBreak: 'after' });
+    content: [],
+  };
+  for (let i = 0; i < 1; i++) {
+    const hallTicket = JSON.parse(JSON.stringify(timeTablePdf()));
+    hsncTimeTable.content.push(hallTicket);
+    // Insert a page break after each hall ticket except the last one
+    if (i < 0) {
+      hsncTimeTable.content.push({ text: '', pageBreak: 'after' });
+    }
   }
+  return hsncTimeTable
 }
-
-export default HSNC_timetable;
+export default examTimeTable;
