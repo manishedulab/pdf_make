@@ -1,22 +1,86 @@
-import { TDocumentDefinitions } from "pdfmake/interfaces";
-import data from "./MOCK_DATA (3).json"
+import { IPhotoNomial, ISubjectTypePdf } from "./types";
 
-interface HallticketItem {
-  name: string;
-  seatNo: number;
-  studentId: number;
-  gender: string;
-  course: string;
-  dateOfBirth: string;
-  medium: string;
-}
+const address = 'HSNC University, Mumbai D.M. Harish Building, 47, Dr. R. G. Thadani Marg, Worli, Mumbai – 400 018.'
+const universityAddress = process.env.UNIVERSITY_ADDRESS || address;
+if (!universityAddress) throw Error('Environment: UNIVERSITY_ADDRESS is not defined');
+
+function photoNomial(data: any){
 
 interface PageSize{
   width: number,
   height: number
 }
 
-function hallTicketPdf( {name, seatNo, studentId, gender, course, dateOfBirth, medium }:HallticketItem){
+
+const photoNomialMain:any = {
+  pageSize: {
+    width: 870,
+    height: 940,
+  },
+  pageMargins: [19, 10, 20, 10],
+  background: function (pageSize:PageSize) {
+    return [
+      {
+        canvas: [
+          { type: 'line', x1: 20, y1:10 , x2: 870 - 20, y2: 10, lineWidth: 2 }, //Up line
+          { type: 'line', x1: 20, y1: 9, x2: 20, y2: 940 - 9, lineWidth: 2 }, //Left line
+          { type: 'line', x1: 20, y1: 940 - 10, x2: 870 - 20, y2: 940 - 10, lineWidth: 2 }, //Bottom line
+          { type: 'line', x1: 870 - 20, y1: 9, x2: 870 - 20, y2: 940 - 9, lineWidth: 2 }, //Rigth line
+        ]
+      }
+    ]
+  },
+  footer(currentPage: number, pageCount: number) {
+    return [
+      {
+        text:[
+          {
+            text:"Date:____________________________\t\t\t Place:_____________________\t\t\t\t\t" ,
+            bold:true
+          },
+          {
+            text:"\t\t\t\t\t\t\t\t\t\t\t\t\ Sign & Seal of The Principal",
+            bold:true
+          }
+        ],
+        margin:[50,-30,0,0]
+      },
+    ];
+  },
+  content: [],
+};
+
+
+for (let i = 0; i <1; i++) {
+  function photoNomialpdf(){
+    const table2 = {
+      headerRows: 1,
+      widths: [30,80,300,"*"],
+      body: [
+        ...data[i].appearingSubject.map((value:any,index:number) => [
+          {
+            text: `${value.subjectType ? "(" + ISubjectTypePdf[value.subjectType as keyof typeof ISubjectTypePdf] + ")" : ""}`,
+            margin: [0, 7, 0, 0],
+            lineHeight: 2,
+            border: [false, false, false, false],
+          },
+          {
+            text: value.subjectCode,
+            alignment: "right",
+            margin: [0, 7, 15, 0],
+            lineHeight: 2,
+            border: [false, false, false, false],
+          },
+          {
+            text: value.subjectName,
+          //   alignment: "center",
+            margin: [0, 7, 15, 0],
+            border: [false, false, false, false],
+          },
+        ]),
+      ],
+    };
+
     const table=[
       //main heading
       { 
@@ -30,7 +94,7 @@ function hallTicketPdf( {name, seatNo, studentId, gender, course, dateOfBirth, m
                   { 
                     bold: true,
                     lineHeight: 1.2,
-                    text: "GUJARAT UNIVERSITY, AHMEDABAD",
+                    text: "HSNC UNIVERSITY",
                     fontSize: 20,
                     alignment: "center",
                     margin: [0, 50, 0, 0],
@@ -38,7 +102,7 @@ function hallTicketPdf( {name, seatNo, studentId, gender, course, dateOfBirth, m
                   "\n",
                   { 
                     lineHeight: 1.2,
-                    text: "Examination Form For Master of Education. Semester-1, DEC-2022 Examination",
+                    text: `Semester-${data[i].semester}, ${data[i].year} Examination`,
                     alignment: "center",
                     margin: [0, 50, 0, 0],
                     bold:true,
@@ -46,7 +110,7 @@ function hallTicketPdf( {name, seatNo, studentId, gender, course, dateOfBirth, m
                   "\n",
                   { 
                     lineHeight: 2,
-                    text: "School of Psycho, Philo, & Edu., Guj.Uni., Ahmedabad-9-028",
+                    text: address,
                     alignment: "center",
                     bold: true,
                   }
@@ -122,19 +186,19 @@ function hallTicketPdf( {name, seatNo, studentId, gender, course, dateOfBirth, m
               body: [
                 [
                   { 
-                    text: `${studentId}`,
+                    text: `${i+1}`,
                     alignment: "center",
                     bold:true,
                   },
                   {
-                    text: `${seatNo}`,
+                    text: `${data[i].enRollmentNo}`,
                     valign: "bottom",
                     lineHeight: 2.5,
                     alignment: "center",
                     bold:true,
                   },
                   {
-                    text: `${name}`,
+                    text: `${data[i].studentName}`,
                     alignment: "center",
                     verticalAlignment: "bottom",
                     bold:true,
@@ -151,7 +215,7 @@ function hallTicketPdf( {name, seatNo, studentId, gender, course, dateOfBirth, m
                   text:"Birth Date:\t"
                 },
                 {
-                  text: `${dateOfBirth}`,
+                  text: `${data[i].birthDate}`,
                 }
               ],
               absolutePosition: { x: 160, y: 160 },
@@ -160,29 +224,9 @@ function hallTicketPdf( {name, seatNo, studentId, gender, course, dateOfBirth, m
             {
             columns:
               [
-                // [
-                //   { 
-                //     canvas: [
-                //       {
-                //         type: 'rect',
-                //         x: 30,
-                //         y: 0,
-                //         w: 100,
-                //         h: 110,
-                //         lineWidth: 1,
-                //         lineColor: '#000000',
-                //       },
-                //     ],
-                //   },
-                //   {
-                //     text:"Paste Your\nPassport Size\nPhotograph\nHere",
-                //     absolutePosition: { x: 60, y: 180 },
-                //     lineHeight:1.2
-                //   },
-                // ],
                 [
                   {
-                    image: "img/cds.jpg",
+                    image: data[i].studentPhoto?data[i].studentPhoto:`${process.cwd()}/img/abc.png`,
                     x:20,
                     y:0,
                     width: 110,
@@ -198,7 +242,7 @@ function hallTicketPdf( {name, seatNo, studentId, gender, course, dateOfBirth, m
                         text:"Gender:\t"
                       },
                       {
-                        text: `${gender}`,
+                        text: `${data[i].gender}`,
                         bold:true,
                       }
                     ],
@@ -210,35 +254,14 @@ function hallTicketPdf( {name, seatNo, studentId, gender, course, dateOfBirth, m
                           text:"Medium:\t"
                         },
                         {
-                          text: `${medium}`,
+                          text: `${data[i].medium}`,
                           bold:true,
                         }
                       ],
                       margin: [10,0,0,7]
                     },
-                    // [
-                    //   {
-                    //     canvas: [
-                    //       {
-                    //         type: 'rect',
-                    //         x: 10,
-                    //         y: 10.5,
-                    //         w: 110,
-                    //         h: 30,
-                    //         lineWidth: 1,
-                    //         lineColor: '#000000'
-                    //       }
-                    //     ],
-                    //     margin:[0,0,10,0]
-                    //   },
-                    //   {
-                    //     text:"Signature",
-                    //     absolutePosition: { x: 190, y: 250 },
-                    //     lineHeight:1.2
-                    //   },
-                    // ]
                     {
-                      image: "img/xyz.png",
+                      image: data[i].sign?data[i].sign:`${process.cwd()}/img/abc.png`,
                       x:10,
                       y:10.5,
                       width: 110,
@@ -255,57 +278,12 @@ function hallTicketPdf( {name, seatNo, studentId, gender, course, dateOfBirth, m
                           text:"Category:\t"
                         },
                         {
-                          text:"ST",
+                          text:`${data[i].category}`,
                           bold:true,
                         }
                       ],
                       margin:[0,20,0,10]
-                    },
-                    {
-                      text:[
-                        {
-                          text:"Appearing:\t"
-                        },
-                        {
-                          text:"Whole",
-                          bold:true,
-                        }
-                      ],
-                      margin:[0,4,0,10]
-                    },
-                    {
-                      text:[
-                        {
-                          text:"Exam Fee:\t"
-                        },
-                        {
-                          text:"550",
-                          bold:true,
-                        }
-                      ],
-                    },
-                    {
-                      text:[
-                        {
-                          text:"Practical Fee:\t"
-                        },
-                        {
-                          text:"0",
-                          bold:true,
-                        }
-                      ],
-                    },
-                    {
-                      text:[
-                        {
-                          text:"Form Fee:\t"
-                        },
-                        {
-                          text:"25",
-                          bold:true,
-                        }
-                      ],
-                    },
+                    }
                   ]
                 }
               ]
@@ -313,134 +291,7 @@ function hallTicketPdf( {name, seatNo, studentId, gender, course, dateOfBirth, m
           ]
         ]},
           {
-            columns:[
-              {
-                stack:[
-                {
-                  text:"(IA)",
-                },
-                {
-                  text:"(IA)",
-                },
-                {
-                  text:"(IA)",
-                },
-                {
-                  text:"(IA)",
-                },
-                {
-                  text:"(PRIA)",
-                },
-                {
-                  text:"(PRIA)",
-                },
-                {
-                  text:"(PRIA)",
-                },
-                {
-                  text:"(PRIA)",
-                },
-                {
-                  text:"(PRIA)",
-                },
-                {
-                  text:"(PRIA)",
-                },
-                {
-                  text:"(PRIA)",
-                },
-                {
-                  text:"(TH)",
-                },
-                {
-                  text:"(TH)",
-                },
-                {
-                  text:"(TH)",
-                },
-                {
-                  text:"(TH)",
-                },
-                {
-                  text:"(TH2)",
-                },
-                {
-                  text:"(TH2)",
-                },
-                {
-                  text:"(TH2)",
-                },
-                {
-                  text:"(TH2)",
-                },
-              ],
-              width:45,
-              lineHeight:1.2
-              },
-              {
-                stack:[
-                  {
-                    text:"A 007- Core-7: Library Resources and Tools & Techniques in Educational 1",
-                  },
-                  {
-                    text:"A 008- Core-8: Sociology of Education",
-                  },
-                  {
-                    text:"B 101- Childhood Education",
-                  },
-                  {
-                    text:"C 105- Inferential Statistics",
-                  },
-                  {
-                    text:"E 515- Seminar to Enhance Special Skills",
-                  },
-                  {
-                    text:"E 516- Case Study",
-                  },
-                  {
-                    text:"E 517- Educational Visit",
-                  },
-                  {
-                    text:"E 518- Library Work",
-                  },
-                  {
-                    text:"E 519- Field Visit and Data Collection",
-                  },
-                  {
-                    text:"E 520- Academic Writing",
-                  },
-                  {
-                    text:"E 521- Dissertation Guidance",
-                  },
-                  {
-                    text:"A 007- Core-7: Library Resources and Tools & Techniques in Educational 1",
-                  },
-                  {
-                    text:"A 008- Core-8: Sociology of Education",
-                  },
-                  {
-                    text:"B 101- Childhood Education",
-                  },
-                  {
-                    text:"C 105- Inferential Statistics",
-                  },
-                  {
-                    text:"A 007- Core-7: Library Resources and Tools & Techniques in Educational 1",
-                  },
-                  {
-                    text:"A 008- Core-8: Sociology of Education",
-                  },
-                  {
-                    text:"B 101- Childhood Education",
-                  },
-                  {
-                    text:"C 105- Inferential Statistics",
-                  },
-  
-                ],
-                lineHeight:1.2
-              }
-            ]
+           table:table2
           }
         ]
       },
@@ -509,7 +360,7 @@ function hallTicketPdf( {name, seatNo, studentId, gender, course, dateOfBirth, m
             text:'\nI  Certify  that  ',
           },
           {
-            text: `${name}`,
+            text: `${data[i].studentName}`,
             decoration: "underline",
             bold:true
           },
@@ -517,15 +368,15 @@ function hallTicketPdf( {name, seatNo, studentId, gender, course, dateOfBirth, m
             text:'  is  eligible  for  admission  in  Course  ',
           },
           {
-            text: `${course}`,
+            text: `${data[i].course}`,
             decoration: "underline",
             bold:true
           },
           {
-            text:'  as  per  Gujarat  University  Ordinance.  It  is  furthur  certified  that  said  student  has  satisfactarily  complated  the  course  of  studies  presecribed  for  the  Course  '
+            text:'  as  per  HSNC  University  Ordinance.  It  is  furthur  certified  that  said  student  has  satisfactarily  complated  the  course  of  studies  presecribed  for  the  Course  '
           },
           {
-            text: `${course}`,
+            text: `${data[i].course}`,
             decoration: "underline",
             bold:true
           },
@@ -540,57 +391,26 @@ function hallTicketPdf( {name, seatNo, studentId, gender, course, dateOfBirth, m
         lineHeight:1.3    
       },
       {
-        text:[
-          {
-            text:"Date:____________________________\t\t\t Place:_____________________\t\t\t\t\t" ,
-            bold:true
-          },
-          {
-            text:"\t\t\t\t\t\t\t\t\t\t\t\t\ Sign & Seal of The Principal",
-            bold:true
-          }
-        ],
-        margin:[5,20,10,0]
+        // text:[
+        //   {
+        //     text:"Date:____________________________\t\t\t Place:_____________________\t\t\t\t\t" ,
+        //     bold:true
+        //   },
+        //   {
+        //     text:"\t\t\t\t\t\t\t\t\t\t\t\t\ Sign & Seal of The Principal",
+        //     bold:true
+        //   }
+        // ],
+        // margin:[5,20,10,0]
       },
 
     ]
     return table;
 }
+  photoNomialMain.content.push(JSON.parse(JSON.stringify(photoNomialpdf())))
+}
+  return photoNomialMain;
 
-
-const Hallticket:any = {
-  pageSize: {
-    width: 870,
-    height: 940,
-  },
-  pageMargins: [19, 10, 20, 10],
-  background: function (pageSize:PageSize) {
-    console.log(pageSize)
-    return [
-      {
-        canvas: [
-          { type: 'line', x1: 20, y1:10 , x2: 870 - 20, y2: 10, lineWidth: 2 }, //Up line
-          { type: 'line', x1: 20, y1: 9, x2: 20, y2: 940 - 9, lineWidth: 2 }, //Left line
-          { type: 'line', x1: 20, y1: 940 - 10, x2: 870 - 20, y2: 940 - 10, lineWidth: 2 }, //Bottom line
-          { type: 'line', x1: 870 - 20, y1: 9, x2: 870 - 20, y2: 940 - 9, lineWidth: 2 }, //Rigth line
-        ]
-      }
-    ]
-  },
-  content: [] as HallticketItem[],
-};
-
-
-for (let i = 0; i <1; i++) {
-  const name = data[i]['student_name']
-  const seatNo = data[i]['exam_seat_number']
-  const studentId = data[i]['student_id']
-  const gender = data[i]['gender']
-  const course = data[i]['course']
-  const dateOfBirth = data[i]['date_of_birth']
-  const medium = data[i]['language']
-
-  Hallticket.content.push(JSON.parse(JSON.stringify(hallTicketPdf({name, seatNo, studentId, gender, course, dateOfBirth, medium}))))
 }
 
-export default Hallticket;
+export default photoNomial;
