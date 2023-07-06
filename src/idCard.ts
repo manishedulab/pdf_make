@@ -94,24 +94,24 @@ function IdCard(data: IIdCard[]) {
         },
         {
           table: {
-            widths: [50, 150],
+            widths: [45,2, 155],
             body: [ 
-              ["Name", `:  ${data[i].studentName || '-'}`],
-              ["Standard", `:  ${data[i].standard || '-'}`],
-              ["PRN No", `:  ${data[i].prnNo || '-'}`],
-              ["Roll No", `:  ${data[i].rollNo || '-'}`],
-              ["Gender", `:  ${data[i].gender || '-'}`],
+              ["Name", ':',`Manish Ramsumiran Vishwakarma`],
+              ["Standard", ':',`${data[i].standard || '-'}`],
+              ["PRN No", ':', ` ${data[i].prnNo || '-'}`],
+              ["Roll No", ':', `${data[i].rollNo || '-'}`],
+              ["Gender", ':', `${data[i].gender || '-'}`],
             ],
           },
           layout: "noBorders",
-          fontSize: 12,
-          margin: [10, 10, 0, 0],
+          fontSize: 10,
+          margin: [8, 10, 0, 0],
           lineHeight: 1.2,
           bold:true
         },
         {
           image: `${process.cwd()}/img/xyz.png`,
-          margin: [0, 0, 0, 0],
+          margin: [0, 2, 0, 0],
           alignment: "center",
           width: 50,
           height: 20,
@@ -141,17 +141,17 @@ function IdCard(data: IIdCard[]) {
         },
         {
           table: {
-            widths: [70, 140],
+            widths: [70,2, 140],
             body: [
-              ["DOB", `:  ${data[i].dob || '-'}`],
-              ["Contact No", `:  ${data[i].contactNo || '-'}`],
-              ["Blood Group", `:  ${data[i].bloodGroup || '-'}`],
-              ["Address", `:  ${data[i].address || '-'}`],
+              ["DOB", ':', `  ${data[i].dob || '-'}`],
+              ["Contact No", ':', `  ${data[i].contactNo || '-'}`],
+              ["Blood Group", ':', `  ${data[i].bloodGroup || '-'}`],
+              ["Address", ':', { stack: [{ text: ` ${data[i].address || '-'}`, margin: [0, 5, 0, 0] }] }],
             ],
           },
           layout: "noBorders",
-          fontSize: 12,
-          margin: [10, 10, 0, 0],
+          fontSize: 10,
+          margin: [8, 10, 0, 0],
           lineHeight: 1.4,
           bold:true
         },
@@ -171,7 +171,7 @@ function IdCard(data: IIdCard[]) {
               ],
             },
             layout: "noBorders",
-            fontSize: 11,
+            fontSize: 10,
             margin: [10, 5, 0, 0],
             bold:true
             // lineHeight: 1.4,
