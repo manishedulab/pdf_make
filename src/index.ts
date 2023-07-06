@@ -10,6 +10,7 @@ import photoNomial from './hallTicket';
 import challan from './pdf';
 import barCode from './barCode';
 import feeRes from './feeRes';
+import IdCard from './idCard';
 
 
 // const contentDefinition = require('./pdf');
@@ -415,6 +416,34 @@ const mockData5 = [{
 //* Define the endpoint that generates and returns the PDF document
 app.get('/generate', (req:Request, res:Response) => {
   const pdfDocGenerator = pdfmake.createPdfKitDocument(feeRes(mockData5));
+  res.setHeader('Content-Type', 'application/pdf');
+  res.setHeader('Content-Disposition', 'inline');
+  pdfDocGenerator.pipe(res);
+  pdfDocGenerator.end();
+});
+
+const IdmockData = [
+  {
+    collegeName: "Kishinchand Chellaram College",
+    collegeLogo: "logo1.png",
+    studentName: "John Doe",
+    standard: "12th Grade",
+    prnNo: "PRN123",
+    rollNo: "A001",
+    gender: "Male",
+    issuingAuthority: "Principal",
+    dob: "1998-05-15",
+    contactNo: "7718001600",
+    bloodGroup: "O+",
+    address: "123, Main Street, City",
+    email: "john.doe@example.com",
+  },
+];
+
+
+//* Define the endpoint that generates and returns the PDF document
+app.get('/idcard', (req:Request, res:Response) => {
+  const pdfDocGenerator = pdfmake.createPdfKitDocument(IdCard(IdmockData));
   res.setHeader('Content-Type', 'application/pdf');
   res.setHeader('Content-Disposition', 'inline');
   pdfDocGenerator.pipe(res);

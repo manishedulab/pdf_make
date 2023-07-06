@@ -74,3 +74,19 @@ export interface IRepeaterFeeSlip {
     courseCode:number;
     subjectCode:number;
   }
+
+  export interface IIdCard {
+    collegeName:string;
+    collegeLogo:string;
+    studentName:string;
+    standard:string;
+    prnNo:string;
+    rollNo:string;
+    gender:string;
+    issuingAuthority:string;
+    dob:string;
+    contactNo:string;
+    bloodGroup:string;
+    address:string;
+    email:string;
+  }

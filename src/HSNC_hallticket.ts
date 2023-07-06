@@ -1,4 +1,4 @@
-import collegeLogo from './utiles'
+// import collegeLogo from './utiles'
 
 
 

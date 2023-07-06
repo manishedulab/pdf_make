@@ -79,13 +79,13 @@ function feeRes(data: any[]) {
                       bold: true,
                       margin: [0, 50, 0, 0],
                     },
-                    "\n",
-                    {
-                      text: "Fee Receipt",
-                      fontSize: 14,
-                      alignment: "center",
-                      bold: true,
-                    },
+                    // "\n",
+                    // {
+                    //   text: "Fee Receipt",
+                    //   fontSize: 14,
+                    //   alignment: "center",
+                    //   bold: true,
+                    // },
                     "\n",
                     {
                       text: `${universityAddress}`,
@@ -270,6 +270,33 @@ function feeRes(data: any[]) {
               text: ")",
             },
           ],
+        },
+        {
+          text:"\n\n"
+        },
+        {
+          text:'Notes:',
+          bold:true
+        },
+        {
+          text:'• We kindly request you to retain this receipt for your personal records. It serves as an official proof of ',
+          margin:[10,0,0,0],
+          fontSize:11,
+        },
+        {
+          text:'payment and may be required for future reference or documentation purposes.',
+          margin:[18,0,0,0],
+          fontSize:11,
+        },
+        {
+          text:'• For any questions or concerns related to the repeater fee charged on your receipt, please reach out to ',
+          margin:[10,5,0,0],
+          fontSize:11,
+        },
+        {
+          text:'the finance office for clarification and resolution.',
+          margin:[18,0,0,0],
+          fontSize:11,
         },
       ];
       return table;
