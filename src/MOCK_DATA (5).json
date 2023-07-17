@@ -10,7 +10,7 @@
     "subjects": [
       {
         "subjectName": "Physics",
-        "subjectType": "Theory",
+        "subjectType": "Practical",
         "credit": 4,
         "externalMax": 80,
         "externalMin": 32,

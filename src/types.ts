@@ -100,7 +100,7 @@ export interface IRepeaterFeeSlip {
     studentName:string;
     enrollmentNo:string;
     collegeName:string;
-    subjects:[{
+    subjects:{
           subjectName: string;
           subjectType: string
           credit: number;
@@ -115,5 +115,5 @@ export interface IRepeaterFeeSlip {
           cgp: number;
           gp: number;
           status:string;
-    }];
+    }[];
   }
