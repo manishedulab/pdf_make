@@ -1,4 +1,7 @@
 import data from "./MOCK_DATA (5).json";
+import { IMarksheet, ISubjectTypePdf } from "./types";
+
+function marksheet (data:IMarksheet[]) {
 
 let table2;
 let table3;
@@ -47,14 +50,14 @@ for (let k = 0; k < data.length; k++) {
   totalOfTotal = [];
   result = [];
 
-  for (let j = 0; j < data[k]["subject"].length; j++) {
-    externalMax.push(data[k]["subject"][j].externalMax);
-    internalMax.push(data[k]["subject"][j].internalMax);
-    externalObt.push(data[k]["subject"][j].externalObt);
-    internalObt.push(data[k]["subject"][j].internalObt);
-    credit.push(data[k]["subject"][j].credit);
-    cgp.push(data[k]["subject"][j].cgp);
-    total.push(data[k]["subject"][j].total);
+  for (let j = 0; j < data[k]["subjects"].length; j++) {
+    externalMax.push(data[k]["subjects"][j].externalMax);
+    internalMax.push(data[k]["subjects"][j].internalMax);
+    externalObt.push(data[k]["subjects"][j].externalObt);
+    internalObt.push(data[k]["subjects"][j].internalObt);
+    credit.push(data[k]["subjects"][j].credit);
+    cgp.push(data[k]["subjects"][j].cgp);
+    total.push(data[k]["subjects"][j].total);
   }
 
   /* This code is calculating various totals and scores for each student's academic performance. */
@@ -109,32 +112,25 @@ for (let k = 0; k < data.length; k++) {
   }
 
   table2 = {
-    widths: [90, "*", 140, "*", "*", "*"],
+    widths: [110, 340, 180, 400],
     headerRows: 1,
     body: [
       [
         {
-          text: "Seat No:12001",
+          text: `SeatNo: ${data[k].seatNo || '-'}`,
           bold: true,
         },
         {
-          text: data[k]["name"],
+          text:`Name: ${data[k].studentName || '-'}` ,
           bold: true,
-          colSpan: 2,
+          // colSpan: 2,
         },
         {
-          text: "",
-        },
-        {
-          text: "Enroll./Reg No:201616400024",
+          text: `EnrollmentNo: ${data[k].enrollmentNo || '-'}`,
           bold: true,
         },
         {
-          text: "College: 647-VADTARCH ",
-          bold: true,
-        },
-        {
-          text: "Center:22 - KALOL(GENDHINAGAR)",
+          text: `College: ${data[k].collegeName || '-'}`,
           bold: true,
         },
       ],
@@ -143,87 +139,88 @@ for (let k = 0; k < data.length; k++) {
 
   table3 = {
     headerRows: 1,
-    widths: [330, 40, 40, 30, 30, 30, 30, 30, 30, "*", "*", "*", "*", 70],
+    widths: [320, 40, 40, 35, 33, 33, 35, 35, 35, 64, 67, 63, 63, 70],
     body: [
-      ...data[k]["subject"].map((value) => [
+      ...data[k]["subjects"].map((value:any) => [
         {
-          text: value.name,
+          text: value.subjectName || '-',
           margin: [0, 7, 0, 0],
           border: [false, false, false, false],
         },
         {
-          text: "TH",
+          text: ISubjectTypePdf[value.subjectType as keyof typeof ISubjectTypePdf] || '-',
           margin: [0, 7, 0, 0],
-          border: [false, false, false, false],
-        },
-        {
-          text: value.credit,
           alignment: "center",
-          margin: [0, 7, 15, 0],
           border: [false, false, false, false],
         },
         {
-          text: `${value.externalMax}`,
-          alignment: "center",
-          margin: [0, 7, 15, 0],
-          border: [false, false, false, false],
-        },
-        {
-          text: `${value.externalMin}`,
-          alignment: "center",
-          margin: [0, 7, 15, 0],
-          border: [false, false, false, false],
-        },
-        {
-          text: `${value.externalObt}`,
-          alignment: "center",
-          margin: [0, 7, 15, 0],
-          border: [false, false, false, false],
-        },
-        {
-          text: `${value.internalMax}`,
-          alignment: "center",
-          margin: [0, 7, 10, 0],
-          border: [false, false, false, false],
-        },
-        {
-          text: `${value.internalMin}`,
-          alignment: "center",
-          margin: [0, 7, 10, 0],
-          border: [false, false, false, false],
-        },
-        {
-          text: `${value.internalObt}`,
-          alignment: "center",
-          margin: [0, 7, 15, 0],
-          border: [false, false, false, false],
-        },
-        {
-          text: value.total,
+          text: value.credit || '-',
           alignment: "center",
           margin: [0, 7, 0, 0],
           border: [false, false, false, false],
         },
         {
-          text: value.grade,
+          text: `${value.externalMax || '-'}`,
           alignment: "center",
           margin: [0, 7, 0, 0],
           border: [false, false, false, false],
         },
         {
-          text: value.gp.toFixed(2),
+          text: `${value.externalMin || '-'}`,
           alignment: "center",
           margin: [0, 7, 0, 0],
           border: [false, false, false, false],
         },
         {
-          text: value.cgp.toFixed(1),
+          text: `${value.externalObt || '-'}`,
           alignment: "center",
           margin: [0, 7, 0, 0],
           border: [false, false, false, false],
         },
         {
-          text: value.monthYear,
+          text: `${value.internalMax || '-'}`,
+          alignment: "center",
+          margin: [0, 7, 0, 0],
+          border: [false, false, false, false],
+        },
+        {
+          text: `${value.internalMin || '-'}`,
+          alignment: "center",
+          margin: [0, 7, 0, 0],
+          border: [false, false, false, false],
+        },
+        {
+          text: `${value.internalObt || '-'}`,
+          alignment: "center",
+          margin: [0, 7, 0, 0],
+          border: [false, false, false, false],
+        },
+        {
+          text: value.total || '-',
+          alignment: "center",
+          margin: [0, 7, 0, 0],
+          border: [false, false, false, false],
+        },
+        {
+          text: value.grade || '-',
+          alignment: "center",
+          margin: [0, 7, 0, 0],
+          border: [false, false, false, false],
+        },
+        {
+          text: value.gp.toFixed(2) || '-',
+          alignment: "center",
+          margin: [0, 7, 0, 0],
+          border: [false, false, false, false],
+        },
+        {
+          text: value.cgp.toFixed(1) || '-',
+          alignment: "center",
+          margin: [0, 7, 0, 0],
+          border: [false, false, false, false],
+        },
+        {
+          text: value.status || '-',
           alignment: "center",
           margin: [0, 7, 0, 0],
           border: [false, false, false, false],
@@ -234,74 +231,53 @@ for (let k = 0; k < data.length; k++) {
 
   table4 = {
     headerRows: 1,
-    widths: [325, 40, 25, 40, 21, 40, 40, 25, 40, "*", "*", "*", "*", 70],
+    widths: [320, 40, 40, 35, 33, 33, 35, 35, 35, 64, 67, 63, 63, 70],
     body: [
        [ 
         {
-          text:`Result:${result}` ,
+          text:`Result:${result || '-'}`  ,
           margin: [0, 7, 0, 0],
           border: [false, false, false, false],
           bold:true,
         },
         {
           text: "Total",
-          margin: [0, 7, 0, 0],
-          border: [false, false, false, false],
-          bold:true,
-        },
-        {
-          text: totalCredit,
-          margin: [10, 7, 0, 0],
-          border: [false, false, false, false],
-          bold:true,
-        },
-        {
-          text: externalMaxTotal,
-          margin: [17, 7, 0, 0],
-          border: [false, false, false, false],
-          bold:true,
-        },
-        {
-          text: "",
           alignment: "center",
           margin: [0, 7, 0, 0],
           border: [false, false, false, false],
           bold:true,
         },
         {
-          text: externalObtTotal,
-          margin: [17, 7, 0, 0],
+          text: totalCredit || '-',
+          alignment: "center",
+          margin: [0, 7, 0, 0],
           border: [false, false, false, false],
           bold:true,
         },
         {
-          text: internalMaxTotal,
-          margin: [8, 7, 0, 0],
+          text: externalMaxTotal || '-',
+          alignment: "center",
+          margin: [0, 7, 0, 0],
           border: [false, false, false, false],
           bold:true,
         },
         {
           text: "",
           alignment: "center",
-          margin: [0, 7, 10, 0],
+
+          margin: [0, 7, 0, 0],
           border: [false, false, false, false],
           bold:true,
         },
         {
-          text: internalObtTotal,
-          margin: [2, 7, 0, 0],
-          border: [false, false, false, false],
-          bold:true,
-        },
-        {
-          text: totalOfTotal,
+          text: externalObtTotal || '-',
           alignment: "center",
-          margin: [0, 7, 9, 0],
+          margin: [0, 7, 0, 0],
           border: [false, false, false, false],
           bold:true,
         },
         {
-          text: "",
+          text: internalMaxTotal || '-',
           alignment: "center",
           margin: [0, 7, 0, 0],
           border: [false, false, false, false],
@@ -315,7 +291,35 @@ for (let k = 0; k < data.length; k++) {
           bold:true,
         },
         {
-          text: totalCgp,
+          text: internalObtTotal || '-',
+          alignment: "center",
+          margin: [0, 7, 0, 0],
+          border: [false, false, false, false],
+          bold:true,
+        },
+        {
+          text: totalOfTotal || '-',
+          alignment: "center",
+          margin: [0, 7, 0, 0],
+          border: [false, false, false, false],
+          bold:true,
+        },
+        {
+          text: "",
+          alignment: "center",
+          margin: [0, 7, 0, 0],
+          border: [false, false, false, false],
+          bold:true,
+        },
+        {
+          text: "",
+          alignment: "center",
+          margin: [0, 7, 0, 0],
+          border: [false, false, false, false],
+          bold:true,
+        },
+        {
+          text: totalCgp || '-',
           alignment: "center",
           margin: [0, 7, 0, 0],
           border: [false, false, false, false],
@@ -333,16 +337,19 @@ for (let k = 0; k < data.length; k++) {
   };
 
   markStatement.content.push(JSON.parse(JSON.stringify(mark(table2, table3, table4))));
-}
+  if (k < (data.length - 1)) {
+    markStatement.content.push({ text: "", pageBreak: "after" });
+  }
 
 function mark(table2: any, table3: any, table4:any) {
   const table = [
     [
       {
-        text: "GUJARAT UNIVERSITY",
+        text: "HSNC UNIVERSITY",
         fontSize: 20,
         alignment: "center",
         lineHeight: 1.3,
+        bold:true,
       },
       {
         text: "STATEMENT OF MARKS OBTAINED IN EACH SUBJECT AT THE",
@@ -351,7 +358,8 @@ function mark(table2: any, table3: any, table4:any) {
         lineHeight: 1.2,
       },
       {
-        text: "Bachelor of Interior Design, Semester-1 Examination-JUL-2021",
+        // "Bachelor of Interior Design, Semester-1 Examination-JUL-2021"
+        text: `${data[k].courseName || '-'}, ${data[k].semesterName || '-'} Examination-${data[k].examYear || '-'}`,
         fontSize: 15,
         alignment: "center",
         bold: true,
@@ -360,8 +368,15 @@ function mark(table2: any, table3: any, table4:any) {
     ],
     [
       {
+        margin: [0, 8, 0, 0],
+        table: table2,
+        layout: "noBorders",
+      },
+    ],
+    [
+      {
         table: {
-          widths: [320, 40, 40, 110, 110, "*", "*", "*", "*", "*"],
+          widths: [320, 40, 40, 120, 120, "*", "*", "*", "*", "*"],
           headerRows: 1,
           body: [
             [
@@ -376,7 +391,7 @@ function mark(table2: any, table3: any, table4:any) {
                 text: [
                   {
                     text: `Sub`,
-                    valign: "bottom",
+                    // valign: "bottom",
                     // lineHeight: 2.5,
                     alignment: "center",
                     bold: true,
@@ -415,7 +430,7 @@ function mark(table2: any, table3: any, table4:any) {
                   },
                   "\n",
                   {
-                    text: ` Max.\tMin.\tObt `,
+                    text: `Max.  \tMin.  \tObt`,
                     alignment: "center",
                     verticalAlignment: "bottom",
                     bold: true,
@@ -435,7 +450,7 @@ function mark(table2: any, table3: any, table4:any) {
                   },
                   "\n",
                   {
-                    text: ` Max.\tMin.\tObt `,
+                    text: ` Max.  \tMin.  \tObt `,
                     alignment: "center",
                     verticalAlignment: "bottom",
                     bold: true,
@@ -492,13 +507,8 @@ function mark(table2: any, table3: any, table4:any) {
     [
       {
         margin: [0, 8, 0, 0],
-        table: table2,
-        layout: "noBorders",
-      },
-    ],
-    [
-      {
         table: table3,
+        // layout: "noBorders",
       },
     ],
     [
@@ -509,5 +519,9 @@ function mark(table2: any, table3: any, table4:any) {
   ];
   return table;
 }
+}
 
-export default markStatement;
+
+return markStatement;
+}
+export default marksheet;

@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 import pdfMake from 'pdfmake';
 import Certificate from './certificate'
 import Notice from './noticePdf';
-import MarkSheet from './marksheet';
+// import MarkSheet from './marksheet';
 import StatementOfMark from './StatementOfMark(KT)';
 import MarkStatement from './markStatement';
 import examTimeTable from './HSNC_timetable';
@@ -11,6 +11,9 @@ import challan from './pdf';
 import barCode from './barCode';
 import feeRes from './feeRes';
 import IdCard from './idCard';
+import markSheet from './markStatement';
+import ms from './MOCK_DATA (5).json'
+import marksheet from './markStatement';
 
 
 // const contentDefinition = require('./pdf');
@@ -140,14 +143,14 @@ app.get('/generate-notice', (req:Request, res:Response) => {
   pdfDocGenerator.end();
 });
 
-//* Define the endpoint that generates and returns the PDF document
-app.get('/generate-marksheet', (req:Request, res:Response) => {
-  const pdfDocGenerator = pdfmake.createPdfKitDocument(MarkSheet);
-  res.setHeader('Content-Type', 'application/pdf');
-  res.setHeader('Content-Disposition', 'inline');
-  pdfDocGenerator.pipe(res);
-  pdfDocGenerator.end();
-});
+// //* Define the endpoint that generates and returns the PDF document
+// app.get('/generate-marksheet', (req:Request, res:Response) => {
+//   const pdfDocGenerator = pdfmake.createPdfKitDocument(MarkSheet);
+//   res.setHeader('Content-Type', 'application/pdf');
+//   res.setHeader('Content-Disposition', 'inline');
+//   pdfDocGenerator.pipe(res);
+//   pdfDocGenerator.end();
+// });
 
 //* Define the endpoint that generates and returns the PDF document
 app.get('/generate-markstatement-kt', (req:Request, res:Response) => {
@@ -160,7 +163,7 @@ app.get('/generate-markstatement-kt', (req:Request, res:Response) => {
 
 //* Define the endpoint that generates and returns the PDF document
 app.get('/generate-markstatement', (req:Request, res:Response) => {
-  const pdfDocGenerator = pdfmake.createPdfKitDocument(MarkStatement);
+  const pdfDocGenerator = pdfmake.createPdfKitDocument(marksheet(ms));
   res.setHeader('Content-Type', 'application/pdf');
   res.setHeader('Content-Disposition', 'inline');
   pdfDocGenerator.pipe(res);

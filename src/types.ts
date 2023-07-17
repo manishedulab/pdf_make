@@ -90,3 +90,30 @@ export interface IRepeaterFeeSlip {
     address:string;
     email:string;
   }
+
+
+  export interface IMarksheet{
+    courseName:string;
+    semesterName:string;
+    examYear:string;
+    seatNo:string;
+    studentName:string;
+    enrollmentNo:string;
+    collegeName:string;
+    subjects:[{
+          subjectName: string;
+          subjectType: string
+          credit: number;
+          externalMax: number;
+          externalMin: number;
+          internalMax: number;
+          internalMin: number;
+          externalObt: number;
+          internalObt: number;
+          total: number;
+          grade: string;
+          cgp: number;
+          gp: number;
+          status:string;
+    }];
+  }
