@@ -92,7 +92,7 @@ export interface IRepeaterFeeSlip {
   }
 
 
-  export interface IMarksheet{
+  export interface IMarksheet {
     courseName:string;
     semesterName:string;
     examYear:string;
@@ -100,20 +100,83 @@ export interface IRepeaterFeeSlip {
     studentName:string;
     enrollmentNo:string;
     collegeName:string;
+    result:string;
+    totalCredit:string;
+    externalMaxTotal:string;
+    externalObtTotal:string;
+    internalMaxTotal:string;
+    internalObtTotal:string;
+    totalOfTotal:string;
+    totalCgp:string;
     subjects:{
-          subjectName: string;
-          subjectType: string
-          credit: number;
-          externalMax: number;
-          externalMin: number;
-          internalMax: number;
-          internalMin: number;
-          externalObt: number;
-          internalObt: number;
-          total: number;
-          grade: string;
-          cgp: number;
-          gp: number;
-          status:string;
+      subjectName: string;
+      subjectType: string
+      credit: number;
+      externalMax: number;
+      externalMin: number;
+      internalMax: number;
+      internalMin: number;
+      externalObt: number;
+      internalObt: number;
+      total: number;
+      grade: string;
+      cgp: number;
+      gp: number;
+    }[];
+  }
+
+
+  export interface IResult{
+    collegeName:string;
+    collegeLogo:string;
+    studentPhoto:string;
+    courseName:string;
+    semester:string; // (I,II,III,IV)
+    AcadamicYear:string; // 2020-2021
+    prnNo:string;
+    seatNo:string;
+    studentName:string;
+    monthAndYear:string; // June 2021 BACKLOG, March 2021 REGULAR
+    sgpi:string;
+    remarks:string; // successfull
+    totalGrade:string; // A+, B, A
+    totalMarks:string; // 421/700
+    totalCredit:string; // 20.00
+    icg:string; // Total of cg
+    semOneCredit:string; 
+    semTwoCredit:string;
+    semThreeCredit:string;
+    semFourCredit:string;
+    semFiveCredit:string;
+    semSixCredit:string;
+    semOneSgpi:string; 
+    semTwoSgpi:string;
+    semThreeSgpi:string;
+    semFourSgpi:string;
+    semFiveSgpi:string;
+    semSixSgpi:string;
+    cgpa:string;
+    finalGrade:string;
+    principalSign:string;
+    directorSign:string;
+    date:string;
+    place:string;
+    universityLogo:string;
+    subjectDetails:{
+      subjectCode:string;
+      subjectName:string;
+      internalMax:string;
+      internalMin:string;
+      internalObt:string;
+      externalMax:string;
+      externalMin:string;
+      externalObt:string;
+      totalMax:string;
+      totalMin:string;
+      totalObt:string;
+      grade:string;
+      gradePoint:string;
+      creditPoint:string; 
+      cg:string;
     }[];
   }

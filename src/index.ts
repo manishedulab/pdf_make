@@ -14,6 +14,8 @@ import IdCard from './idCard';
 import markSheet from './markStatement';
 import ms from './MOCK_DATA (5).json'
 import marksheet from './markStatement';
+import hsncMarksheet from './hsncMarksheet';
+import result from './result';
 
 
 // const contentDefinition = require('./pdf');
@@ -161,9 +163,153 @@ app.get('/generate-markstatement-kt', (req:Request, res:Response) => {
   pdfDocGenerator.end();
 });
 
-//* Define the endpoint that generates and returns the PDF document
+ //* Define the endpoint that generates and returns the PDF document
 app.get('/generate-markstatement', (req:Request, res:Response) => {
   const pdfDocGenerator = pdfmake.createPdfKitDocument(marksheet(ms));
+  res.setHeader('Content-Type', 'application/pdf');
+  res.setHeader('Content-Disposition', 'inline');
+  pdfDocGenerator.pipe(res);
+  pdfDocGenerator.end();
+});
+
+//* Define the endpoint that generates and returns the PDF document
+app.get('/markstatement', (req:Request, res:Response) => {
+  const pdfDocGenerator = pdfmake.createPdfKitDocument(hsncMarksheet(ms));
+  res.setHeader('Content-Type', 'application/pdf');
+  res.setHeader('Content-Disposition', 'inline');
+  pdfDocGenerator.pipe(res);
+  pdfDocGenerator.end();
+});
+
+
+const mockResult = [{
+  collegeName: "H.R. COLLEGE OF COMMERCE AND ECONOMICS",
+  collegeLogo: "img/KCC_Mumbai_logo.svg.png",
+  studentPhoto: "img/cds.jpg",
+  universityLogo:'img/Hsnc-university-logo.png',
+  courseName: "Computer Science",
+  semester: "III",
+  AcadamicYear: "2022-2023",
+  prnNo: "1234567890",
+  seatNo: "A123",
+  studentName: "John Doe",
+  monthAndYear: "June 2023 BACKLOG",
+  sgpi: "8.25",
+  remarks: "Successful",
+  totalGrade: "A",
+  totalMarks: "421/700",
+  totalCredit: "20.00",
+  icg: "8.10",
+  semOneCredit: "4.00",
+  semTwoCredit: "4.00",
+  semThreeCredit: "4.00",
+  semFourCredit: "4.00",
+  semFiveCredit: "4.00",
+  semSixCredit: "4.00",
+  semOneSgpi: "8.25",
+  semTwoSgpi: "8.40",
+  semThreeSgpi: "8.50",
+  semFourSgpi: "8.60",
+  semFiveSgpi: "8.70",
+  semSixSgpi: "8.80",
+  cgpa:'',
+  finalGrade:'',
+  principalSign: "img/xyz.png",
+  directorSign: "img/xyz.png",
+  date: "July 15, 2023",
+  place: "City XYZ",
+  subjectDetails: [
+    {
+      subjectCode: "CS101",
+      subjectName: "Programming Fundamentals",
+      internalMax: "50",
+      internalMin: "20",
+      internalObt: "45",
+      externalMax: "100",
+      externalMin: "40",
+      externalObt: "85",
+      totalMax: "150",
+      totalMin: "60",
+      totalObt: "130",
+      grade: "A+",
+      gradePoint: "4.00",
+      creditPoint: "4.00",
+      cg: "8.25",
+    },
+    {
+      subjectCode: "CS102",
+      subjectName: "Database Management Systems",
+      internalMax: "50",
+      internalMin: "20",
+      internalObt: "42",
+      externalMax: "100",
+      externalMin: "40",
+      externalObt: "78",
+      totalMax: "150",
+      totalMin: "60",
+      totalObt: "120",
+      grade: "A",
+      gradePoint: "3.75",
+      creditPoint: "4.00",
+      cg: "8.25",
+    },
+    {
+      subjectCode: "CS101",
+      subjectName: "Programming Fundamentals",
+      internalMax: "50",
+      internalMin: "20",
+      internalObt: "45",
+      externalMax: "100",
+      externalMin: "40",
+      externalObt: "85",
+      totalMax: "150",
+      totalMin: "60",
+      totalObt: "130",
+      grade: "A+",
+      gradePoint: "4.00",
+      creditPoint: "4.00",
+      cg: "8.25",
+    },
+    {
+      subjectCode: "CS101",
+      subjectName: "Programming Fundamentals",
+      internalMax: "50",
+      internalMin: "20",
+      internalObt: "45",
+      externalMax: "100",
+      externalMin: "40",
+      externalObt: "85",
+      totalMax: "150",
+      totalMin: "60",
+      totalObt: "130",
+      grade: "A+",
+      gradePoint: "4.00",
+      creditPoint: "4.00",
+      cg: "8.25",
+    },
+    {
+      subjectCode: "CS101",
+      subjectName: "Programming Fundamentals",
+      internalMax: "50",
+      internalMin: "20",
+      internalObt: "45",
+      externalMax: "100",
+      externalMin: "40",
+      externalObt: "85",
+      totalMax: "150",
+      totalMin: "60",
+      totalObt: "130",
+      grade: "A+",
+      gradePoint: "4.00",
+      creditPoint: "4.00",
+      cg: "8.25",
+    },
+  ]
+}];
+
+//* Define the endpoint that generates and returns the PDF document
+app.get('/result', (req:Request, res:Response) => {
+  const pdfDocGenerator = pdfmake.createPdfKitDocument(result(mockResult));
   res.setHeader('Content-Type', 'application/pdf');
   res.setHeader('Content-Disposition', 'inline');
   pdfDocGenerator.pipe(res);

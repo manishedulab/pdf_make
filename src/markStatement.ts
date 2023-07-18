@@ -1,4 +1,3 @@
-import data from "./MOCK_DATA (5).json";
 import { IMarksheet, ISubjectTypePdf } from "./types";
 
 function marksheet (data:IMarksheet[]) {
@@ -6,22 +5,6 @@ function marksheet (data:IMarksheet[]) {
 let table2;
 let table3;
 let table4;
-let externalMax: number[] = [];
-let internalMax: number[] = [];
-let externalObt: number[] = [];
-let internalObt: number[] = [];
-let credit: number[] = [];
-let cgp: number[] = [];
-let total: number[] = [];
-let externalMaxTotal: number[] = [];
-let internalMaxTotal: number[] = [];
-let externalObtTotal: number[] = [];
-let internalObtTotal: number[] = [];
-let totalCredit: number[] = [];
-let totalCgp: number[] = [];
-let totalGp: number[] = [];
-let totalOfTotal: number[] = [];
-let result: string[] = [];
 
 const markStatement: any = {
   pageSize: {
@@ -33,84 +16,6 @@ const markStatement: any = {
 };
 
 for (let k = 0; k < data.length; k++) {
-  externalMax = [];
-  internalMax = [];
-  externalObt = [];
-  internalObt = [];
-  credit = [];
-  cgp = [];
-  total = [];
-  externalMaxTotal = [];
-  internalMaxTotal = [];
-  externalObtTotal = [];
-  internalObtTotal = [];
-  totalCredit = [];
-  totalCgp = [];
-  totalGp = [];
-  totalOfTotal = [];
-  result = [];
-
-  for (let j = 0; j < data[k]["subjects"].length; j++) {
-    externalMax.push(data[k]["subjects"][j].externalMax);
-    internalMax.push(data[k]["subjects"][j].internalMax);
-    externalObt.push(data[k]["subjects"][j].externalObt);
-    internalObt.push(data[k]["subjects"][j].internalObt);
-    credit.push(data[k]["subjects"][j].credit);
-    cgp.push(data[k]["subjects"][j].cgp);
-    total.push(data[k]["subjects"][j].total);
-  }
-
-  /* This code is calculating various totals and scores for each student's academic performance. */
-  externalMaxTotal.push(
-    externalMax.reduce(
-      (accumulator, currentValue) => accumulator + currentValue
-    )
-  );
-  internalMaxTotal.push(
-    internalMax.reduce(
-      (accumulator, currentValue) => accumulator + currentValue
-    )
-  );
-  const sum = externalObt.reduce(
-    (accumulator, currentValue) => accumulator + currentValue
-  );
-  externalObtTotal.push(sum);
-  internalObtTotal.push(
-    internalObt.reduce(
-      (accumulator, currentValue) => accumulator + currentValue
-    )
-  );
-  const creditScore = credit.reduce(
-    (accumulator, currentValue) => accumulator + currentValue
-  );
-  totalCredit.push(creditScore);
-  const cgpScore = cgp.reduce(
-    (accumulator, currentValue) => accumulator + currentValue
-  );
-  totalCgp.push(cgpScore);
-  const totalMark = total.reduce(
-    (accumulator, currentValue) => accumulator + currentValue
-  );
-  totalOfTotal.push(totalMark);
-  const gpScore = Math.round((cgpScore / creditScore) * 100) / 100;
-  totalGp.push(gpScore);
-
-  /* This code block is checking the total marks obtained by a student and assigning
-  a result based on the range of marks. */
-  if (sum >= 315.45) {
-    result.push("First Class with Distinction");
-  } else if (sum >= 277.396) {
-    result.push("First Class");
-  } else if (sum >= 231.33) {
-    result.push("Higher Second Class");
-  } else if (sum >= 210.3) {
-    result.push("Second Class");
-  } else if (sum >= 0) {
-    result.push("pass");
-  } else {
-    result.push("fail");
-  }
-
   table2 = {
     widths: [110, 340, 180, 400],
     headerRows: 1,
@@ -235,7 +140,7 @@ for (let k = 0; k < data.length; k++) {
     body: [
        [ 
         {
-          text:`Result:${result || '-'}`  ,
+          text:`Result:${data[k].result || '-'}`  ,
           margin: [0, 7, 0, 0],
           border: [false, false, false, false],
           bold:true,
@@ -248,14 +153,14 @@ for (let k = 0; k < data.length; k++) {
           bold:true,
         },
         {
-          text: totalCredit || '-',
+          text: data[k].totalCredit || '-',
           alignment: "center",
           margin: [0, 7, 0, 0],
           border: [false, false, false, false],
           bold:true,
         },
         {
-          text: externalMaxTotal || '-',
+          text: data[k].externalMaxTotal || '-',
           alignment: "center",
           margin: [0, 7, 0, 0],
           border: [false, false, false, false],
@@ -270,35 +175,14 @@ for (let k = 0; k < data.length; k++) {
           bold:true,
         },
         {
-          text: externalObtTotal || '-',
+          text: data[k].externalObtTotal || '-',
           alignment: "center",
           margin: [0, 7, 0, 0],
           border: [false, false, false, false],
           bold:true,
         },
         {
-          text: internalMaxTotal || '-',
-          alignment: "center",
-          margin: [0, 7, 0, 0],
-          border: [false, false, false, false],
-          bold:true,
-        },
-        {
-          text: "",
-          alignment: "center",
-          margin: [0, 7, 0, 0],
-          border: [false, false, false, false],
-          bold:true,
-        },
-        {
-          text: internalObtTotal || '-',
-          alignment: "center",
-          margin: [0, 7, 0, 0],
-          border: [false, false, false, false],
-          bold:true,
-        },
-        {
-          text: totalOfTotal || '-',
+          text: data[k].internalMaxTotal || '-',
           alignment: "center",
           margin: [0, 7, 0, 0],
           border: [false, false, false, false],
@@ -312,6 +196,20 @@ for (let k = 0; k < data.length; k++) {
           bold:true,
         },
         {
+          text: data[k].internalObtTotal || '-',
+          alignment: "center",
+          margin: [0, 7, 0, 0],
+          border: [false, false, false, false],
+          bold:true,
+        },
+        {
+          text: data[k].totalOfTotal || '-',
+          alignment: "center",
+          margin: [0, 7, 0, 0],
+          border: [false, false, false, false],
+          bold:true,
+        },
+        {
           text: "",
           alignment: "center",
           margin: [0, 7, 0, 0],
@@ -319,7 +217,14 @@ for (let k = 0; k < data.length; k++) {
           bold:true,
         },
         {
-          text: totalCgp || '-',
+          text: "",
+          alignment: "center",
+          margin: [0, 7, 0, 0],
+          border: [false, false, false, false],
+          bold:true,
+        },
+        {
+          text: data[k].totalCgp || '-',
           alignment: "center",
           margin: [0, 7, 0, 0],
           border: [false, false, false, false],
