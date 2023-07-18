@@ -1,6 +1,6 @@
 import { IResult, ISubjectTypePdf } from "./types";
 
-function generateFooter(data: IResult[]) {
+function generateFooter(data: any[]) {
     // Define the table6 content
     let table6;
 
@@ -13,7 +13,7 @@ function generateFooter(data: IResult[]) {
             { text: `Place : ${data[i].place}`, bold:true },
             "",
             "",
-            { image: `${data[i].universityLogo}`, rowSpan: 3, width:50, alignment:'' },
+            { image: data[i].universityLogo ?`${data[i].universityLogo}`: `${process.cwd()}/img/xyz.png`, rowSpan: 3, width:50, alignment:'' },
             { image: `${data[i].principalSign}`, width:80, height:20, alignment:'center' },
             { image: `${data[i].directorSign}`, width:80, height:20, alignment:'center' },
           ],
@@ -40,7 +40,7 @@ function generateFooter(data: IResult[]) {
   }
   
 
-function result(data: IResult[]) {
+function result(data: any[]) {
   const contentDefinition: any = {
     pageSize: {
       width: 900,
@@ -535,7 +535,7 @@ function result(data: IResult[]) {
             body: [
               [
                 {
-                  image: data[i].universityLogo,
+                  image: data[i].universityLogo ?`${data[i].universityLogo}`: `${process.cwd()}/img/xyz.png`,
                   //   margin: [0, 0, 0, 0],
                   width: 70,
                 },
