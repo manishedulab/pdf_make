@@ -172,14 +172,14 @@ app.get('/generate-markstatement', (req:Request, res:Response) => {
   pdfDocGenerator.end();
 });
 
-//* Define the endpoint that generates and returns the PDF document
-app.get('/markstatement', (req:Request, res:Response) => {
-  const pdfDocGenerator = pdfmake.createPdfKitDocument(hsncMarksheet(ms));
-  res.setHeader('Content-Type', 'application/pdf');
-  res.setHeader('Content-Disposition', 'inline');
-  pdfDocGenerator.pipe(res);
-  pdfDocGenerator.end();
-});
+// //* Define the endpoint that generates and returns the PDF document
+// app.get('/markstatement', (req:Request, res:Response) => {
+//   const pdfDocGenerator = pdfmake.createPdfKitDocument(hsncMarksheet(ms));
+//   res.setHeader('Content-Type', 'application/pdf');
+//   res.setHeader('Content-Disposition', 'inline');
+//   pdfDocGenerator.pipe(res);
+//   pdfDocGenerator.end();
+// });
 
 
 const mockResult = [{

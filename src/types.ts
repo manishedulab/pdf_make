@@ -116,9 +116,9 @@ export interface IRepeaterFeeSlip {
       externalMin: number;
       internalMax: number;
       internalMin: number;
-      externalObt: number;
-      internalObt: number;
-      total: number;
+      externalObt: string;
+      internalObt: string;
+      total: string;
       grade: string;
       cgp: number;
       gp: number;
