@@ -1,6 +1,6 @@
 import { IMarksheet, ISubjectTypePdf } from "./types";
 
-function generateHeader(data: IMarksheet[]) {
+function generateHeader(data: any[]) {
   let header; // Create an array to hold multiple headers
 
   for (let i = 0; i < 1; i++) {
@@ -11,6 +11,7 @@ function generateHeader(data: IMarksheet[]) {
         alignment: "center",
         lineHeight: 1.3,
         bold: true,
+        margin:[0,50,0,0]
       },"\n",
       {
         text: "STATEMENT OF MARKS OBTAINED IN EACH SUBJECT AT THE",
@@ -43,9 +44,9 @@ function marksheet(data: IMarksheet[]) {
     },
     header: [{
       text: generateHeader(data),
-      // margin:[5,0,20,10],
+      margin:[5,10,20,0],
     }],
-    pageMargins: [20, 80, 20, 10],
+    pageMargins: [20, 80, 20, 5],
     content: [],
   };
 
@@ -410,6 +411,10 @@ function marksheet(data: IMarksheet[]) {
     markStatement.content.push(
       JSON.parse(JSON.stringify(mark(table1, table2, table3, table4)))
     );
+    if (k%2 && k < data.length - 1) {
+      markStatement.content.push({ text: "", pageBreak: "after" });
+    }
+
     // if (k < data.length - 1) {
     //   markStatement.content.push({ text: "", pageBreak: "after" });
     // }
@@ -441,7 +446,7 @@ function marksheet(data: IMarksheet[]) {
           {
             table: table4,
             fontSize: 11,
-          },"\n\n\n"
+          },"\n"
         ],
       ];
       return table;

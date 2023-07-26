@@ -1,74 +1,156 @@
 import { IResult, ISubjectTypePdf } from "./types";
 
 function generateFooter(data: any[]) {
-    // Define the table6 content
-    let table6;
+  // Define the table6 content
+  let table6;
 
-    for (let i = 0; i < data.length; i++) {
-     table6 = {
-        widths: [135, 135, 137, 120, 137, 137, 137],
-        headerRows: 1,
-        body: [
-          [
-            { text: `Place : ${data[i].place}`, bold:true },
-            "",
-            "",
-            { image: data[i].universityLogo ?`${data[i].universityLogo}`: `${process.cwd()}/img/xyz.png`, rowSpan: 3, width:50, alignment:'' },
-            { image: `${data[i].principalSign}`, width:80, height:20, alignment:'center' },
-            { image: `${data[i].directorSign}`, width:80, height:20, alignment:'center' },
-          ],
-          [
-            { text: `Date : ${data[i].date}`,bold:true },
-            {text: 'Seal of the Univesity', bold:true},
-            {text: 'Checked By', bold:true},
-            "",
-            {text: 'Principal/Director/Dean', bold:true},
-            {text: 'Director BOEE', bold:true, alignment:'center'},
-          ],
-          [
-            { text: `f : Female, F : Fail, AB:Absent, '' : Not Applicable, @ : O 2020, # : O 2020, $ : Carry Forword`, colSpan:3, fontSize:9 },
-            "",
-            "",
-            "",
-            "",
-            ""
-          ],
+  for (let i = 0; i < data.length; i++) {
+    table6 = {
+      widths: [135, 135, 137, 120, 137, 137, 137],
+      headerRows: 1,
+      body: [
+        [
+          { text: `Place : ${data[i].place}`, bold: true },
+          "",
+          "",
+          {
+            image: data[i].universityLogo
+              ? `${data[i].universityLogo}`
+              : `${process.cwd()}/img/xyz.png`,
+            rowSpan: 3,
+            width: 50,
+            alignment: "",
+          },
+          {
+            image: `${data[i].principalSign}`,
+            width: 80,
+            height: 20,
+            alignment: "center",
+          },
+          {
+            image: `${data[i].directorSign}`,
+            width: 80,
+            height: 20,
+            alignment: "center",
+          },
         ],
-      };
-}
-    return table6;
+        [
+          { text: `Date : ${data[i].date}`, bold: true },
+          { text: "Seal of the Univesity", bold: true },
+          { text: "Checked By", bold: true },
+          "",
+          { text: "Principal/Director/Dean", bold: true },
+          { text: "Director BOEE", bold: true, alignment: "center" },
+        ],
+        [
+          {
+            text: `f : Female, F : Fail, AB:Absent, '' : Not Applicable, @ : O 2020, # : O 2020, $ : Carry Forword`,
+            colSpan: 3,
+            fontSize: 9,
+          },
+          "",
+          "",
+          "",
+          "",
+          "",
+        ],
+      ],
+    };
   }
-  
+  return table6;
+}
+
+type PageSize = {
+  width: number;
+  height: number;
+};
 
 function result(data: any[]) {
   const contentDefinition: any = {
     pageSize: {
       width: 900,
-      height: 580,
+      height: 600,
     },
-    background: [
+    // background: [
+    //     {
+    //         image: 'img/Hsnc-university-logo.png',
+    //         width: 200,
+    //         alignment:'center',
+    //         margin:[0,180,0,0],
+    //         opacity:0.2
+    //     },
+    //     {
+    //         text:'NOT FOR PRINT',
+    //         opacity:0.2,
+    //         fontSize:35,
+    //         absolutePosition: { x: 180, y: 150 },
+    //     }
+    //   ],
+    background: function (currentPage: any, pageSize: PageSize) {
+      return [
         {
-            image: 'img/Hsnc-university-logo.png',
-            width: 200,
-            alignment:'center',
-            margin:[0,180,0,0],
-            opacity:0.2
+          canvas: [
+            {
+              type: "line",
+              x1: 5,
+              y1: 10,
+              x2: pageSize.width - 5,
+              y2: 10,
+              lineWidth: 10,
+              lineColor: "#BD9C47",
+            }, // Up line
+            {
+              type: "line",
+              x1: 10,
+              y1: 10,
+              x2: 10,
+              y2: pageSize.height - 10,
+              lineWidth: 10,
+              lineColor: "#BD9C47",
+            }, // Left line
+            {
+              type: "line",
+              x1: 5,
+              y1: pageSize.height - 10,
+              x2: pageSize.width - 5,
+              y2: pageSize.height - 10,
+              lineWidth: 10,
+              lineColor: "#BD9C47",
+            }, // Bottom line
+            {
+              type: "line",
+              x1: pageSize.width - 10,
+              y1: 10,
+              x2: pageSize.width - 10,
+              y2: pageSize.height - 10,
+              lineWidth: 10,
+              lineColor: "#BD9C47",
+            }, // Right line
+          ],
         },
         {
-            text:'NOT FOR PRINT',
-            opacity:0.2,
-            fontSize:35,
-            absolutePosition: { x: 180, y: 150 },
-        }
-      ],
-    pageMargins: [20, 10, 20, 10],
+          image: "img/Hsnc-university-logo.png",
+          width: 200,
+          alignment: "center",
+          // margin: [0, 180, 0, 0],
+          opacity: 0.2,
+          absolutePosition: { x: 0, y: 180 },
+        },
+        {
+          text: "NOT FOR PRINT",
+          opacity: 0.2,
+          fontSize: 35,
+          absolutePosition: { x: 120, y: 150 },
+        },
+      ];
+    },
+    pageMargins: [20, 20, 20, 20],
     content: [],
     footer: {
-        margin:[20,-60,20,10],
-        table:  generateFooter(data), // Call generateTable6 with the data array
-        layout: "noBorders", // Optional: Use this to remove footer table borders
-      },
-
+      margin: [20, -60, 20, 10],
+      table: generateFooter(data), // Call generateTable6 with the data array
+      layout: "noBorders", // Optional: Use this to remove footer table borders
+    },
   };
 
   for (let i = 0; i < 1; i++) {
@@ -496,36 +578,36 @@ function result(data: any[]) {
         ],
       };
 
-    //   const table6 = {
-    //     widths: [137, 137, 137, 137, 137, 180, 117],
-    //     headerRows: 1,
-    //     body: [
-    //       [
-    //         { text: `Place : ${data[i].place}`, bold:true },
-    //         "",
-    //         "",
-    //         { image: `img/Hsnc-university-logo.png`, rowSpan: 3, width:50 },
-    //         { image: `img/xyz.png`, width:80, height:20,  },
-    //         { image: `img/xyz.png`, width:80, height:20, },
-    //       ],
-    //       [
-    //         { text: `Date : ${data[i].date}`,bold:true },
-    //         {text: 'Seal of the Univesity', bold:true},
-    //         {text: 'Checked By', bold:true},
-    //         "",
-    //         {text: 'Principal/Director/Dean', bold:true},
-    //         {text: 'Director BOEE', bold:true},
-    //       ],
-    //       [
-    //         { text: `f : Female, F : Fail, AB:Absent, '' : Not Applicable, @ : O 2020, # : O 2020, $ : Carry Forword`, colSpan:3 },
-    //         "",
-    //         "",
-    //         "",
-    //         "",
-    //         ""
-    //       ],
-    //     ],
-    //   };
+      //   const table6 = {
+      //     widths: [137, 137, 137, 137, 137, 180, 117],
+      //     headerRows: 1,
+      //     body: [
+      //       [
+      //         { text: `Place : ${data[i].place}`, bold:true },
+      //         "",
+      //         "",
+      //         { image: `img/Hsnc-university-logo.png`, rowSpan: 3, width:50 },
+      //         { image: `img/xyz.png`, width:80, height:20,  },
+      //         { image: `img/xyz.png`, width:80, height:20, },
+      //       ],
+      //       [
+      //         { text: `Date : ${data[i].date}`,bold:true },
+      //         {text: 'Seal of the Univesity', bold:true},
+      //         {text: 'Checked By', bold:true},
+      //         "",
+      //         {text: 'Principal/Director/Dean', bold:true},
+      //         {text: 'Director BOEE', bold:true},
+      //       ],
+      //       [
+      //         { text: `f : Female, F : Fail, AB:Absent, '' : Not Applicable, @ : O 2020, # : O 2020, $ : Carry Forword`, colSpan:3 },
+      //         "",
+      //         "",
+      //         "",
+      //         "",
+      //         ""
+      //       ],
+      //     ],
+      //   };
 
       const table = [
         {
@@ -535,7 +617,9 @@ function result(data: any[]) {
             body: [
               [
                 {
-                  image: data[i].universityLogo ?`${data[i].universityLogo}`: `${process.cwd()}/img/xyz.png`,
+                  image: data[i].universityLogo
+                    ? `${data[i].universityLogo}`
+                    : `${process.cwd()}/img/xyz.png`,
                   //   margin: [0, 0, 0, 0],
                   width: 70,
                 },
@@ -553,12 +637,14 @@ function result(data: any[]) {
                       fontSize: 20,
                       alignment: "center",
                       bold: true,
+                      color: "#1E6332",
                       margin: [0, 50, 0, 0],
                     },
                     "\n",
                     {
                       text: "A STATE CULSTER UNIVERSITY",
                       //   fontSize: 14,
+                      color: "#BD9C47",
                       alignment: "center",
                       bold: true,
                     },
@@ -571,8 +657,9 @@ function result(data: any[]) {
                     },
                     "\n\n",
                     {
-                      text: data[i].collegeName || '-',
+                      text: data[i].collegeName || "-",
                       //   fontSize: 14,
+                      color: "#344B9E",
                       alignment: "center",
                       bold: true,
                     },
@@ -754,7 +841,8 @@ function result(data: any[]) {
         {
           table: table5,
           fontSize: 10,
-        },'\n\n\n\n\n\n',
+        },
+        "\n\n\n\n\n\n",
         // {
         //     table: table6,
         //     fontSize: 10,
