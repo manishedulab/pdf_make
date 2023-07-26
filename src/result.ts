@@ -6,7 +6,7 @@ function generateFooter(data: any[]) {
 
   for (let i = 0; i < data.length; i++) {
     table6 = {
-      widths: [135, 135, 137, 120, 137, 137, 137],
+      widths: [130, 130, 120, 120, 137, 137, 137],
       headerRows: 1,
       body: [
         [
@@ -37,7 +37,7 @@ function generateFooter(data: any[]) {
         [
           { text: `Date : ${data[i].date}`, bold: true },
           { text: "Seal of the Univesity", bold: true },
-          { text: "Checked By", bold: true },
+          { text: "Checked By", bold: true, alignment:'center' },
           "",
           { text: "Principal/Director/Dean", bold: true },
           { text: "Director BOEE", bold: true, alignment: "center" },
@@ -71,21 +71,6 @@ function result(data: any[]) {
       width: 900,
       height: 600,
     },
-    // background: [
-    //     {
-    //         image: 'img/Hsnc-university-logo.png',
-    //         width: 200,
-    //         alignment:'center',
-    //         margin:[0,180,0,0],
-    //         opacity:0.2
-    //     },
-    //     {
-    //         text:'NOT FOR PRINT',
-    //         opacity:0.2,
-    //         fontSize:35,
-    //         absolutePosition: { x: 180, y: 150 },
-    //     }
-    //   ],
     background: function (currentPage: any, pageSize: PageSize) {
       return [
         {
@@ -141,6 +126,7 @@ function result(data: any[]) {
           opacity: 0.2,
           fontSize: 35,
           absolutePosition: { x: 120, y: 150 },
+          // absolutePosition: { x1: 120, y1: 150, x2:150, y2:40 },
         },
       ];
     },
@@ -155,13 +141,15 @@ function result(data: any[]) {
 
   for (let i = 0; i < 1; i++) {
     function pdf() {
+      const numRows = data[i].subjectDetails.length;
+      console.log('first',numRows)
       const table3 = {
         headerRows: 1,
         widths: [
           50, 180, 35, 35, 42, 35, 35, 42, 35, 35, 41, 35, 30, 30, 25, 30,
         ],
         body: [
-          ...data[i].subjectDetails.map((value: any) => [
+          ...data[i].subjectDetails.map((value: any, index:number) => [
             {
               text: value.subjectCode || "-",
               margin: [0, 7, 0, 0],
@@ -253,9 +241,11 @@ function result(data: any[]) {
               border: [true, false, true, true],
             },
             {
-              text: data[i].sgpi || "-",
+              text: data[i].sgpi,
               alignment: "center",
-              margin: [0, 7, 0, 0],
+              rowSpan: numRows,
+              bold:true,
+              margin: [0, numRows*10, 0, 0],
               border: [true, false, true, true],
             },
           ]),
@@ -671,6 +661,7 @@ function result(data: any[]) {
                       bold: true,
                     },
                   ],
+                  margin:[-50,0,0,0]
                 },
                 {
                   image: data[i].studentPhoto,
