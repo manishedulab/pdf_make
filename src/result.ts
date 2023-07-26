@@ -1,6 +1,6 @@
 import { IResult, ISubjectTypePdf } from "./types";
 
-function generateFooter(data: any[]) {
+function generateFooter(data: IResult[]) {
   // Define the table6 content
   let table6;
 
@@ -65,7 +65,7 @@ type PageSize = {
   height: number;
 };
 
-function result(data: any[]) {
+function result(data: IResult[]) {
   const contentDefinition: any = {
     pageSize: {
       width: 900,

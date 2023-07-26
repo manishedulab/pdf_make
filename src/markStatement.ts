@@ -180,7 +180,7 @@ function marksheet(data: IMarksheet[]) {
     };
 
     table2 = {
-      widths: [110, 340, 180, 400],
+      widths: [110, 340, 220, 360],
       headerRows: 1,
       body: [
         [
