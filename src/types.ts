@@ -126,7 +126,7 @@ export interface IRepeaterFeeSlip {
   }
 
 
-  export interface IResult{
+  export interface IResult {
     collegeName:string;
     collegeLogo:string;
     studentPhoto:string;
@@ -134,28 +134,28 @@ export interface IRepeaterFeeSlip {
     semester:string; // (I,II,III,IV)
     AcadamicYear:string; // 2020-2021
     prnNo:string;
-    seatNo:string;
+    seatNo:number;
     studentName:string;
     monthAndYear:string; // June 2021 BACKLOG, March 2021 REGULAR
     sgpi:string;
     remarks:string; // successfull
     totalGrade:string; // A+, B, A
-    totalMarks:string; // 421/700
-    totalCredit:string; // 20.00
+    totalMarks:number; // 421/700
+    totalCredit:number; // 20.00
     icg:string; // Total of cg
-    semOneCredit:string; 
-    semTwoCredit:string;
-    semThreeCredit:string;
-    semFourCredit:string;
-    semFiveCredit:string;
-    semSixCredit:string;
-    semOneSgpi:string; 
-    semTwoSgpi:string;
-    semThreeSgpi:string;
-    semFourSgpi:string;
-    semFiveSgpi:string;
-    semSixSgpi:string;
-    cgpa:string;
+    semOneCredit:number;
+    semTwoCredit:number;
+    semThreeCredit:number;
+    semFourCredit:number;
+    semFiveCredit:number;
+    semSixCredit:number;
+    semOneSgpi:number;
+    semTwoSgpi:number;
+    semThreeSgpi:number;
+    semFourSgpi:number;
+    semFiveSgpi:number;
+    semSixSgpi:number;
+    cgpa:number;
     finalGrade:string;
     principalSign:string;
     directorSign:string;
@@ -165,18 +165,18 @@ export interface IRepeaterFeeSlip {
     subjectDetails:{
       subjectCode:string;
       subjectName:string;
-      internalMax:string;
-      internalMin:string;
-      internalObt:string;
-      externalMax:string;
-      externalMin:string;
-      externalObt:string;
-      totalMax:string;
-      totalMin:string;
-      totalObt:string;
+      internalMax:number;
+      internalMin:number;
+      internalObt:number;
+      externalMax:number;
+      externalMin:number;
+      externalObt:number;
+      totalMax:number;
+      totalMin:number;
+      totalObt:number;
       grade:string;
       gradePoint:string;
-      creditPoint:string; 
+      creditPoint:string;
       cg:string;
     }[];
   }
