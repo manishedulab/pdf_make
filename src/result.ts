@@ -1,6 +1,6 @@
 import { IResult, ISubjectTypePdf } from "./types";
 
-function generateFooter(data: IResult[]) {
+function generateFooter(data: any[]) {
   // Define the table6 content
   let table6;
 
@@ -37,7 +37,7 @@ function generateFooter(data: IResult[]) {
         [
           { text: `Date : ${data[i].date}`, bold: true },
           { text: "Seal of the Univesity", bold: true },
-          { text: "Checked By", bold: true, alignment:'center' },
+          { text: "Checked By", bold: true, alignment: "center" },
           "",
           { text: "Principal/Director/Dean", bold: true },
           { text: "Director BOEE", bold: true, alignment: "center" },
@@ -65,7 +65,7 @@ type PageSize = {
   height: number;
 };
 
-function result(data: IResult[]) {
+function result(data: any[]) {
   const contentDefinition: any = {
     pageSize: {
       width: 900,
@@ -142,14 +142,14 @@ function result(data: IResult[]) {
   for (let i = 0; i < 1; i++) {
     function pdf() {
       const numRows = data[i].subjectDetails.length;
-      console.log('first',numRows)
+      console.log("first", numRows);
       const table3 = {
         headerRows: 1,
         widths: [
           50, 180, 35, 35, 42, 35, 35, 42, 35, 35, 41, 35, 30, 30, 25, 30,
         ],
         body: [
-          ...data[i].subjectDetails.map((value: any, index:number) => [
+          ...data[i].subjectDetails.map((value: any, index: number) => [
             {
               text: value.subjectCode || "-",
               margin: [0, 7, 0, 0],
@@ -244,8 +244,8 @@ function result(data: IResult[]) {
               text: data[i].sgpi,
               alignment: "center",
               rowSpan: numRows,
-              bold:true,
-              margin: [0, numRows*10, 0, 0],
+              bold: true,
+              margin: [0, numRows * 10, 0, 0],
               border: [true, false, true, true],
             },
           ]),
@@ -260,16 +260,16 @@ function result(data: IResult[]) {
         body: [
           [
             {
-              text: `Remarks :${data[i].remarks || "-"}`,
+              text: `Remarks :${data[i].result || "-"}`,
               margin: [0, 7, 0, 0],
-              border: [true, false, true, true],
+              border: [true, false, true, false],
               alignment: "center",
               bold: true,
             },
             {
               text: `Grade :${data[i].totalGrade || "-"}`,
               margin: [0, 7, 0, 0],
-              border: [true, false, true, true],
+              border: [true, false, true, false],
               //   alignment: "center",
               colSpan: 7,
               bold: true,
@@ -277,43 +277,45 @@ function result(data: IResult[]) {
             {
               text: "",
               margin: [0, 7, 0, 0],
-              border: [true, false, true, true],
+              border: [true, false, true, false],
               alignment: "center",
             },
             {
               text: "",
               margin: [0, 7, 0, 0],
-              border: [true, false, true, true],
+              border: [true, false, true, false],
               alignment: "center",
             },
             {
               text: "",
               margin: [0, 7, 0, 0],
-              border: [true, false, true, true],
+              border: [true, false, true, false],
               alignment: "center",
             },
             {
               text: "",
               margin: [0, 7, 0, 0],
-              border: [true, false, true, true],
+              border: [true, false, true, false],
               alignment: "center",
             },
             {
               text: "",
               margin: [0, 7, 0, 0],
-              border: [true, false, true, true],
+              border: [true, false, true, false],
               alignment: "center",
             },
             {
               text: "",
               margin: [0, 7, 0, 0],
-              border: [true, false, true, true],
+              border: [true, false, true, false],
               alignment: "center",
             },
             {
-              text: `Total :${data[i].totalMarks || "-"}`,
+              text: `Total :${data[i].outOfTotal || "-"}/${
+                data[i].totalOfTotal || "-"
+              }`,
               margin: [0, 7, 0, 0],
-              border: [true, false, true, true],
+              border: [true, false, true, false],
               alignment: "center",
               bold: true,
               colSpan: 3,
@@ -321,19 +323,19 @@ function result(data: IResult[]) {
             {
               text: "",
               margin: [0, 7, 0, 0],
-              border: [true, false, true, true],
+              border: [true, false, true, false],
               alignment: "center",
             },
             {
               text: "",
               margin: [0, 7, 0, 0],
-              border: [true, false, true, true],
+              border: [true, false, true, false],
               alignment: "center",
             },
             {
               text: " ",
               margin: [0, 7, 0, 0],
-              border: [true, false, true, true],
+              border: [true, false, true, false],
               alignment: "center",
               colSpan: 2,
             },
@@ -341,20 +343,20 @@ function result(data: IResult[]) {
               text: "",
               alignment: "center",
               margin: [0, 7, 0, 0],
-              border: [true, false, true, true],
+              border: [true, false, true, false],
             },
             {
-              text: `IC=\n${data[i].totalCredit || "-"}`,
+              text: `ΣC=\n${data[i].totalCredit || "-"}`,
               alignment: "center",
               // margin: [0, 7, 0, 0],
-              border: [true, false, true, true],
+              border: [true, false, true, false],
               bold: true,
             },
             {
-              text: `ICG=\n${data[i].icg || "-"}`,
+              text: `ΣCG=\n${data[i].icg || "-"}`,
               alignment: "center",
               // margin: [0, 7, 0, 0],
-              border: [true, false, true, true],
+              border: [true, false, true, false],
               bold: true,
             },
 
@@ -362,7 +364,7 @@ function result(data: IResult[]) {
               text: data[i].sgpi || "-",
               alignment: "center",
               margin: [0, 7, 0, 0],
-              border: [true, false, true, true],
+              border: [true, false, true, false],
               bold: true,
             },
           ],
@@ -387,7 +389,7 @@ function result(data: IResult[]) {
               text: "",
             },
             {
-              text: `SEMESTER : ${data[i].semester || "-"}`,
+              text: `SEMESTER : ${data[i].semName || "-"}`,
               alignment: "center",
               margin: [0, 2, 0, 0],
               border: [false, true, true, true],
@@ -428,7 +430,7 @@ function result(data: IResult[]) {
               alignment: "center",
             },
             {
-              text: `${data[i].seatNo || "-"}`,
+              text: `${data[i].seatNumber || "-"}`,
               alignment: "center",
             },
             {
@@ -443,130 +445,130 @@ function result(data: IResult[]) {
         ],
       };
 
-      const table5 = {
-        widths: [225, 225, 225, 148],
-        headerRows: 2,
-        body: [
-          [
-            {
-              text: [
-                {
-                  text: `SEM I : Credits Earned = ${
-                    data[i].semOneCredit || "-"
-                  }`,
-                  //   alignment: "center",
-                },
-                "\t\t\t",
-                {
-                  text: ` SGPI= ${data[i].semOneSgpi || "-"}`,
-                  //   alignment: "center",
-                },
-              ],
-              border: [true, false, true, false],
-              bold: true,
-            },
-            {
-              text: [
-                {
-                  text: `SEM III : Credits Earned = ${
-                    data[i].semThreeCredit || "-"
-                  }`,
-                  // alignment: "center",
-                },
-                "\t\t\t",
-                {
-                  text: `SGPI= ${data[i].semThreeSgpi || "-"}`,
-                  // alignment: "center",
-                },
-              ],
-              border: [true, false, true, false],
-              bold: true,
-            },
-            {
-              text: [
-                {
-                  text: ` SEM V : Credits Earned = ${
-                    data[i].semFiveCredit || "-"
-                  }`,
-                  // alignment: "center",
-                },
-                "\t\t\t",
-                {
-                  text: `SGPI= ${data[i].semFiveSgpi || "-"}`,
-                  // alignment: "center",
-                },
-              ],
-              border: [true, false, true, false],
-              bold: true,
-            },
-            {
-              text: `CGPA = ${data[i].cgpa || "-"}`,
-              // alignment: "center",
-              border: [true, false, true, false],
-              bold: true,
-            },
-          ],
-          [
-            {
-              text: [
-                {
-                  text: `SEM II : Credits Earned = ${
-                    data[i].semTwoCredit || "-"
-                  }`,
-                  // alignment: "center",
-                },
-                "\t\t\t",
-                {
-                  text: `SGPI= ${data[i].semTwoSgpi || "-"}`,
-                  // alignment: "center",
-                },
-              ],
-              border: [true, false, true, true],
-              bold: true,
-            },
-            {
-              text: [
-                {
-                  text: `SEM IV : Credits Earned = ${
-                    data[i].semTwoCredit || "-"
-                  }`,
-                  // alignment: "center",
-                },
-                "\t\t\t",
-                {
-                  text: `SGPI= ${data[i].semTwoSgpi || "-"}`,
-                  // alignment: "center",
-                },
-              ],
-              border: [true, false, true, true],
-              bold: true,
-            },
-            {
-              text: [
-                {
-                  text: `SEM VI : Credits Earned = ${
-                    data[i].semSixCredit || "-"
-                  }`,
-                  // alignment: "center",
-                },
-                "\t\t\t",
-                {
-                  text: `SGPI= ${data[i].semSixSgpi || "-"}`,
-                  // alignment: "center",
-                },
-              ],
-              border: [true, false, true, true],
-              bold: true,
-            },
-            {
-              text: `Final Grade = ${data[i].finalGrade || "-"}`,
-              // alignment: "center",
-              border: [true, false, true, true],
-              bold: true,
-            },
-          ],
-        ],
-      };
+      // const table5 = {
+      //   widths: [225, 225, 225, 148],
+      //   headerRows: 2,
+      //   body: [
+      //     [
+      //       {
+      //         text: [
+      //           {
+      //             text: `SEM I : Credits Earned = ${
+      //               data[i].semOneCredit || "-"
+      //             }`,
+      //             //   alignment: "center",
+      //           },
+      //           "\t\t\t",
+      //           {
+      //             text: ` SGPI= ${data[i].semOneSgpi || "-"}`,
+      //             //   alignment: "center",
+      //           },
+      //         ],
+      //         border: [true, false, true, false],
+      //         bold: true,
+      //       },
+      //       {
+      //         text: [
+      //           {
+      //             text: `SEM III : Credits Earned = ${
+      //               data[i].semThreeCredit || "-"
+      //             }`,
+      //             // alignment: "center",
+      //           },
+      //           "\t\t\t",
+      //           {
+      //             text: `SGPI= ${data[i].semThreeSgpi || "-"}`,
+      //             // alignment: "center",
+      //           },
+      //         ],
+      //         border: [true, false, true, false],
+      //         bold: true,
+      //       },
+      //       {
+      //         text: [
+      //           {
+      //             text: ` SEM V : Credits Earned = ${
+      //               data[i].semFiveCredit || "-"
+      //             }`,
+      //             // alignment: "center",
+      //           },
+      //           "\t\t\t",
+      //           {
+      //             text: `SGPI= ${data[i].semFiveSgpi || "-"}`,
+      //             // alignment: "center",
+      //           },
+      //         ],
+      //         border: [true, false, true, false],
+      //         bold: true,
+      //       },
+      //       {
+      //         text: `CGPA = ${data[i].cgpa || "-"}`,
+      //         // alignment: "center",
+      //         border: [true, false, true, false],
+      //         bold: true,
+      //       },
+      //     ],
+      //     [
+      //       {
+      //         text: [
+      //           {
+      //             text: `SEM II : Credits Earned = ${
+      //               data[i].semTwoCredit || "-"
+      //             }`,
+      //             // alignment: "center",
+      //           },
+      //           "\t\t\t",
+      //           {
+      //             text: `SGPI= ${data[i].semTwoSgpi || "-"}`,
+      //             // alignment: "center",
+      //           },
+      //         ],
+      //         border: [true, false, true, true],
+      //         bold: true,
+      //       },
+      //       {
+      //         text: [
+      //           {
+      //             text: `SEM IV : Credits Earned = ${
+      //               data[i].semTwoCredit || "-"
+      //             }`,
+      //             // alignment: "center",
+      //           },
+      //           "\t\t\t",
+      //           {
+      //             text: `SGPI= ${data[i].semTwoSgpi || "-"}`,
+      //             // alignment: "center",
+      //           },
+      //         ],
+      //         border: [true, false, true, true],
+      //         bold: true,
+      //       },
+      //       {
+      //         text: [
+      //           {
+      //             text: `SEM VI : Credits Earned = ${
+      //               data[i].semSixCredit || "-"
+      //             }`,
+      //             // alignment: "center",
+      //           },
+      //           "\t\t\t",
+      //           {
+      //             text: `SGPI= ${data[i].semSixSgpi || "-"}`,
+      //             // alignment: "center",
+      //           },
+      //         ],
+      //         border: [true, false, true, true],
+      //         bold: true,
+      //       },
+      //       {
+      //         text: `Final Grade = ${data[i].finalGrade || "-"}`,
+      //         // alignment: "center",
+      //         border: [true, false, true, true],
+      //         bold: true,
+      //       },
+      //     ],
+      //   ],
+      // };
 
       //   const table6 = {
       //     widths: [137, 137, 137, 137, 137, 180, 117],
@@ -598,6 +600,124 @@ function result(data: IResult[]) {
       //       ],
       //     ],
       //   };
+
+      // Assuming 'data' is an array of IResult objects
+
+      // Calculate the number of semesters dynamically
+
+      const numSemesters = data[i].credits.length;
+
+      // Initialize the table body
+      const tableBody = [];
+      // Create data rows for each student
+      for (const result of data) {
+        const dataRow = [];
+
+        for (let i = 0; i < 8; i += 2) {
+          const semester1Data = result.credits[i] || {};
+          const semester2Data = result.credits[i + 1] || {};
+          dataRow.push({
+            stack: [
+              {
+                text: [
+                  {
+                    text: `SEM${i + 1} : Credits Earned = ${
+                      semester1Data.creditEarned || "-"
+                    }`,
+                    // alignment: "center",
+                    bold: true,
+                  },
+                  "\t\t\t",
+                  {
+                    text: `SGPI = ${semester1Data.sgpi || "-"}`,
+                    // alignment: "center",
+                    bold: true,
+                  },
+                  "\n",
+                ],
+              },
+              {
+                text: [
+                  {
+                    text: `SEM${i + 2} : Credits Earned = ${
+                      semester2Data.creditEarned || "-"
+                    }`,
+                    // alignment: "center",
+                    bold: true,
+                  },
+                  "\t\t\t",
+                  {
+                    text: `SGPI = ${semester2Data.sgpi || "-"}`,
+                    // alignment: "center",
+                    bold: true,
+                  },
+                  "\n",
+                ],
+              },
+            ],
+          });
+        }
+
+        // Add the CGPA data for the student
+        dataRow.push({
+          text: [
+            {
+              text: `CGPA = ${result.cgpa || "-"}`,
+              // alignment: "center",
+              bold: true,
+              width: 200,
+            },
+            "\n",
+            {
+              text: `Final Grade = ${result.finalGrade || "-"}`,
+              // alignment: "center",
+              bold: true,
+              width: 200,
+            },
+          ],
+        });
+
+        // Calculate the number of blank objects needed to make dataRow.length a multiple of 4
+        const numBlanks = 4 - (dataRow.length % 4);
+
+        // Add the necessary blank objects to dataRow
+        for (let i = 0; i < numBlanks; i++) {
+          dataRow.push({ stack: [], border: [false, false, false, false] });
+        }
+
+        tableBody.push(dataRow);
+      }
+      //      let numColumnsPerRow = 4
+      // // Calculate the number of rows required to fit the data in 4 columns per page
+      // const numRowsPerPage = Math.ceil(tableBody[0].length / numColumnsPerRow);
+      // // Create the modifiedTableBody with the desired layout
+      // const modifiedTableBody = [];
+      // for (let rowIndex = 0; rowIndex < numRowsPerPage; rowIndex++) {
+      //   const newRow:any = [];
+      //   for (let columnIndex = 0; columnIndex < numColumnsPerRow; columnIndex++) {
+      //     const dataIndex = columnIndex * numRowsPerPage + rowIndex;
+      //     for(let index = 0; index < numColumnsPerRow ; index++){
+      //       newRow.push(tableBody[0][index]);
+      //     }
+      //   }
+      //   modifiedTableBody.push(newRow);
+
+      // }
+
+      // tableBody.push(tableBody[0].slice(0,3))
+
+      const columnWidth = 205.77;
+      // Calculate the total number of columns in the table
+      const table5 = {
+        widths: Array(numSemesters * 3).fill(columnWidth),
+        headerRows: 1,
+        body: [
+          tableBody[0].slice(0, 4),
+          tableBody[0].slice(4, tableBody[0].length),
+        ],
+      };
+
+      // Now 'dynamicTable' contains the fully dynamic table data that can handle any number of semesters in the 'data' array.
 
       const table = [
         {
@@ -661,7 +781,7 @@ function result(data: IResult[]) {
                       bold: true,
                     },
                   ],
-                  margin:[-50,0,0,0]
+                  margin: [-50, 0, 0, 0],
                 },
                 {
                   image: data[i].studentPhoto,

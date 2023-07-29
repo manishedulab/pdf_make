@@ -131,30 +131,19 @@ export interface IRepeaterFeeSlip {
     collegeLogo:string;
     studentPhoto:string;
     courseName:string;
-    semester:string; // (I,II,III,IV)
+    semName:string; // (I,II,III,IV)
     AcadamicYear:string; // 2020-2021
     prnNo:string;
-    seatNo:number;
+    seatNumber:number;
     studentName:string;
     monthAndYear:string; // June 2021 BACKLOG, March 2021 REGULAR
     sgpi:string;
     remarks:string; // successfull
     totalGrade:string; // A+, B, A
-    totalMarks:number; // 421/700
+    totalOfTotal:number; // 421/700
+    outOfTotal:number;
     totalCredit:number; // 20.00
     icg:string; // Total of cg
-    semOneCredit:number;
-    semTwoCredit:number;
-    semThreeCredit:number;
-    semFourCredit:number;
-    semFiveCredit:number;
-    semSixCredit:number;
-    semOneSgpi:number;
-    semTwoSgpi:number;
-    semThreeSgpi:number;
-    semFourSgpi:number;
-    semFiveSgpi:number;
-    semSixSgpi:number;
     cgpa:number;
     finalGrade:string;
     principalSign:string;
@@ -162,6 +151,10 @@ export interface IRepeaterFeeSlip {
     date:string;
     place:string;
     universityLogo:string;
+    credits:{
+      creditEarned:number;
+      sgpi:number;
+    }[];
     subjectDetails:{
       subjectCode:string;
       subjectName:string;
@@ -180,3 +173,5 @@ export interface IRepeaterFeeSlip {
       cg:string;
     }[];
   }
+
+
