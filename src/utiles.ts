@@ -99,3 +99,21 @@ export function numberToWordsINR(number:number) {
 // console.log(numberToWordsINR(123456789)); // Output: "twelve crore thirty four lakh fifty six thousand seven hundred eighty nine rupees"
 // console.log(numberToWordsINR(987654321)); // Output: "ninety eight crore seventy six lakh fifty four thousand three hundred twenty one rupees"
 // console.log(numberToWordsINR(100)); // Output: "one hundred rupees"
+
+export function intToRoman(num: number): string {
+  const romanNumerals: [number, string][] = [
+    [10, "X"],
+    [9, "IX"],
+    [5, "V"],
+    [4, "IV"],
+    [1, "I"],
+  ];
+  let result = "";
+  for (const [value, symbol] of romanNumerals) {
+    while (num >= value) {
+      result += symbol;
+      num -= value;
+    }
+  }
+  return result;
+}

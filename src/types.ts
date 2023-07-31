@@ -126,24 +126,72 @@ export interface IRepeaterFeeSlip {
   }
 
 
+  // export interface IResult {
+  //   collegeName:string;
+  //   collegeLogo:string;
+  //   studentPhoto:string;
+  //   courseName:string;
+  //   semName:string; // (I,II,III,IV)
+  //   AcadamicYear:string; // 2020-2021
+  //   prnNo:string;
+  //   seatNumber:number;
+  //   studentName:string;
+  //   monthAndYear:string; // June 2021 BACKLOG, March 2021 REGULAR
+  //   sgpi:string;
+  //   remarks:string; // successfull
+  //   totalGrade:string; // A+, B, A
+  //   totalOfTotal:number; // 421/700
+  //   outOfTotal:number;
+  //   totalCredit:number; // 20.00
+  //   icg:string; // Total of cg
+  //   cgpa:number;
+  //   finalGrade:string;
+  //   principalSign:string;
+  //   directorSign:string;
+  //   date:string;
+  //   place:string;
+  //   universityLogo:string;
+  //   credits:{
+  //     creditEarned:number;
+  //     sgpi:number;
+  //   }[];
+  //   subjectDetails:{
+  //     subjectCode:string;
+  //     subjectName:string;
+  //     internalMax:number;
+  //     internalMin:number;
+  //     internalObt:number;
+  //     externalMax:number;
+  //     externalMin:number;
+  //     externalObt:number;
+  //     totalMax:number;
+  //     totalMin:number;
+  //     totalObt:number;
+  //     grade:string;
+  //     gradePoint:string;
+  //     creditPoint:string;
+  //     cg:string;
+  //   }[];
+  // }
+
   export interface IResult {
     collegeName:string;
     collegeLogo:string;
     studentPhoto:string;
     courseName:string;
     semName:string; // (I,II,III,IV)
-    AcadamicYear:string; // 2020-2021
+    acadamicYear:string; // 2020-2021
     prnNo:string;
     seatNumber:number;
     studentName:string;
     monthAndYear:string; // June 2021 BACKLOG, March 2021 REGULAR
     sgpi:string;
-    remarks:string; // successfull
+    result:string; // successfull
     totalGrade:string; // A+, B, A
     totalOfTotal:number; // 421/700
-    outOfTotal:number;
+    outOfTotal:number
     totalCredit:number; // 20.00
-    icg:string; // Total of cg
+    cg:string; // Total of cg
     cgpa:number;
     finalGrade:string;
     principalSign:string;
@@ -151,27 +199,30 @@ export interface IRepeaterFeeSlip {
     date:string;
     place:string;
     universityLogo:string;
-    credits:{
-      creditEarned:number;
-      sgpi:number;
-    }[];
-    subjectDetails:{
-      subjectCode:string;
-      subjectName:string;
-      internalMax:number;
-      internalMin:number;
-      internalObt:number;
-      externalMax:number;
-      externalMin:number;
-      externalObt:number;
-      totalMax:number;
-      totalMin:number;
-      totalObt:number;
-      grade:string;
-      gradePoint:string;
-      creditPoint:string;
-      cg:string;
-    }[];
+    numberOfSem:number;
+    credits:Icredits[];
+    subjects: IsubjectDetails [];
   }
-
+  export interface IsubjectDetails {
+    subjectCode:string;
+    subjectName:string;
+    internalMax:number;
+    internalMin:number;
+    internalObt:number;
+    externalMax:number;
+    externalMin:number;
+    externalObt:number;
+    totalMax:number;
+    totalMin:number;
+    totalObt:number;
+    grade:string;
+    gradePoint:number;
+    creditPoint:number;
+    cg:number;
+  }
+  export interface Icredits {
+    semName: string;
+    creditEarned:number;
+    sgpi:number;
+  }
 
