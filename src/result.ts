@@ -69,7 +69,7 @@ type PageSize = {
 function result(data: IResult[]) {
   const contentDefinition: any = {
     pageSize: {
-      width: 900,
+      width: 920,
       height: 600,
     },
     background: function (currentPage: number, pageSize: PageSize) {
@@ -146,7 +146,7 @@ function result(data: IResult[]) {
       const table3 = {
         headerRows: 1,
         widths: [
-          50, 180, 35, 35, 42, 35, 35, 42, 35, 35, 41, 35, 30, 30, 25, 30,
+          70, 180, 35, 35, 42, 35, 35, 42, 35, 35, 41, 35, 30, 30, 25, 30,
         ],
         body: [
           ...data[i].subjects.map((value: IsubjectDetails, index: number) => [
@@ -255,7 +255,7 @@ function result(data: IResult[]) {
       const table4 = {
         headerRows: 1,
         widths: [
-          130, 100, 35, 35, 42, 35, 35, 42, 35, 35, 41, 35, 30, 30, 25, 30,
+          130, 120, 35, 35, 42, 35, 35, 42, 35, 35, 41, 35, 30, 30, 25, 30,
         ],
         body: [
           [
@@ -372,7 +372,7 @@ function result(data: IResult[]) {
       };
 
       const table2 = {
-        widths: [180, 180, 283, 180],
+        widths: [190, 190, 283, 180],
         headerRows: 1,
         body: [
           [
@@ -457,6 +457,7 @@ function result(data: IResult[]) {
       // Create data rows for each student
       for (const result of dataArray) {
         const dataRow: any = [];
+        let rowIndex = 0;
         const isNumSemestersEven = numSemesters % 2 === 0;
         const isNumSemestersGreaterThan6 = numSemesters > 6;
         for (let i = 0; i < numSemesters; i += 2) {
@@ -474,28 +475,9 @@ function result(data: IResult[]) {
                     // alignment: "center",
                     bold: true,
                   },
-                  "\t\t\t",
+                  "\t\t",
                   {
-                    text: `SGPI = ${semester1Data.sgpi || "-"}`,
-                    // alignment: "center",
-                    bold: true,
-                  },
-                  "\n",
-                ],
-                
-              },
-              {
-                text: [
-                  {
-                    text: `${
-                      semester2Data.semName || "Sem" + intToRoman(i + 2)
-                    }: Credits Earned = ${semester2Data.creditEarned || "-"}`,
-                    // alignment: "center",
-                    bold: true,
-                  },
-                  "\t\t\t",
-                  {
-                    text: `SGPI = ${semester2Data.sgpi || "-"}`,
+                    text: `  SGPI = ${semester1Data.sgpi || "-"}`,
                     // alignment: "center",
                     bold: true,
                   },
@@ -503,8 +485,29 @@ function result(data: IResult[]) {
                 ],
               },
             ],
-            border:[true,false,true,true]
+            border: [true, false, true, true],
           });
+          if (isNumSemestersEven || i < numSemesters - 2) {
+            dataRow[rowIndex].stack.push({
+              text: [
+                {
+                  text: `${
+                    semester2Data.semName || "Sem" + intToRoman(i + 2)
+                  }: Credits Earned = ${semester2Data.creditEarned || "-"}`,
+                  // alignment: "center",
+                  bold: true,
+                },
+                "\t\t",
+                {
+                  text: `  SGPI = ${semester2Data.sgpi || "-"}`,
+                  // alignment: "center",
+                  bold: true,
+                },
+                "\n",
+              ],
+            });
+          }
+          rowIndex++;
         }
 
         if (isNumSemestersGreaterThan6) {
@@ -529,9 +532,9 @@ function result(data: IResult[]) {
                 ],
               },
             ],
-            border:[true,false,true,true]
+            border: [true, false, true, true],
           });
-        } else if (isNumSemestersEven && !isNumSemestersGreaterThan6) {
+        } else if (!isNumSemestersGreaterThan6) {
           // Add the CGPA data for the student at the end for numSemesters being 2 or 4
           dataRow.push({
             stack: [
@@ -553,21 +556,24 @@ function result(data: IResult[]) {
                 ],
               },
             ],
-            border:[true,false,true,true]
+            border: [true, false, true, true],
           });
         }
-        console.log("length", dataRow.length);
         let numBlanks = 4 - (dataRow.length % 4);
-        
+
         // Special case for numSemesters being 4 or 2
-        if (numSemesters === 4 && dataRow.length === 3) {
+        if (
+          (numSemesters === 4 || numSemesters === 3) &&
+          dataRow.length === 3
+        ) {
           numBlanks = 5;
-        } else if (numSemesters === 2 && dataRow.length === 2) {
+        } else if (
+          (numSemesters === 2 || numSemesters === 1) &&
+          dataRow.length === 2
+        ) {
           numBlanks = 6;
         }
-        
 
-        console.log("numBlanks", numBlanks);
         // Add the necessary blank objects to dataRow
         for (let i = 0; i < numBlanks; i++) {
           dataRow.push({ stack: [], border: [false, false, false, false] });
@@ -576,16 +582,28 @@ function result(data: IResult[]) {
         tableBody.push(dataRow);
       }
 
-      const columnWidth = 205.77;
-      // Calculate the total number of columns in the table
-      const table5 = {
-        widths: Array(numSemesters * 3).fill(columnWidth),
-        headerRows: 1,
-        body: [
-          tableBody[0].slice(0, 4),
-          tableBody[0].slice(4, tableBody[0].length),
-        ],
-      };
+      const columnWidth = 210.77;
+      const numColumns = numSemesters * 3; // Calculate the total number of columns
+      const widths = Array(numColumns).fill(columnWidth);
+      let table5;
+      if (numSemesters === 1) {
+         table5 = {
+          widths: widths,
+          headerRows: 1,
+          body: [
+            tableBody[0].slice(0, numColumns), // Use numColumns to slice the correct number of columns
+          ],
+        };
+      } else {
+         table5 = {
+          widths: widths,
+          headerRows: 1,
+          body: [
+            tableBody[0].slice(0, 4),
+            tableBody[0].slice(4, tableBody[0].length),
+          ],
+        };
+      }
 
       const table = [
         {
@@ -683,7 +701,7 @@ function result(data: IResult[]) {
         {
           table: {
             widths: [
-              50, 180, 35, 35, 42, 35, 35, 42, 35, 35, 41, 35, 30, 30, 25, 30,
+              70, 180, 35, 35, 42, 35, 35, 42, 35, 35, 41, 35, 30, 30, 25, 30,
             ],
             headerRows: 2,
             body: [
