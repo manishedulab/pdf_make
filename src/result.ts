@@ -70,7 +70,7 @@ function result(data: IResult[]) {
   const contentDefinition: any = {
     pageSize: {
       width: 920,
-      height: 600,
+      height: 630,
     },
     background: function (currentPage: number, pageSize: PageSize) {
       return [
@@ -152,92 +152,92 @@ function result(data: IResult[]) {
           ...data[i].subjects.map((value: IsubjectDetails, index: number) => [
             {
               text: value.subjectCode || "-",
-              margin: [0, 7, 0, 0],
+              margin: [0, 1, 0, 1],
               border: [true, false, true, true],
               alignment: "center",
             },
             {
               text: value.subjectName || "-",
-              margin: [0, 7, 0, 0],
+              margin: [0, 1, 0, 1],
               border: [true, false, true, true],
               //   alignment: "center",
             },
             {
               text: value.internalMax || "-",
-              margin: [0, 7, 0, 0],
+              margin: [0, 1, 0, 1],
               border: [true, false, true, true],
               alignment: "center",
             },
             {
               text: value.internalMin || "-",
-              margin: [0, 7, 0, 0],
+              margin: [0, 1, 0, 1],
               border: [true, false, true, true],
               alignment: "center",
             },
             {
               text: value.internalObt || "-",
-              margin: [0, 7, 0, 0],
+              margin: [0, 1, 0, 1],
               border: [true, false, true, true],
               alignment: "center",
             },
             {
               text: value.externalMax || "-",
-              margin: [0, 7, 0, 0],
+              margin: [0, 1, 0, 1],
               border: [true, false, true, true],
               alignment: "center",
             },
             {
               text: value.externalMin || "-",
-              margin: [0, 7, 0, 0],
+              margin: [0, 1, 0, 1],
               border: [true, false, true, true],
               alignment: "center",
             },
             {
               text: value.externalObt || "-",
-              margin: [0, 7, 0, 0],
+              margin: [0, 1, 0, 1],
               border: [true, false, true, true],
               alignment: "center",
             },
             {
               text: value.totalMax || "-",
-              margin: [0, 7, 0, 0],
+              margin: [0, 1, 0, 1],
               border: [true, false, true, true],
               alignment: "center",
             },
             {
               text: value.totalMin || "-",
-              margin: [0, 7, 0, 0],
+              margin: [0, 1, 0, 1],
               border: [true, false, true, true],
               alignment: "center",
             },
             {
               text: value.totalObt || "-",
-              margin: [0, 7, 0, 0],
+              margin: [0, 1, 0, 1],
               border: [true, false, true, true],
               alignment: "center",
             },
             {
               text: value.grade || "-",
               alignment: "center",
-              margin: [0, 7, 0, 0],
+              margin: [0, 1, 0, 1],
               border: [true, false, true, true],
             },
             {
               text: value.gradePoint || "-",
               alignment: "center",
-              margin: [0, 7, 0, 0],
+              margin: [0, 1, 0, 1],
               border: [true, false, true, true],
             },
             {
               text: value.creditPoint || "-",
               alignment: "center",
-              margin: [0, 7, 0, 0],
+              margin: [0, 1, 0, 1],
               border: [true, false, true, true],
             },
             {
               text: value.cg || "-",
               alignment: "center",
-              margin: [0, 7, 0, 0],
+              margin: [0, 1, 0, 1],
               border: [true, false, true, true],
             },
             {
@@ -381,8 +381,8 @@ function result(data: IResult[]) {
               colSpan: 2,
               border: [true, true, false, true],
               // alignment:'center',
-              margin: [0, 2, 0, 0],
-              lineHeight: 2,
+              margin: [0, 5, 0, 0],
+              lineHeight: 1.5,
               bold: true,
             },
             {
@@ -391,14 +391,14 @@ function result(data: IResult[]) {
             {
               text: `SEMESTER : ${data[i].semName || "-"}`,
               alignment: "center",
-              margin: [0, 2, 0, 0],
+              margin: [0, 5, 0, 0],
               border: [false, true, true, true],
               bold: true,
             },
             {
               text: `ACADEMIC YEAR : ${data[i].acadamicYear || "-"}`,
               alignment: "center",
-              margin: [0, 2, 0, 0],
+              margin: [0, 5, 0, 0],
               bold: true,
             },
           ],
@@ -428,18 +428,23 @@ function result(data: IResult[]) {
             {
               text: `${data[i].prnNo || "-"}`,
               alignment: "center",
+              margin: [0, 5, 0, 0],
+              lineHeight:1.2,
             },
             {
               text: `${data[i].seatNumber || "-"}`,
               alignment: "center",
+              margin: [0, 5, 0, 0],
             },
             {
               text: `${data[i].studentName || "-"}`,
               alignment: "center",
+              margin: [0, 5, 0, 0],
             },
             {
               text: `${data[i].monthAndYear || "-"}`,
               alignment: "center",
+              margin: [0, 5, 0, 0],
             },
           ],
         ],
@@ -470,7 +475,7 @@ function result(data: IResult[]) {
                 text: [
                   {
                     text: `${
-                      semester1Data.semName || "Sem" + intToRoman(i + 1)
+                      semester1Data.semName || "Sem-" + intToRoman(i + 1)
                     } : Credits Earned = ${semester1Data.creditEarned || "-"}`,
                     // alignment: "center",
                     bold: true,
@@ -492,7 +497,7 @@ function result(data: IResult[]) {
               text: [
                 {
                   text: `${
-                    semester2Data.semName || "Sem" + intToRoman(i + 2)
+                    semester2Data.semName || "Sem-" + intToRoman(i + 2)
                   }: Credits Earned = ${semester2Data.creditEarned || "-"}`,
                   // alignment: "center",
                   bold: true,
@@ -648,10 +653,11 @@ function result(data: IResult[]) {
                     {
                       text: "47, Dr. R. G. Thadani Marg, Worli, Mumbai – 400 018.",
                       alignment: "center",
-                      fontSize: 10,
+                      fontSize: 8,
                       bold: true,
+                      lineHeight:2,
                     },
-                    "\n\n",
+                    "\n",
                     {
                       text: data[i].collegeName || "-",
                       //   fontSize: 14,
@@ -662,7 +668,7 @@ function result(data: IResult[]) {
                     "\n",
                     {
                       text: "A CONSTITUENT COLLEGE OF HSNC UNIVERSITY, MUMBAI",
-                      fontSize: 9,
+                      fontSize: 8,
                       alignment: "center",
                       bold: true,
                     },
@@ -671,7 +677,7 @@ function result(data: IResult[]) {
                 },
                 {
                   image: data[i].studentPhoto,
-                  margin: [0, 0, 20, 0],
+                  margin: [0, 0, 20, 3],
                   width: 70,
                 },
               ],
@@ -679,7 +685,6 @@ function result(data: IResult[]) {
           },
           layout: "noBorders",
         },
-        "\n",
         {
           table: table2,
           fontSize: 10,
