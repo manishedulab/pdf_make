@@ -10,7 +10,7 @@ function barCode(data:IBarCode[]) {
   const contentDefinition: any = {
     pageSize: {
       width: 400,
-      height: 100,
+      height: 200,
     },
     pageMargins: [10, 10, 10, 10],
     content: [],

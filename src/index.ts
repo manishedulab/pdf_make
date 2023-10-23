@@ -16,6 +16,8 @@ import ms from "./MOCK_DATA (5).json";
 import marksheet from "./markStatement";
 import hsncMarksheet from "./hsncMarksheet";
 import result from "./result";
+import admissionForm from "./admission";
+import { IAddmission } from "./types";
 
 // const contentDefinition = require('./pdf');
 // const Hallticket = require('./hallTicket');
@@ -88,6 +90,36 @@ const mockData = [
     year: "DEC-2023",
     semester: "2",
     appearingSubject: [
+      {
+        subjectCode: "ABC101",
+        subjectType: "",
+        subjectName: "Introduction to Programming",
+      },
+      {
+        subjectCode: "DEF201",
+        subjectType: "Practical",
+        subjectName: "Database Management",
+      },
+      {
+        subjectCode: "GHI301",
+        subjectType: "Theory",
+        subjectName: "Data Structures and Algorithms",
+      },
+      {
+        subjectCode: "ABC101",
+        subjectType: "",
+        subjectName: "Introduction to Programming",
+      },
+      {
+        subjectCode: "DEF201",
+        subjectType: "Practical",
+        subjectName: "Database Management",
+      },
+      {
+        subjectCode: "GHI301",
+        subjectType: "Theory",
+        subjectName: "Data Structures and Algorithms",
+      },
       {
         subjectCode: "ABC101",
         subjectType: "",
@@ -934,28 +966,95 @@ app.get("/generate", (req: Request, res: Response) => {
   pdfDocGenerator.end();
 });
 
-const IdmockData = [
+const IdmockData=[
   {
-    collegeName: "Kishinchand Chellaram College",
-    collegeLogo: "logo1.png",
-    studentName: "John Doe",
-    standard: "12th Grade",
-    prnNo: "PRN123",
-    rollNo: "A001",
-    gender: "Male",
-    issuingAuthority: "Principal",
-    dob: "1998-05-15",
-    contactNo: "7718001600",
-    bloodGroup: "O+",
-    address:
-      "123, Main Street, City ccnjdvnir vdcndvrvwd cas c wdv dc xc adc dc ",
-    email: "john.doe@example.com",
-  },
-];
+    studentId: 17059,
+    abcNo: '',
+    prnNo: '23032031073',
+    courseId: 5,
+    collegeCode: 11,
+    registrationNo: 801279,
+    gender: 'Female',
+    courseName: 'M. A. Entertainment, Media and Advertising',
+    collegeName: 'School of Interdisciplinary Studies',
+    collegeLogo: '',
+    studentName: 'Mohammed Osaid Mohammed Salim Sopariwala',
+    fullName: 'DESAI KHUSHI JITESH SONALI',
+    bloodGroup: '',
+    address: '8/F/76, 4TH FLOOR, SONAWALA BUILDING, SLEATER ROAD, TARDEO, , MUMBAI, 400007',
+    parentPhone: '9821023263',
+    dob: 'Invalid date',
+    studentEmail: 'desaikhushi135@gmail.com',
+    studentPhoto: 'D:\\guExam\\guExamServer1\\guExamServer\\uploads\\compressed_studentPhotoAndSignature\\801279_p.jpeg',
+    studentSign: null,
+    collegeId: 11,
+    currentSem: 'Sem-1',
+    principalSignature: 'D:\\guExam\\guExamServer1\\guExamServer\\uploads\\PrincipalSignature\\1697609420913-173439590.png',
+    primaryColor: '#292C57',
+    filename: '',
+    abbrevation: 'M.A.E.M.A\r\n',
+    issuingAuthority: 'D:\\guExam\\guExamServer1\\guExamServer\\uploads\\PrincipalSignature\\1697609420913-173439590.png',
+    Program: 'M.A.E.M.A\r\n',
+    yearPrefix: 'FY',
+    contactNo: '9821023263',
+    email: 'desaikhushi135@gmail.com',
+    barcode: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHAAAAAYCAYAAAAiR3l8AAAAHnRFWHRTb2Z0d2FyZQBid2lwLWpzLm1ldGFmbG9vci5jb21Tnbi0AAAA4ElEQVR4nO2RQYpCUQwEc/9L60bENF1xZinUQmxCp14+NTPzeP3m438+5tesZWIlY47Zf98k1l/ezfwYfpPepR7N2s6378lves8UuLMCgZWMduTVVyDsKXBnBQIrGe3Iq69A2FPgzgoEVjLakVdfgbCnwJ0VCKxktCOvvgJhT4E7KxBYyWhHXn0Fwp4Cd1YgsJLRjrz6CoQ9Be6sQGAlox159RUIewrcWYHASkY78uorEPYUuLMCgZWMduTVVyDsKXBnBQIrGe3Iq69A2FPgzgoEVjLakVdfgbCnwJ1/SuATzbzKfN7vJjIAAAAASUVORK5CYII='
+  }
+]
 
 //* Define the endpoint that generates and returns the PDF document
 app.get("/idcard", (req: Request, res: Response) => {
   const pdfDocGenerator = pdfmake.createPdfKitDocument(IdCard(IdmockData));
+  res.setHeader("Content-Type", "application/pdf");
+  res.setHeader("Content-Disposition", "inline");
+  pdfDocGenerator.pipe(res);
+  pdfDocGenerator.end();
+});
+
+const mockAddmission: IAddmission[] = [{
+  collegeName: "ABC College",
+  universityLogo:"img/Hsnc-university-logo.png",
+  studentName: "John Doe",
+  studentPhoto: "img/cds.jpg",
+  courseName: "Computer Science",
+  semName: "Fall 2023",
+  prnNo: 1234567890,
+  rollNumber: 101,
+  gender: "Male",
+  dob: "1998-05-15",
+  contactNo: "123-456-7890",
+  address: "123 Main St, Cityville",
+  email: "john.doe@example.com",
+  aadharNumber: 987654321012,
+  firstName: "John",
+  middleName: "Jacob",
+  lastName: "Doe",
+  motherName: "Jane Doe",
+  bloodGroup: "A+",
+  city: "Cityville",
+  state: "Stateville",
+  pincode: "12345",
+  studentSignature: "img/xyz.png",
+  subjects: [
+    {
+      subjectCode: "CS101",
+      subjectName: "Introduction to Computer Science",
+    },
+    {
+      subjectCode: "MAT101",
+      subjectName: "Mathematics for Computer Science",
+    },
+    {
+      subjectCode: "PHY101",
+      subjectName: "Physics Fundamentals",
+    },
+  ],
+}];
+
+
+//* Define the endpoint that generates and returns the PDF document
+app.get("/admission", (req: Request, res: Response) => {
+  const pdfDocGenerator = pdfmake.createPdfKitDocument(admissionForm(mockAddmission));
   res.setHeader("Content-Type", "application/pdf");
   res.setHeader("Content-Disposition", "inline");
   pdfDocGenerator.pipe(res);

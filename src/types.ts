@@ -76,12 +76,15 @@ export interface IRepeaterFeeSlip {
   }
 
   export interface IIdCard {
+    barcode: string;
     collegeName:string;
     collegeLogo:string;
+    studentPhoto:string ;
     studentName:string;
-    standard:string;
+    Program:string;
+    yearPrefix:string;
     prnNo:string;
-    rollNo:string;
+    abcNo:string;
     gender:string;
     issuingAuthority:string;
     dob:string;
@@ -89,7 +92,12 @@ export interface IRepeaterFeeSlip {
     bloodGroup:string;
     address:string;
     email:string;
+    primaryColor:string;
   }
+
+  export const COLORCODE = {
+    defaultColor: '#BD9C47',
+  };  
 
 
   export interface IMarksheet {
@@ -226,3 +234,34 @@ export interface IRepeaterFeeSlip {
     sgpi:number;
   }
 
+  export interface IAddmission {
+    universityLogo:string;
+    collegeName:string;
+    studentName:string;
+    studentPhoto:string;
+    courseName:string;
+    semName:string; 
+    prnNo:number;
+    rollNumber:number;
+    gender:string;
+    dob:string;
+    contactNo:string;
+    address:string;
+    email:string;
+    aadharNumber:number;
+    firstName:string;
+    middleName:string;
+    lastName:string;
+    motherName:string;
+    bloodGroup:string;
+    city:string;
+    state:string;
+    pincode:string;
+    studentSignature:string;
+    subjects:IAddmissionSubjects[]
+  };
+
+  export interface IAddmissionSubjects {
+    subjectCode: string;
+    subjectName: string;
+  }
