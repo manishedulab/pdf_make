@@ -164,6 +164,7 @@ function IdCard(data: IIdCard[]) {
           margin: [0, 0, 0, 0],
           alignment: "center",
           width: 30,
+          absolutePosition: { x: 7, y: 155 },
           height: 15,
         },
         {
@@ -171,6 +172,7 @@ function IdCard(data: IIdCard[]) {
           alignment: "center",
           bold: true,
           fontSize: 6,
+          absolutePosition: { x: 7, y: 172 },
         },
         {
           image: `${item.barcode}`,
@@ -178,15 +180,16 @@ function IdCard(data: IIdCard[]) {
           margin: [0, 2, 0, 2],
           height: 17,
           width: 80,
+          absolutePosition: { x: 7, y: 180 },
         },
         {
-          margin: [10, 0, 10, 0],
+          // margin: [10, 0, 10, 0],
           canvas: [
             {
               type: "rect",
               x: 0,
               y: 2,
-              w: 100,
+              w: 105,
               h: 5,
               // r: 5,
               // dash: { length: 5 },
@@ -195,6 +198,7 @@ function IdCard(data: IIdCard[]) {
               color: "#1E6332",
             },
           ],
+          absolutePosition: { x: 13, y: 198 },
           pageBreak: "after",
         },
         {

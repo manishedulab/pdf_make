@@ -3,43 +3,54 @@
 
 
 function HallTicket(data:any){
-
-  // const img = collegeLogo(data[0].collegeName)
-
-  console.log('first',data[0].collegeName)
+  const generateFooter =  function (data: any[]) {
+    let footer;
+    for (let i = 0; i < data.length; i++) {
+      footer =[
+      {
+        height: 30,
+        columns: [
+          {
+            // alignment: 'right',
+            text: "Signature of the Student",
+          },
+          {
+            stack:[{
+              text: "Principal"
+            },
+            {
+              text: data[i].collegeName
+            } 
+            ],
+            alignment: "center",
+            margin: [0, 0, 70, 0],
+          },
+          {
+            text: "Director, Board Of Examinations",
+            alignment: "center",
+          },
+        ],
+        margin: [40, -200, -30, 25],
+      },
+      {
+        canvas: [
+          { type: "line", x1: 0, y1: 0, x2: 805, y2: 0, lineWidth: 1 },
+        ],
+        margin: [20, -20, 20, 20],
+      },
+      {
+        image: `${process.cwd()}/public/collegeLogo/stamp.png`,
+        width:70,
+      }
+    ];
+    return footer
+  }
+  }
   
   const hsncHallTicket:any = {
     pageSize: "A3",
     pageMargins: [19, 10, 20, 10],
-    footer: function(currentPage: number, pageCount: number) {
-      return[
-          
-          {
-              columns:[
-                  { 
-                      // alignment: 'right',
-                      text: 'Signature of the Student'
-                  },
-                  {
-                      text:'Principal',
-                      alignment: 'center',
-                      margin:[0,0,70,0]
-                  },
-                  {
-                      text:'Board Of Examinations',
-                      alignment: 'center',
-                  }
-              ],
-              margin:[40,-50,-50,25]  
-          },
-          {canvas: [
-              { type: 'line', x1: 0, y1:0 , x2:805, y2: 0, lineWidth: 1 },
-            ],
-            margin:[20,-20,20,20]  
-          },"\n",
-      ]
-      
-      },
+    footer: generateFooter(data),
     content: [],
   };
   

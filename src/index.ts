@@ -18,7 +18,8 @@ import hsncMarksheet from "./hsncMarksheet";
 import result from "./result";
 import admissionForm from "./admission";
 import { IAddmission } from "./types";
-
+import HallTicket from './HSNC_hallticket'
+import mockDataResult from "./marksheetdata";
 // const contentDefinition = require('./pdf');
 // const Hallticket = require('./hallTicket');
 // const Certificate = require('./certificate');
@@ -531,7 +532,7 @@ const mockResult = [
 
 //* Define the endpoint that generates and returns the PDF document
 app.get("/result", (req: Request, res: Response) => {
-  const pdfDocGenerator = pdfmake.createPdfKitDocument(result(mockResult));
+  const pdfDocGenerator = pdfmake.createPdfKitDocument(result([mockDataResult]));
   res.setHeader("Content-Type", "application/pdf");
   res.setHeader("Content-Disposition", "inline");
   pdfDocGenerator.pipe(res);
@@ -746,13 +747,13 @@ const data3 = [
 //   }
 // ]
 // console.log("first",data)
-// app.get('/hsnc', (req:Request, res:Response) => {
-//   const pdfDocGenerator = pdfmake.createPdfKitDocument(HallTicket(data3));
-//   res.setHeader('Content-Type', 'application/pdf');
-//   res.setHeader('Content-Disposition', 'inline');
-//   pdfDocGenerator.pipe(res);
-//   pdfDocGenerator.end();
-// });
+app.get('/hsnc', (req:Request, res:Response) => {
+  const pdfDocGenerator = pdfmake.createPdfKitDocument(HallTicket(data3));
+  res.setHeader('Content-Type', 'application/pdf');
+  res.setHeader('Content-Disposition', 'inline');
+  pdfDocGenerator.pipe(res);
+  pdfDocGenerator.end();
+});
 
 const data2: any = [
   {
