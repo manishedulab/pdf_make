@@ -12,14 +12,21 @@ import barCode from "./barCode";
 import feeRes from "./feeRes";
 import IdCard from "./idCard";
 import markSheet from "./markStatement";
+import puppeteer from 'puppeteer';
 import ms from "./MOCK_DATA (5).json";
+import ms1 from "./MOCK_DATA (1).json";
 import marksheet from "./markStatement";
 import hsncMarksheet from "./hsncMarksheet";
 import result from "./result";
 import admissionForm from "./admission";
-import { IAddmission } from "./types";
+import { IAddmission, IReassessmentFeeSlip, ISolMarksheet } from "./types";
 import HallTicket from './HSNC_hallticket'
 import mockDataResult from "./marksheetdata";
+import reassessmentReceipt from "./reassessment-recipt";
+import generatePDF from "./questionPaper";
+import htmlContent from "./question-paper-using-puppeteer";
+import solMarksheet from "./solMarksheet";
+import { getBarcodeByPrnNo } from "./utiles";
 // const contentDefinition = require('./pdf');
 // const Hallticket = require('./hallTicket');
 // const Certificate = require('./certificate');
@@ -897,6 +904,37 @@ app.get("/hsnc-time", (req: Request, res: Response) => {
   pdfDocGenerator.end();
 });
 
+const reassessmentFeeSlip: IReassessmentFeeSlip = {
+  receiptNo: 123456,
+  courseName: 'Computer Science',
+  studentName: 'John Doe',
+  semester: 'Sem-1',
+  feeDetails: [
+    {
+      subjectName: 'Programming Fundamentals',
+      amount: 50,
+    },
+    {
+      subjectName: 'Database Management',
+      amount: 75,
+    },
+    {
+      subjectName: 'Web Development',
+      amount: 60,
+    },
+  ],
+};
+
+//* Define the endpoint that generates and returns the PDF document
+app.get("/reassessment", (req: Request, res: Response) => {
+  const pdfDocGenerator = pdfmake.createPdfKitDocument(reassessmentReceipt([reassessmentFeeSlip]));
+  res.setHeader("Content-Type", "application/pdf");
+  res.setHeader("Content-Disposition", "inline");
+  pdfDocGenerator.pipe(res);
+  pdfDocGenerator.end();
+});
+
+
 const mockBarCodeData = [
   {
     enrollmentNo: 1234567891012,
@@ -1061,6 +1099,216 @@ app.get("/admission", (req: Request, res: Response) => {
   pdfDocGenerator.pipe(res);
   pdfDocGenerator.end();
 });
+
+const questions = [
+  {
+      "id": 57,
+      "setName": "D",
+      "assessmentId": 175,
+      "quePaperUploadId": null,
+      "ansPaperUploadId": null,
+      "createdAt": "2024-03-13T01:55:54.105Z",
+      "updatedAt": "2024-03-30T07:16:28.000Z",
+      "assessmentCode": "1000R",
+      "questions": [
+          {
+              "marks": 10,
+              "questions": [
+                  {
+                      "marks": 5,
+                      "questions": [
+                          {
+                              "marks": 1,
+                              "questions": [],
+                              "questionId": "01d372b4-8310-4bad-bc6e-19d24bc81613",
+                              "questionText": "<h3>What are the various data types that exist in JavaScript?</h3>",
+                              "questionIndex": "1.A.i",
+                              "subQuestionsAllowed": false,
+                              "maxSubQuestionsAttempt": 0
+                          }
+                      ],
+                      "questionId": "db428ae2-ee16-4835-a888-acf0f973360b",
+                      "questionText": "<h3>What's the difference between JavaScript and Java?</h3>",
+                      "questionIndex": "1.A",
+                      "subQuestionsAllowed": true,
+                      "maxSubQuestionsAttempt": "5"
+                  }
+              ],
+              "questionId": "ce22b09d-299b-44ec-9d3f-9dccf6cc1c0a",
+              "questionText": "<h3>What do you understand about JavaScript?</h3>",
+              "questionIndex": "1",
+              "subQuestionsAllowed": true,
+              "maxSubQuestionsAttempt": 2
+          },
+          {
+              "marks": 4,
+              "questions": [
+                  {
+                      "marks": 2,
+                      "questions": [
+                          {
+                              "marks": 2,
+                              "questions": [],
+                              "questionId": "019d7df5-a9d1-4722-b689-edb6d2c64c2d",
+                              "questionText": "<h3>What are the various data types that exist in JavaScript?</h3><p><br></p>",
+                              "questionIndex": "2.A.i",
+                              "subQuestionsAllowed": false,
+                              "maxSubQuestionsAttempt": 0
+                          }
+                      ],
+                      "questionId": "de3e1819-792b-4eb9-abbc-084bd75da1cf",
+                      "questionText": "<h3>What are the various data types that exist in JavaScript?</h3>",
+                      "questionIndex": "2.A",
+                      "subQuestionsAllowed": true,
+                      "maxSubQuestionsAttempt": 1
+                  },
+                  {
+                      "marks": 2,
+                      "questions": [
+                          {
+                              "marks": 2,
+                              "questions": [],
+                              "questionId": "0be2dd56-638b-468b-85be-ad1555c00394",
+                              "questionText": "<h3>What's the difference between JavaScript and Java?</h3>",
+                              "questionIndex": "2.B.i",
+                              "subQuestionsAllowed": false,
+                              "maxSubQuestionsAttempt": 0
+                          }
+                      ],
+                      "questionId": "3fe73336-ff57-4e52-8038-c6e8cbe4b457",
+                      "questionText": "<h3>What do you understand about JavaScript?</h3>",
+                      "questionIndex": "2.B",
+                      "subQuestionsAllowed": true,
+                      "maxSubQuestionsAttempt": 1
+                  }
+              ],
+              "questionId": "fa972711-747c-4989-abde-c45729d07beb",
+              "questionText": "<h3>What's the difference between JavaScript and Java?</h3><p><br></p>",
+              "questionIndex": "2",
+              "subQuestionsAllowed": true,
+              "maxSubQuestionsAttempt": 2
+          }
+      ],
+      "subjectName": "Writing for Visual Media – I",
+      "courseName": "B.A (FILMS TELEVISION AND NEW MEDIA PRODUCTION)",
+      "year": 2023,
+      "semName": "Sem-1",
+      "totalMark": 40
+  }
+]
+//* Define the endpoint that generates and returns the PDF document
+app.get("/questions-1", (req: Request, res: Response) => {
+  const pdfDocGenerator = pdfmake.createPdfKitDocument(generatePDF(questions));
+  res.setHeader("Content-Type", "application/pdf");
+  res.setHeader("Content-Disposition", "inline");
+  pdfDocGenerator.pipe(res);
+  pdfDocGenerator.end();
+});
+
+app.get('/questions', async (req, res) => {
+  
+  const browser = await puppeteer.launch({
+    headless: true, // Set to true to run in headless mode
+  });
+
+  const page = await browser.newPage();
+
+  await page.setContent(htmlContent);
+
+  // Generate PDF
+  const pdfBuffer = await page.pdf({
+    format: 'A4', // Paper format
+    printBackground: true // Include background graphics
+  });
+
+  await browser.close();
+
+  // Send PDF as response
+  res.set({
+    'Content-Type': 'application/pdf',
+    'Content-Disposition': 'attachment; filename="output.pdf"' // Force download
+  });
+  res.send(pdfBuffer);
+});
+
+const mockDataSolMarksheet = [{
+  barcode: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJEAAAAYCAYAAAD6Zx8zAAAAHnRFWHRTb2Z0d2FyZQBid2lwLWpzLm1ldGFmbG9vci5jb21Tnbi0AAAA4klEQVR4nO3SQQ7CQBADwfn/p+GCUGTtZNv3PiCUxQQ71MzM5/eax/s8zk9nA/Lb9e2zLUs6bJ2avpnN+2+/ufU4bb49h7f/43RNn9HWgWw5fed/JqL3rIhEJCLQgWwRUdE3syISkYhAB7JFREXfzIpIRCICHcgWERV9MysiEYkIdCBbRFT0zayIRCQi0IFsEVHRN7MiEpGIQAeyRURF38yKSEQiAh3IFhEVfTMrIhGJCHQgW0RU9M2siEQkItCBbBFR0TezIhKRiEAHskVERd/MikhEIgIdyBYRFX0zK6ILoi/cSkkaIkg+AAAAAABJRU5ErkJggg==",
+  studentName: "BHURALE ONKAR VIDYACHANDRA (VIJAYA)",
+  studentPhoto: '',
+  DBOEESignature: '',
+  specialization: "Science & Technology",
+  prnNo: "202301102076388 ",
+  collegeName: "School of Life Sciences",
+  examCenter: "Solapur University",
+  seatNo: "202201102",
+  courseName: "Ph.D Course Work",
+  examination: "Part-1",
+  ECAMark: "Nil(Balance - Nil Marks)",
+  totalCredit: "14",
+  totalEgp: "20",
+  sgpa: "1.43",
+  status: "ATKT",
+  examMonthAndYear: 'Oct-2022',
+  ordinance: "Not Applied",
+  statementNo: "202015869435",
+  subjects: [
+      {
+          paperCode: "1000",
+          paperName: "Research Methodology",
+          credits: "4",
+          gradeObtained: "C+",
+          gradePoint: "5",
+          earnedGRPoints: "20",
+          remarks: "E,C"
+      },
+      {
+          paperCode: "1001",
+          paperName: "Information & Computer Technology",
+          credits: "2",
+          gradeObtained: "F",
+          gradePoint: "0.00",
+          earnedGRPoints: "0.00",
+          remarks: "FR,C"
+      },
+      {
+          paperCode: "1002",
+          paperName: "Research & Publication Ehics",
+          credits: "2",
+          gradeObtained: "F",
+          gradePoint: "0.00",
+          earnedGRPoints: "0.00",
+          remarks: "FR,C"
+      },
+      {
+          paperCode: "1003",
+          paperName: "Advanced Knowledge in Core domain of concered subject",
+          credits: "6",
+          gradeObtained: "F",
+          gradePoint: "0.00",
+          earnedGRPoints: "0.00",
+          remarks: "FC,C"
+      }
+  ],
+  credits: [{
+      semesterName: "Part-I",
+      credits: "14",
+      egp: "20",
+      sgpa: "1.43",
+      status: "ATKT",
+      seatNo: "202201102",
+      examEvent: "Part-I"
+  }]
+}];
+
+
+app.get("/sol-marksheet", async(req: Request, res: Response) => {
+  const pdfDocGenerator = pdfmake.createPdfKitDocument(solMarksheet(mockDataSolMarksheet));
+  res.setHeader("Content-Type", "application/pdf");
+  res.setHeader("Content-Disposition", "inline");
+  pdfDocGenerator.pipe(res);
+  pdfDocGenerator.end();
+});
+
 
 //* Start the server
 app.listen(3001, () => {

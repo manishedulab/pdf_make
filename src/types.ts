@@ -62,6 +62,18 @@ export interface IRepeaterFeeSlip {
   }[];
 }
 
+export interface IReassessmentFeeSlip {
+  receiptNo:number;
+  courseName:string;
+  studentName:string;
+  semester:string;
+  feeDetails:
+  {
+    subjectName:string;
+    amount: number;
+  }[];
+}
+
   export interface IBarCode{
     enrollmentNo:number;
     block:number;
@@ -266,3 +278,43 @@ export interface Icredits {
     subjectCode: string;
     subjectName: string;
   }
+
+export interface ISolMarksheet {
+  barcode: string;
+  studentName:string;
+  studentPhoto:string;
+  DBOEESignature:string;
+  specialization:string;
+  prnNo:string;
+  collegeName:string;
+  examCenter:string;
+  seatNo:string;
+  courseName:string;
+  examMonthAndYear:string;
+  examination:string;
+  ECAMark:string;
+  totalCredit:string;
+  totalEgp:string;
+  sgpa:string;
+  status:string;
+  ordinance:string;
+  statementNo:string;
+  subjects:{
+    paperCode:string;
+    paperName:string;
+    credits:string;
+    gradeObtained:string;
+    gradePoint:string;
+    earnedGRPoints:string;
+    remarks:string;
+  }[],
+  credits: {
+    semesterName:string;
+    credits:string;
+    egp:string;
+    sgpa:string;
+    status:string;
+    seatNo:string;
+    examEvent:string;
+  }[],
+}

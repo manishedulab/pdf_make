@@ -1,7 +1,7 @@
 import { IResult } from "./types";
 import { intToRoman } from "./utiles";
 
-function generateFooter(data: IResult[]) {
+function generateFooter(data: any[]) {
   let table6;
   for (let i = 0; i < data.length; i++) {
     table6 = {
@@ -83,7 +83,7 @@ function generateFooter(data: IResult[]) {
   return table6;
 }
 
-function result(data: IResult[]) {
+function result(data: any[]) {
   const contentDefinition: any = {
     pageSize: {
       width: 912.982, //322.08mm
@@ -98,7 +98,7 @@ function result(data: IResult[]) {
       // Grid settings
       const gridSpacing = 97; // Adjust this value based on your preference
       const columns = 9;
-      const rows = 20;
+      const rows = 7
     
       // Array to store ABC elements
       const abcElements = [];
@@ -109,14 +109,21 @@ function result(data: IResult[]) {
           let xPosition = i * gridSpacing;
           let yPosition = j * gridSpacing;
     
+          
           // Pushing ABC elements with different y positions
           for (let k = 0; k < 9; k++) {
-            abcElements.push({
-              text: abcText,
-              opacity: abcOpacity,
-              fontSize: abcFontSize,
-              absolutePosition: { x: xPosition + 20, y: yPosition + 19 + k * 10, },
-            });
+           if(j === rows-1 && k > 4)
+           {
+            break;
+           } else {
+             abcElements.push({
+               text: abcText,
+               opacity: abcOpacity,
+               fontSize: abcFontSize,
+               absolutePosition: { x: xPosition + 20, y: yPosition + 18 + k * 10, },
+             });
+           }
+            
           }
         }
       }

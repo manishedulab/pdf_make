@@ -1,3 +1,5 @@
+import bwipjs from 'bwip-js';
+
 export const collegeLogo = (data: string) => {
     let logo = "";
   
@@ -117,3 +119,23 @@ export function intToRoman(num: number): string {
   }
   return result;
 }
+
+export const getBarcodeByPrnNo = async (prnNo: string) => {
+  const barcodeOptions: bwipjs.RenderOptions = {
+    bcid: 'code128',
+    text: `${prnNo}` || `BARCODE-${prnNo}`,
+    scale: 1,
+    height: 8,
+  };
+  const pngBuffer = await new Promise<Buffer>((resolve, reject) => {
+    bwipjs.toBuffer(barcodeOptions, (err, buffer) => {
+      if (err) {
+        reject(new Error('Error while generating Barcode'));
+      } else {
+        resolve(buffer);
+      }
+    });
+  });
+  const dataURL = `data:image/png;base64,${pngBuffer.toString('base64')}`;
+  return dataURL;
+};
