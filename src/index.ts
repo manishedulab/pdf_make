@@ -27,6 +27,7 @@ import generatePDF from "./questionPaper";
 import htmlContent from "./question-paper-using-puppeteer";
 import solMarksheet from "./solMarksheet";
 import { getBarcodeByPrnNo } from "./utiles";
+import solLedger from "./solapur_ledger";
 // const contentDefinition = require('./pdf');
 // const Hallticket = require('./hallTicket');
 // const Certificate = require('./certificate');
@@ -110,7 +111,7 @@ const mockData = [
       },
       {
         subjectCode: "GHI301",
-        subjectType: "Theory",
+        subjectType: "TH",
         subjectName: "Data Structures and Algorithms",
       },
       {
@@ -1253,7 +1254,7 @@ const mockDataSolMarksheet = [{
   statementNo: "202015869435",
   subjects: [
       {
-          paperCode: "1000",
+          paperCode: "1000999",
           paperName: "Research Methodology",
           credits: "4",
           gradeObtained: "C+",
@@ -1262,7 +1263,7 @@ const mockDataSolMarksheet = [{
           remarks: "E,C"
       },
       {
-          paperCode: "1001",
+          paperCode: "1001111",
           paperName: "Information & Computer Technology",
           credits: "2",
           gradeObtained: "F",
@@ -1271,7 +1272,7 @@ const mockDataSolMarksheet = [{
           remarks: "FR,C"
       },
       {
-          paperCode: "1002",
+          paperCode: "1002222",
           paperName: "Research & Publication Ehics",
           credits: "2",
           gradeObtained: "F",
@@ -1280,7 +1281,7 @@ const mockDataSolMarksheet = [{
           remarks: "FR,C"
       },
       {
-          paperCode: "1003",
+          paperCode: "1003333",
           paperName: "Advanced Knowledge in Core domain of concered subject",
           credits: "6",
           gradeObtained: "F",
@@ -1301,8 +1302,189 @@ const mockDataSolMarksheet = [{
 }];
 
 
+const mockDataSolLedger = [{
+  collegeName: "Example College",
+  faculty: 'Example Faculty',
+  collegeCode: "XYZ",
+  semesterName:'Sem-1',
+  courseName: "Example Course",
+  courseCode: "CSE101",
+  modeOfLearning: "Online",
+  pattern: "Semester",
+  branch: "Computer Science",
+  coursePart: "Part 1",
+  coursePartTerm: "Term 1",
+  event: "Semester Examination",
+  abbreviation: "ABCD",
+  students: [
+    {
+      elig: "Eligible",
+      studentName: "John Doe",
+      semesterName: "Spring 2023",
+      prnNo: "123456",
+      seatNo: "A123",
+      totalCredit: "25",
+      totalEgp: "850",
+      percentage: "85%",
+      totalOfTotal: "500",
+      totalOfTotalObt: "450",
+      egp: "850",
+      sgpa: "8.5",
+      status: "Pass",
+      collegeCode: "XYZ",
+      statementNo: "001",
+      ECAMark: "85",
+      ordinance: "Ordinance XYZ",
+      marks: [
+        {
+          code: "CSE101",
+          assessmentMethod: "TH",
+          universityAssessmentMin: "40",
+          universityAssessmentObt: "45",
+          collegeAssessmentMin: "20",
+          collegeAssessmentObt: "25",
+          totalMax: "100",
+          totalMin: "40",
+          totalObt: "70",
+          grade: "A",
+          gradePoint: "9",
+          egp: "90",
+          status: "Pass",
+          remark: "Good"
+        },
+        {
+          code: "CSE101",
+          assessmentMethod: "TH",
+          universityAssessmentMin: "40",
+          universityAssessmentObt: "45",
+          collegeAssessmentMin: "20",
+          collegeAssessmentObt: "25",
+          totalMax: "100",
+          totalMin: "40",
+          totalObt: "70",
+          grade: "A",
+          gradePoint: "9",
+          egp: "90",
+          status: "Pass",
+          remark: "Good"
+        },
+        {
+          code: "CSE101",
+          assessmentMethod: "TH",
+          universityAssessmentMin: "40",
+          universityAssessmentObt: "45",
+          collegeAssessmentMin: "20",
+          collegeAssessmentObt: "25",
+          totalMax: "100",
+          totalMin: "40",
+          totalObt: "70",
+          grade: "A",
+          gradePoint: "9",
+          egp: "90",
+          status: "Pass",
+          remark: "Good"
+        },
+      ]
+    },
+    {
+      elig: "Eligible",
+      studentName: "ms",
+      semesterName: "Spring 2023",
+      prnNo: "123456",
+      seatNo: "A123",
+      totalCredit: "25",
+      totalEgp: "850",
+      percentage: "85%",
+      totalOfTotal: "500",
+      totalOfTotalObt: "450",
+      egp: "850",
+      sgpa: "8.5",
+      status: "Pass",
+      collegeCode: "XYZ",
+      statementNo: "001",
+      ECAMark: "85",
+      ordinance: "Ordinance XYZ",
+      marks: [
+        {
+          code: "456",
+          assessmentMethod: "TH",
+          universityAssessmentMin: "40",
+          universityAssessmentObt: "45",
+          collegeAssessmentMin: "20",
+          collegeAssessmentObt: "25",
+          totalMax: "100",
+          totalMin: "40",
+          totalObt: "70",
+          grade: "A",
+          gradePoint: "9",
+          egp: "90",
+          status: "Pass",
+          remark: "Good"
+        },
+        {
+          code: "CSE101",
+          assessmentMethod: "TH",
+          universityAssessmentMin: "40",
+          universityAssessmentObt: "45",
+          collegeAssessmentMin: "20",
+          collegeAssessmentObt: "25",
+          totalMax: "100",
+          totalMin: "40",
+          totalObt: "70",
+          grade: "A",
+          gradePoint: "9",
+          egp: "90",
+          status: "Pass",
+          remark: "Good"
+        },
+        {
+          code: "CSE101",
+          assessmentMethod: "TH",
+          universityAssessmentMin: "40",
+          universityAssessmentObt: "45",
+          collegeAssessmentMin: "20",
+          collegeAssessmentObt: "25",
+          totalMax: "100",
+          totalMin: "40",
+          totalObt: "70",
+          grade: "A",
+          gradePoint: "9",
+          egp: "90",
+          status: "Pass",
+          remark: "Good"
+        },
+      ]
+    }
+  ],
+  subjects: [
+    {
+      code: "CSE101",
+      paperName: "Introduction to Computer Science",
+      credits: "5",
+      gradeTemplateName: "ABC Template",
+      assessmentMethod: "Online Exam",
+      universityAssessmentMax: "100",
+      universityAssessmentMin: "40",
+      collegeAssessmentMax: "50",
+      collegeAssessmentMin: "20",
+      totalMax: "100",
+      totalMin: "40"
+    },
+    // Additional subjects can be added here
+  ]
+}
+];
+
 app.get("/sol-marksheet", async(req: Request, res: Response) => {
   const pdfDocGenerator = pdfmake.createPdfKitDocument(solMarksheet(mockDataSolMarksheet));
+  res.setHeader("Content-Type", "application/pdf");
+  res.setHeader("Content-Disposition", "inline");
+  pdfDocGenerator.pipe(res);
+  pdfDocGenerator.end();
+});
+
+app.get("/sol-ledger", async(req: Request, res: Response) => {
+  const pdfDocGenerator = pdfmake.createPdfKitDocument(solLedger(mockDataSolLedger));
   res.setHeader("Content-Type", "application/pdf");
   res.setHeader("Content-Disposition", "inline");
   pdfDocGenerator.pipe(res);

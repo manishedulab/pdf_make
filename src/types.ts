@@ -318,3 +318,68 @@ export interface ISolMarksheet {
     examEvent:string;
   }[],
 }
+
+
+export interface ISolLedger {
+  collegeName:string;
+  faculty:string;
+  semesterName:string;
+  collegeCode:string;
+  courseName:string;
+  courseCode:string;
+  modeOfLearning:string;
+  pattern:string;
+  branch:string;
+  coursePart:string;
+  coursePartTerm:string;
+  event:string;
+  abbreviation:string;
+  students: {
+  elig: string;
+  studentName:string;
+  semesterName:string;
+  prnNo:string;
+  seatNo:string;
+  totalCredit:string;
+  totalEgp:string;
+  percentage:string;
+  totalOfTotal:string;
+  totalOfTotalObt:string;
+  egp:string;
+  sgpa:string;
+  status:string;
+  collegeCode:string;
+  statementNo:string;
+  ECAMark:string;
+  ordinance:string;
+  marks: {
+    code:string;
+    assessmentMethod:string;
+    universityAssessmentMin:string;
+    universityAssessmentObt:string;
+    collegeAssessmentMin:string;
+    collegeAssessmentObt:string;
+    totalMax:string;
+    totalMin:string;
+    totalObt:string;
+    grade:string;
+    gradePoint:string;
+    egp: string;
+    status:string;
+    remark:string;
+  }[];
+  }[];
+  subjects:{
+    code:string;
+    paperName:string;
+    credits:string;
+    gradeTemplateName: string;
+    assessmentMethod:string;
+    universityAssessmentMax:string;
+    universityAssessmentMin:string;
+    collegeAssessmentMax:string;
+    collegeAssessmentMin:string;
+    totalMax:string;
+    totalMin:string;
+  }[];
+}
