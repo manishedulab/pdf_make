@@ -583,7 +583,7 @@ function generateFooter(currentPage: number) {
   
   
         table3 = {
-          widths: [70, 30, 40, 40, 40, 40, 50, 50, 50, 30, 30, 40, 50, 60],
+          widths: [70, 30, 40, 40, 40, 40, 50, 50, 50, 30, 30, 30, 40, 40, 40],
           body: student.marks.map((value: any, index: number) => [
             {
               text: `${value.code || "-"}`,
@@ -656,6 +656,12 @@ function generateFooter(currentPage: number) {
               border: [true, false, true, true],
             },
             {
+              text: `${value.credits || "-"}`,
+              rowSpan: index == 1 ? 2: '',
+               margin: index == 1 ? [0, 10, 0, 0] : [0, 0, 0, 0],
+              border: [true, false, true, true],
+            },
+            {
               text: `${value.status || "-"}`,
               rowSpan: index == 1 ? 2: '',
                margin: index == 1 ? [0, 10, 0, 0] : [0, 0, 0, 0],
@@ -686,7 +692,7 @@ function generateFooter(currentPage: number) {
           },
           {
             table: {
-              widths: [737],
+              widths: [746],
               body: [
                 [
                   {
@@ -700,7 +706,7 @@ function generateFooter(currentPage: number) {
           },
           {
             table: {
-              widths: [70, 30, 40, 40, 40, 40, 50, 50, 50, 30, 30, 40, 50, 60],
+              widths: [70, 30, 40, 40, 40, 40, 50, 50, 50, 30, 30, 30, 40, 40, 40],
               headerRows: 1,
               body: [
                 [
@@ -778,6 +784,12 @@ function generateFooter(currentPage: number) {
                     margin: [0, 5, 0, 0],
                   },
                   {
+                    text: `Credits`,
+                    alignment: "center",
+                    bold: true,
+                    margin: [0, 5, 0, 0],
+                  },
+                  {
                     text: `Status`,
                     alignment: "center",
                     bold: true,
@@ -801,7 +813,7 @@ function generateFooter(currentPage: number) {
           },
           {
             table: {
-              widths: [737],
+              widths: [746],
               body: [
                 [
                   {
@@ -816,7 +828,7 @@ function generateFooter(currentPage: number) {
           },
           {
               table: {
-                widths: [737],
+                widths: [746],
                 body: [
                   [
                     {
