@@ -383,3 +383,37 @@ export interface ISolLedger {
     totalMin:string;
   }[];
 }
+
+
+export interface IExamFormPdf {
+  
+}
+
+export interface ISolapurHallticketPdf {
+  collegeName:string;
+  examMonthAndYear:string;
+  studentName:string;
+  fatherName:string;
+  studentPhoto:string;
+  studentSignature:string;
+  prnNo:string;
+  gender:string;
+  physicallyChallenged:string;
+  medium:string;
+  division:string;
+  rollNumber:string;
+  seatNumber:string;
+  examCenter:string;
+  courseAbbreviation:string;
+  examType:string;
+  examPattern:string;
+  semesterName:string;
+  subjects:{
+    paperCode:string;
+    paperName:string;
+    date:string;
+    time:string;
+    subjectType:string;
+    assessment:string;
+  }[];
+}

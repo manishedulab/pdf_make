@@ -20,6 +20,15 @@ export const PDF = {
   universityLogo: fs.existsSync(`${process.cwd()}/public/collegeLogo/HSNCULogo.png`) ? `${process.cwd()}/public/collegeLogo/HSNCULogo.png` : `${process.cwd()}/public/collegeLogo/defaultLogo.png`,
 };
 
+export const SolapurPdf = {
+  universityName: 'Punyashlok Ahilyadevi Holkar Solapur University, Solapur',
+  universityAddress: 'Kegaon, Solapur-Pune National Highway, Solapur-413255',
+  DBOEESign: fs.existsSync(`${process.cwd()}/public/collegeLogo/Sol_DBOEE_ANDHARE_SIR.jpeg`) ? `${process.cwd()}/public/collegeLogo/Sol_DBOEE_ANDHARE_SIR.jpeg` : `${process.cwd()}/public/collegeLogo/defaultLogo.png`,
+  defaultPhoto: `${process.cwd()}/public/collegeLogo/defaultLogo.png`,
+  universityUrl: 'https://example.com/university',
+  universityLogo: fs.existsSync(`${process.cwd()}/public/collegeLogo/solapurUniversityLogo.jpg`) ? `${process.cwd()}/public/collegeLogo/solapurUniversityLogo.jpg` : `${process.cwd()}/public/collegeLogo/defaultLogo.png`,
+}
+
 export const REPEATER = {
   amoutPerSubject: 1,
 };

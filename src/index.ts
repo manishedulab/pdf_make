@@ -19,7 +19,7 @@ import marksheet from "./markStatement";
 import hsncMarksheet from "./hsncMarksheet";
 import result from "./result";
 import admissionForm from "./admission";
-import { IAddmission, IReassessmentFeeSlip, ISolMarksheet } from "./types";
+import { IAddmission, IReassessmentFeeSlip, ISolapurHallticketPdf, ISolMarksheet } from "./types";
 import HallTicket from './HSNC_hallticket'
 import mockDataResult from "./marksheetdata";
 import reassessmentReceipt from "./reassessment-recipt";
@@ -28,6 +28,7 @@ import htmlContent from "./question-paper-using-puppeteer";
 import solMarksheet from "./solMarksheet";
 import { getBarcodeByPrnNo } from "./utiles";
 import solLedger from "./solapur_ledger";
+import solHallticket from "./solHallticket";
 // const contentDefinition = require('./pdf');
 // const Hallticket = require('./hallTicket');
 // const Certificate = require('./certificate');
@@ -1491,6 +1492,53 @@ app.get("/sol-marksheet", async(req: Request, res: Response) => {
 
 app.get("/sol-ledger", async(req: Request, res: Response) => {
   const pdfDocGenerator = pdfmake.createPdfKitDocument(solLedger(mockDataSolLedger));
+  res.setHeader("Content-Type", "application/pdf");
+  res.setHeader("Content-Disposition", "inline");
+  pdfDocGenerator.pipe(res);
+  pdfDocGenerator.end();
+});
+
+const hallticketmockData: ISolapurHallticketPdf = {
+  collegeName: "Solapur University",
+  examMonthAndYear: "April 2024",
+  studentName: "John Doe",
+  fatherName: "Michael Doe",
+  studentPhoto: `${process.cwd()}/public/collegeLogo/123.png`,
+  studentSignature: `${process.cwd()}/public/collegeLogo/xyz.png`,
+  prnNo: "1234567890",
+  gender: "Male",
+  physicallyChallenged: "No",
+  medium: "English",
+  division: "First",
+  rollNumber: "A123",
+  seatNumber: "101",
+  examCenter: "Solapur",
+  courseAbbreviation:'B.com',
+  examType:'Regular',
+  examPattern: 'CBCS Pattern 2022',
+  semesterName: 'Sem-II',
+  subjects: [
+    {
+      paperCode: "101",
+      paperName: "Mathematics",
+      date: "15th April 2024",
+      time: "10:00 AM - 1:00 PM",
+      subjectType: "Theory",
+      assessment: "Written"
+    },
+    {
+      paperCode: "102",
+      paperName: "Science",
+      date: "17th April 2024",
+      time: "10:00 AM - 1:00 PM",
+      subjectType: "Theory",
+      assessment: "Written"
+    },
+  ]
+};
+
+app.get("/sol-hallticket", async(req: Request, res: Response) => {
+  const pdfDocGenerator = pdfmake.createPdfKitDocument(solHallticket([hallticketmockData]));
   res.setHeader("Content-Type", "application/pdf");
   res.setHeader("Content-Disposition", "inline");
   pdfDocGenerator.pipe(res);
