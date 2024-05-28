@@ -321,10 +321,7 @@ export interface ISolMarksheet {
 
 
 export interface ISolLedger {
-  collegeName:string;
   faculty:string;
-  semesterName:string;
-  collegeCode:string;
   courseName:string;
   courseCode:string;
   modeOfLearning:string;
@@ -333,11 +330,36 @@ export interface ISolLedger {
   coursePart:string;
   coursePartTerm:string;
   event:string;
-  abbreviation:string;
+  courseAbbreviation:string;
+  semesterName:string;
+  examType:string;
+  creditSystem:string;
+  specialization:string;
+  currentYear:string; // I, II ,III
+  examMonthAndYear:string;
+  subjects:{
+    code:string;
+    paperName:string;
+    credits:string;
+    gradeTemplateName: string;
+    theory: {
+    AssessmentName:string;
+    AssessmentTypeMax: string;
+    AssessmentTypeMin: string;
+    }[];
+    practical: {
+      AssessmentName:string;
+      AssessmentTypeMax: string;
+      AssessmentTypeMin: string;
+      }[];
+    total:string;
+  }[];
   students: {
     elig: string;
     studentName:string;
     semesterName:string;
+    collegeName:string;
+    collegeCode:string;
     prnNo:string;
     seatNo:string;
     totalCredit:string;
@@ -345,48 +367,158 @@ export interface ISolLedger {
     percentage:string;
     totalOfTotal:string;
     totalOfTotalObt:string;
-    sgpa:string;
+    finalSgpa:string;
     status:string;
-    collegeCode:string;
-    statementNo:string;
+    finalGrade:string;
     ECAMark:string;
+    balanceMark:string;
     ordinance:string;
-    marks: {
-      code:string;
-      assessmentMethod:string;
-      universityAssessmentMin:string;
-      universityAssessmentObt:string;
-      collegeAssessmentMin:string;
-      collegeAssessmentObt:string;
-      totalMax:string;
-      totalMin:string;
-      totalObt:string;
-      grade:string;
-      gradePoint:string;
-      egp: string;
-      credits:string;
+    oddSemesterdata: {
+      semName:string;
+      totalCredit:string;
+      egp:string;
+      sgpa:string;
       status:string;
-      remark:string;
-    }[];
-  }[];
-  subjects:{
-    code:string;
-    paperName:string;
-    credits:string;
-    gradeTemplateName: string;
-    assessmentMethod:string;
-    universityAssessmentMax:string;
-    universityAssessmentMin:string;
-    collegeAssessmentMax:string;
-    collegeAssessmentMin:string;
-    totalMax:string;
-    totalMin:string;
+      marks: {
+        code:string;
+        theory: {
+          AssessmentName:string;
+          AssessmentTypeObt: string;
+          AssessmentTypeMin: string;
+        }[];
+        practical: {
+            AssessmentName:string;
+            AssessmentTypeObt: string;
+            AssessmentTypeMin: string;
+        }[];
+        theoryTotalMax: string
+        theoryTotalMin: string;
+        theoryTotalObt: string;
+        practicalTotalMax: string;
+        practicalTotalMin: string;
+        practicalTotalObt: string;
+        totalMax:string;
+        totalMin:string;
+        totalObt:string;
+        grade:string;
+        gradePoint:string;
+        egp: string;
+        // credits:string;
+        status:string;
+        remark:string;
+      }[];
+    };
+    previousYearDetails: {
+        year:string; // B.Tech-I, B.Tech-II, B.Com-II
+        seatNo:string;
+        examEvent:string;
+        egp: string;
+        sgpa: string;
+        credits:string;
+        status:string;
+        grade:string;
+      }[];
+    evenSemesterdata: {
+      semName:string;
+      totalCredit:string;
+      egp:string;
+      sgpa:string;
+      status:string;
+      marks: {
+        code:string;
+        theory: {
+          AssessmentName:string;
+          AssessmentTypeObt: string;
+          AssessmentTypeMin: string;
+        }[];
+        practical: {
+            AssessmentName:string;
+            AssessmentTypeObt: string;
+            AssessmentTypeMin: string;
+        }[];
+        theoryTotalMax: string
+        theoryTotalMin: string;
+        theoryTotalObt: string;
+        practicalTotalMax: string;
+        practicalTotalMin: string;
+        practicalTotalObt: string;
+        totalMax:string;
+        totalMin:string;
+        totalObt:string;
+        grade:string;
+        gradePoint:string;
+        egp: string;
+        // credits:string;
+        status:string;
+        remark:string;
+      }[];
+    }
   }[];
 }
 
 
 export interface IExamFormPdf {
-  
+  collegeName:string;
+  examMonthAndYear:string;
+  studentName:string;
+  motherName:string;
+  studentPhoto:string;
+  studentSignature:string;
+  prnNo:string;
+  gender:string;
+  physicallyChallenged:string;
+  medium:string;
+  eligibility:string;
+  examFormNumber:string;
+  ABCID:string;
+  nationality:string;
+  courseAbbreviation:string;
+  examType:string;
+  examPattern:string;
+  semesterName:string;
+  currentSemester:number;
+  address:string;
+  city:string;
+  telNo:string;
+  mobileNumber:string;
+  email:string;
+  dob:string;
+  category:string;
+  examFee:string;
+  examFormFee:string;
+  examLateFee:string;
+  provisionalCertificateFee:string;
+  subTotalFee:string;
+  numberOfSemesters:number;
+  isEvenSemester:boolean;
+  oddSemester:{
+    semesterName:string;
+    examType:string;
+    examPattern:string;
+    collegeRollNo:string;
+    examAppearanceType:string;
+    centerPreference:string;
+    venuePreference:string;
+    subjects:{
+      paperCode:string;
+      paperName:string;
+      AMAT:string;
+    }[];
+  };
+  evenSemester:{
+    semesterName:string;
+    examType:string;
+    examPattern:string;
+    collegeRollNo:string;
+    examAppearanceType:string;
+    centerPreference:string;
+    venuePreference:string;
+    subjects:{
+      paperCode:string;
+      paperName:string;
+      AMAT:string;
+    }[];
+  }
 }
 
 export interface ISolapurHallticketPdf {

@@ -19,7 +19,7 @@ import marksheet from "./markStatement";
 import hsncMarksheet from "./hsncMarksheet";
 import result from "./result";
 import admissionForm from "./admission";
-import { IAddmission, IReassessmentFeeSlip, ISolapurHallticketPdf, ISolMarksheet } from "./types";
+import { IAddmission, IExamFormPdf, IReassessmentFeeSlip, ISolapurHallticketPdf, ISolLedger, ISolMarksheet } from "./types";
 import HallTicket from './HSNC_hallticket'
 import mockDataResult from "./marksheetdata";
 import reassessmentReceipt from "./reassessment-recipt";
@@ -29,6 +29,7 @@ import solMarksheet from "./solMarksheet";
 import { getBarcodeByPrnNo } from "./utiles";
 import solLedger from "./solapur_ledger";
 import solHallticket from "./solHallticket";
+import solExamForm from "./solapurExamForm";
 // const contentDefinition = require('./pdf');
 // const Hallticket = require('./hallTicket');
 // const Certificate = require('./certificate');
@@ -1303,184 +1304,660 @@ const mockDataSolMarksheet = [{
 }];
 
 
-const mockDataSolLedger = [{
-  collegeName: "Example College",
-  faculty: 'Example Faculty',
-  collegeCode: "XYZ",
-  semesterName:'Sem-1',
-  courseName: "Example Course",
-  courseCode: "CSE101",
-  modeOfLearning: "Online",
+const mockDataSolLedger: ISolLedger = {
+  faculty: "Engineering",
+  courseName: "Computer Science",
+  courseCode: "CS101",
+  modeOfLearning: "Full-time",
   pattern: "Semester",
   branch: "Computer Science",
-  coursePart: "Part 1",
+  coursePart: "Part A",
   coursePartTerm: "Term 1",
-  event: "Semester Examination",
-  abbreviation: "ABCD",
+  event: "Final Exam",
+  courseAbbreviation: "CS",
+  semesterName: "Spring 2024",
+  examType: "Regular",
+  creditSystem: "CBCS",
+  specialization: "Software Engineering",
+  currentYear: "I",
+  examMonthAndYear: "May 2024",
+  subjects: [
+    {
+      code: "CS101",
+      paperName: "Introduction to Programming",
+      credits: "4",
+      gradeTemplateName: "CBCS",
+      theory: [
+        {
+          AssessmentName: "ESE",
+          AssessmentTypeMax: "50",
+          AssessmentTypeMin: "18"
+        },
+        {
+          AssessmentName: "POE",
+          AssessmentTypeMax: "100",
+          AssessmentTypeMin: "40"
+        },
+        {
+          AssessmentName: "ESE",
+          AssessmentTypeMax: "50",
+          AssessmentTypeMin: "18"
+        },
+        {
+          AssessmentName: "POE",
+          AssessmentTypeMax: "100",
+          AssessmentTypeMin: "40"
+        }
+      ],
+      practical: [
+        {
+          AssessmentName: "ISE",
+          AssessmentTypeMax: "50",
+          AssessmentTypeMin: "18"
+        },
+        {
+          AssessmentName: "ICA",
+          AssessmentTypeMax: "100",
+          AssessmentTypeMin: "40"
+        }
+      ],
+      total: "140"
+    },
+    {
+      code: "CS101",
+      paperName: "Introduction to Programming",
+      credits: "4",
+      gradeTemplateName: "CBCS",
+      theory: [
+        {
+          AssessmentName: "ESE",
+          AssessmentTypeMax: "50",
+          AssessmentTypeMin: "18"
+        },
+        {
+          AssessmentName: "POE",
+          AssessmentTypeMax: "100",
+          AssessmentTypeMin: "40"
+        },
+        {
+          AssessmentName: "ESE",
+          AssessmentTypeMax: "50",
+          AssessmentTypeMin: "18"
+        },
+        {
+          AssessmentName: "POE",
+          AssessmentTypeMax: "100",
+          AssessmentTypeMin: "40"
+        }
+      ],
+      practical: [
+        {
+          AssessmentName: "ISE",
+          AssessmentTypeMax: "50",
+          AssessmentTypeMin: "18"
+        },
+        {
+          AssessmentName: "ICA",
+          AssessmentTypeMax: "100",
+          AssessmentTypeMin: "40"
+        }
+      ],
+      total: "180"
+    },
+    {
+      code: "CS101",
+      paperName: "Introduction to Programming",
+      credits: "4",
+      gradeTemplateName: "CBCS",
+      theory: [
+        {
+          AssessmentName: "ESE",
+          AssessmentTypeMax: "50",
+          AssessmentTypeMin: "18"
+        },
+        {
+          AssessmentName: "POE",
+          AssessmentTypeMax: "100",
+          AssessmentTypeMin: "40"
+        },
+        {
+          AssessmentName: "ESE",
+          AssessmentTypeMax: "50",
+          AssessmentTypeMin: "18"
+        },
+        {
+          AssessmentName: "POE",
+          AssessmentTypeMax: "100",
+          AssessmentTypeMin: "40"
+        }
+      ],
+      practical: [
+        {
+          AssessmentName: "ISE",
+          AssessmentTypeMax: "50",
+          AssessmentTypeMin: "18"
+        },
+        {
+          AssessmentName: "ICA",
+          AssessmentTypeMax: "100",
+          AssessmentTypeMin: "40"
+        }
+      ],
+      total: "200"
+    },
+    {
+      code: "CS101",
+      paperName: "Introduction to Programming",
+      credits: "4",
+      gradeTemplateName: "CBCS",
+      theory: [
+        {
+          AssessmentName: "ESE",
+          AssessmentTypeMax: "50",
+          AssessmentTypeMin: "18"
+        },
+        {
+          AssessmentName: "POE",
+          AssessmentTypeMax: "100",
+          AssessmentTypeMin: "40"
+        },
+        {
+          AssessmentName: "ESE",
+          AssessmentTypeMax: "50",
+          AssessmentTypeMin: "18"
+        },
+        {
+          AssessmentName: "POE",
+          AssessmentTypeMax: "100",
+          AssessmentTypeMin: "40"
+        }
+      ],
+      practical: [
+        {
+          AssessmentName: "ISE",
+          AssessmentTypeMax: "50",
+          AssessmentTypeMin: "18"
+        },
+        {
+          AssessmentName: "ICA",
+          AssessmentTypeMax: "100",
+          AssessmentTypeMin: "40"
+        }
+      ],
+      total: "100"
+    },
+
+  ],
   students: [
     {
       elig: "Eligible",
       studentName: "John Doe",
-      semesterName: "Spring 2023",
-      prnNo: "123456",
-      seatNo: "A123",
-      totalCredit: "25",
-      totalEgp: "850",
+      semesterName: "Spring 2024",
+      collegeName: "ABC College",
+      collegeCode: "ABCCOL",
+      prnNo: "1234567890",
+      seatNo: "S12345",
+      totalCredit: "55",
+      totalEgp: "340",
       percentage: "85%",
-      totalOfTotal: "500",
-      totalOfTotalObt: "450",
-      egp: "850",
-      sgpa: "8.5",
+      totalOfTotal: "150",
+      totalOfTotalObt: "120",
+      finalSgpa: "8.5",
       status: "Pass",
-      collegeCode: "XYZ",
-      statementNo: "001",
-      ECAMark: "85",
-      ordinance: "Ordinance XYZ",
-      marks: [
+      finalGrade: "A",
+      ECAMark: "Excellent",
+      balanceMark: "Nil",
+      ordinance: "Passed",
+      previousYearDetails: [
         {
-          code: "CSE101",
-          assessmentMethod: "TH",
-          universityAssessmentMin: "40",
-          universityAssessmentObt: "45",
-          collegeAssessmentMin: "20",
-          collegeAssessmentObt: "25",
-          totalMax: "100",
-          totalMin: "40",
-          totalObt: "70",
-          grade: "A",
-          credits: "4",
-          gradePoint: "9",
-          egp: "90",
-          status: "Pass",
-          remark: "Good"
-        },
-        {
-          code: "CSE101",
-          assessmentMethod: "TH",
-          universityAssessmentMin: "40",
-          universityAssessmentObt: "45",
-          collegeAssessmentMin: "20",
-          collegeAssessmentObt: "25",
-          totalMax: "100",
-          totalMin: "40",
-          totalObt: "70",
-          grade: "A",
-          credits: "4",
-          gradePoint: "9",
-          egp: "90",
-          status: "Pass",
-          remark: "Good"
-        },
-        {
-          code: "CSE101",
-          assessmentMethod: "TH",
-          universityAssessmentMin: "40",
-          universityAssessmentObt: "45",
-          collegeAssessmentMin: "20",
-          collegeAssessmentObt: "25",
-          totalMax: "100",
-          totalMin: "40",
-          totalObt: "70",
-          grade: "A",
-          credits: "4",
-          gradePoint: "9",
-          egp: "90",
-          status: "Pass",
-          remark: "Good"
-        },
-      ]
+        year: 'B.Tech-IV',
+        seatNo:'1558961475963584',
+        examEvent:'OCT-2024',
+        egp: '125',
+        sgpa: '8.7',
+        credits: '30',
+        status:'pass',
+        grade:'E,X'
+        }
+      ],
+      oddSemesterdata: {
+        semName: "Sem-V",
+        totalCredit: "4",
+        egp: "340",
+        sgpa: "8.5",
+        status: "Pass",
+        marks: [
+          {
+            code: "CS101",
+            theory: [
+              {
+                AssessmentName: "ESE",
+                AssessmentTypeObt: "10",
+                AssessmentTypeMin: "20",
+              },
+              {
+                AssessmentName: "ICA",
+                AssessmentTypeObt: "30",
+                AssessmentTypeMin: "40",
+              },
+              {
+                AssessmentName: "ISE",
+                AssessmentTypeObt: "25",
+                AssessmentTypeMin: "30",
+              },
+              {
+                AssessmentName: "POE",
+                AssessmentTypeObt: "50",
+                AssessmentTypeMin: "60",
+              }
+            ],
+            practical: [
+              {
+                AssessmentName: "ESE",
+                AssessmentTypeObt: "",
+                AssessmentTypeMin: "",
+              },
+              {
+                AssessmentName: "ICA",
+                AssessmentTypeObt: "80",
+                AssessmentTypeMin: "40",
+              },
+              {
+                AssessmentName: "ISE",
+                AssessmentTypeObt: "",
+                AssessmentTypeMin: "",
+              },
+              {
+                AssessmentName: "POE",
+                AssessmentTypeObt: "80",
+                AssessmentTypeMin: "40",
+              }
+            ],
+            theoryTotalMax: "190",
+            theoryTotalMin: "72",
+            theoryTotalObt: "28",
+            practicalTotalMax: "910",
+            practicalTotalMin: "83",
+            practicalTotalObt: "80",
+            totalMax: "110",
+            totalMin: "8",
+            totalObt: "20",
+            grade: "A+",
+            gradePoint: "9.5",
+            egp: "340",
+            status: "Pass",
+            remark: "E,X"
+          },
+        ]
+      },
+      evenSemesterdata:  {
+        semName: "Sem-VI",
+        totalCredit: "8",
+        egp: "30",
+        sgpa: "8.0",
+        status: "Pass",
+        marks: [
+          {
+            code: "CS101",
+            theory: [
+              {
+                AssessmentName: "ESE",
+                AssessmentTypeObt: "10",
+                AssessmentTypeMin: "20",
+              },
+              {
+                AssessmentName: "ICA",
+                AssessmentTypeObt: "30",
+                AssessmentTypeMin: "40",
+              },
+              {
+                AssessmentName: "ISE",
+                AssessmentTypeObt: "25",
+                AssessmentTypeMin: "30",
+              },
+              {
+                AssessmentName: "POE",
+                AssessmentTypeObt: "50",
+                AssessmentTypeMin: "60",
+              }
+            ],
+            practical: [
+              {
+                AssessmentName: "ESE",
+                AssessmentTypeObt: "",
+                AssessmentTypeMin: "",
+              },
+              {
+                AssessmentName: "ICA",
+                AssessmentTypeObt: "80",
+                AssessmentTypeMin: "40",
+              },
+              {
+                AssessmentName: "ISE",
+                AssessmentTypeObt: "",
+                AssessmentTypeMin: "",
+              },
+              {
+                AssessmentName: "POE",
+                AssessmentTypeObt: "80",
+                AssessmentTypeMin: "40",
+              }
+            ],
+            theoryTotalMax: "120",
+            theoryTotalMin: "80",
+            theoryTotalObt: "50",
+            practicalTotalMax: "10",
+            practicalTotalMin: "88",
+            practicalTotalObt: "90",
+            totalMax: "110",
+            totalMin: "8",
+            totalObt: "20",
+            grade: "A+",
+            gradePoint: "9.5",
+            egp: "340",
+            status: "Pass",
+            remark: "E,X"
+          },
+        ]
+      },
     },
     {
       elig: "Eligible",
-      studentName: "ms",
-      semesterName: "Spring 2023",
-      prnNo: "123456",
-      seatNo: "A123",
-      totalCredit: "25",
-      totalEgp: "850",
+      studentName: "John Doe",
+      semesterName: "Spring 2024",
+      collegeName: "ABC College",
+      collegeCode: "ABCCOL",
+      prnNo: "1234567890",
+      seatNo: "S12345",
+      totalCredit: "55",
+      totalEgp: "340",
       percentage: "85%",
-      totalOfTotal: "500",
-      totalOfTotalObt: "450",
-      egp: "850",
-      sgpa: "8.5",
+      totalOfTotal: "150",
+      totalOfTotalObt: "120",
+      finalSgpa: "8.5",
       status: "Pass",
-      collegeCode: "XYZ",
-      statementNo: "001",
-      ECAMark: "85",
-      ordinance: "Ordinance XYZ",
-      marks: [
+      finalGrade: "A",
+      ECAMark: "Excellent",
+      balanceMark: "Nil",
+      ordinance: "Passed",
+      previousYearDetails: [
         {
-          code: "456",
-          assessmentMethod: "TH",
-          universityAssessmentMin: "40",
-          universityAssessmentObt: "45",
-          collegeAssessmentMin: "20",
-          collegeAssessmentObt: "25",
-          totalMax: "100",
-          totalMin: "40",
-          totalObt: "70",
-          credits: "4",
-          grade: "A",
-          gradePoint: "9",
-          egp: "90",
-          status: "Pass",
-          remark: "Good"
-        },
-        {
-          code: "CSE101",
-          assessmentMethod: "TH",
-          universityAssessmentMin: "40",
-          universityAssessmentObt: "45",
-          collegeAssessmentMin: "20",
-          collegeAssessmentObt: "25",
-          totalMax: "100",
-          totalMin: "40",
-          totalObt: "70",
-          credits: "4",
-          grade: "A",
-          gradePoint: "9",
-          egp: "90",
-          status: "Pass",
-          remark: "Good"
-        },
-        {
-          code: "CSE101",
-          assessmentMethod: "TH",
-          universityAssessmentMin: "40",
-          universityAssessmentObt: "45",
-          collegeAssessmentMin: "20",
-          collegeAssessmentObt: "25",
-          totalMax: "100",
-          totalMin: "40",
-          credits: "4",
-          totalObt: "70",
-          grade: "A",
-          gradePoint: "9",
-          egp: "90",
-          status: "Pass",
-          remark: "Good"
-        },
-      ]
+        year: 'B.Tech-IV',
+        seatNo:'1558961475963584',
+        examEvent:'OCT-2024',
+        egp: '125',
+        sgpa: '8.7',
+        credits: '30',
+        status:'pass',
+        grade:'E,X'
+        }
+      ],
+      oddSemesterdata: {
+        semName: "Sem-V",
+        totalCredit: "4",
+        egp: "340",
+        sgpa: "8.5",
+        status: "Pass",
+        marks: [
+          {
+            code: "CS101",
+            theory: [
+              {
+                AssessmentName: "ESE",
+                AssessmentTypeObt: "10",
+                AssessmentTypeMin: "20",
+              },
+              {
+                AssessmentName: "ICA",
+                AssessmentTypeObt: "30",
+                AssessmentTypeMin: "40",
+              },
+              {
+                AssessmentName: "ISE",
+                AssessmentTypeObt: "25",
+                AssessmentTypeMin: "30",
+              },
+              {
+                AssessmentName: "POE",
+                AssessmentTypeObt: "50",
+                AssessmentTypeMin: "60",
+              }
+            ],
+            practical: [
+              {
+                AssessmentName: "ESE",
+                AssessmentTypeObt: "",
+                AssessmentTypeMin: "",
+              },
+              {
+                AssessmentName: "ICA",
+                AssessmentTypeObt: "80",
+                AssessmentTypeMin: "40",
+              },
+              {
+                AssessmentName: "ISE",
+                AssessmentTypeObt: "",
+                AssessmentTypeMin: "",
+              },
+              {
+                AssessmentName: "POE",
+                AssessmentTypeObt: "80",
+                AssessmentTypeMin: "40",
+              }
+            ],
+            theoryTotalMax: "190",
+            theoryTotalMin: "72",
+            theoryTotalObt: "28",
+            practicalTotalMax: "910",
+            practicalTotalMin: "83",
+            practicalTotalObt: "80",
+            totalMax: "110",
+            totalMin: "8",
+            totalObt: "20",
+            grade: "A+",
+            gradePoint: "9.5",
+            egp: "340",
+            status: "Pass",
+            remark: "E,X"
+          },
+          {
+            code: "CS101",
+            theory: [
+              {
+                AssessmentName: "ESE",
+                AssessmentTypeObt: "10",
+                AssessmentTypeMin: "20",
+              },
+              {
+                AssessmentName: "ICA",
+                AssessmentTypeObt: "30",
+                AssessmentTypeMin: "40",
+              },
+              {
+                AssessmentName: "ISE",
+                AssessmentTypeObt: "25",
+                AssessmentTypeMin: "30",
+              },
+              {
+                AssessmentName: "POE",
+                AssessmentTypeObt: "50",
+                AssessmentTypeMin: "60",
+              }
+            ],
+            practical: [
+              {
+                AssessmentName: "ESE",
+                AssessmentTypeObt: "",
+                AssessmentTypeMin: "",
+              },
+              {
+                AssessmentName: "ICA",
+                AssessmentTypeObt: "80",
+                AssessmentTypeMin: "40",
+              },
+              {
+                AssessmentName: "ISE",
+                AssessmentTypeObt: "",
+                AssessmentTypeMin: "",
+              },
+              {
+                AssessmentName: "POE",
+                AssessmentTypeObt: "80",
+                AssessmentTypeMin: "40",
+              }
+            ],
+            theoryTotalMax: "190",
+            theoryTotalMin: "72",
+            theoryTotalObt: "28",
+            practicalTotalMax: "910",
+            practicalTotalMin: "83",
+            practicalTotalObt: "80",
+            totalMax: "110",
+            totalMin: "8",
+            totalObt: "20",
+            grade: "A+",
+            gradePoint: "9.5",
+            egp: "340",
+            status: "Pass",
+            remark: "E,X"
+          },
+        ]
+      },
+      evenSemesterdata:  {
+        semName: "Sem-VI",
+        totalCredit: "8",
+        egp: "30",
+        sgpa: "8.0",
+        status: "Pass",
+        marks: [
+          {
+            code: "CS101",
+            theory: [
+              {
+                AssessmentName: "ESE",
+                AssessmentTypeObt: "10",
+                AssessmentTypeMin: "20",
+              },
+              {
+                AssessmentName: "ICA",
+                AssessmentTypeObt: "30",
+                AssessmentTypeMin: "40",
+              },
+              {
+                AssessmentName: "ISE",
+                AssessmentTypeObt: "25",
+                AssessmentTypeMin: "30",
+              },
+              {
+                AssessmentName: "POE",
+                AssessmentTypeObt: "50",
+                AssessmentTypeMin: "60",
+              }
+            ],
+            practical: [
+              {
+                AssessmentName: "ESE",
+                AssessmentTypeObt: "",
+                AssessmentTypeMin: "",
+              },
+              {
+                AssessmentName: "ICA",
+                AssessmentTypeObt: "80",
+                AssessmentTypeMin: "40",
+              },
+              {
+                AssessmentName: "ISE",
+                AssessmentTypeObt: "",
+                AssessmentTypeMin: "",
+              },
+              {
+                AssessmentName: "POE",
+                AssessmentTypeObt: "80",
+                AssessmentTypeMin: "40",
+              }
+            ],
+            theoryTotalMax: "120",
+            theoryTotalMin: "80",
+            theoryTotalObt: "50",
+            practicalTotalMax: "10",
+            practicalTotalMin: "88",
+            practicalTotalObt: "90",
+            totalMax: "110",
+            totalMin: "8",
+            totalObt: "20",
+            grade: "A+",
+            gradePoint: "9.5",
+            egp: "340",
+            status: "Pass",
+            remark: "E,X"
+          },
+          {
+            code: "CS101",
+            theory: [
+              {
+                AssessmentName: "ESE",
+                AssessmentTypeObt: "10",
+                AssessmentTypeMin: "20",
+              },
+              {
+                AssessmentName: "ICA",
+                AssessmentTypeObt: "30",
+                AssessmentTypeMin: "40",
+              },
+              {
+                AssessmentName: "ISE",
+                AssessmentTypeObt: "25",
+                AssessmentTypeMin: "30",
+              },
+              {
+                AssessmentName: "POE",
+                AssessmentTypeObt: "50",
+                AssessmentTypeMin: "60",
+              }
+            ],
+            practical: [
+              {
+                AssessmentName: "ESE",
+                AssessmentTypeObt: "",
+                AssessmentTypeMin: "",
+              },
+              {
+                AssessmentName: "ICA",
+                AssessmentTypeObt: "80",
+                AssessmentTypeMin: "40",
+              },
+              {
+                AssessmentName: "ISE",
+                AssessmentTypeObt: "",
+                AssessmentTypeMin: "",
+              },
+              {
+                AssessmentName: "POE",
+                AssessmentTypeObt: "80",
+                AssessmentTypeMin: "40",
+              }
+            ],
+            theoryTotalMax: "120",
+            theoryTotalMin: "80",
+            theoryTotalObt: "50",
+            practicalTotalMax: "10",
+            practicalTotalMin: "88",
+            practicalTotalObt: "90",
+            totalMax: "110",
+            totalMin: "8",
+            totalObt: "20",
+            grade: "A+",
+            gradePoint: "9.5",
+            egp: "340",
+            status: "Pass",
+            remark: "E,X"
+          },
+        ]
+      },
     }
-  ],
-  subjects: [
-    {
-      code: "CSE101",
-      paperName: "Introduction to Computer Science",
-      credits: "5",
-      gradeTemplateName: "ABC Template",
-      assessmentMethod: "Online Exam",
-      universityAssessmentMax: "100",
-      universityAssessmentMin: "40",
-      collegeAssessmentMax: "50",
-      collegeAssessmentMin: "20",
-      totalMax: "100",
-      totalMin: "40"
-    },
-    // Additional subjects can be added here
   ]
-}
-];
+};;
+
 
 app.get("/sol-marksheet", async(req: Request, res: Response) => {
   const pdfDocGenerator = pdfmake.createPdfKitDocument(solMarksheet(mockDataSolMarksheet));
@@ -1491,7 +1968,7 @@ app.get("/sol-marksheet", async(req: Request, res: Response) => {
 });
 
 app.get("/sol-ledger", async(req: Request, res: Response) => {
-  const pdfDocGenerator = pdfmake.createPdfKitDocument(solLedger(mockDataSolLedger));
+  const pdfDocGenerator = pdfmake.createPdfKitDocument(solLedger([mockDataSolLedger]));
   res.setHeader("Content-Type", "application/pdf");
   res.setHeader("Content-Disposition", "inline");
   pdfDocGenerator.pipe(res);
@@ -1539,6 +2016,105 @@ const hallticketmockData: ISolapurHallticketPdf = {
 
 app.get("/sol-hallticket", async(req: Request, res: Response) => {
   const pdfDocGenerator = pdfmake.createPdfKitDocument(solHallticket([hallticketmockData]));
+  res.setHeader("Content-Type", "application/pdf");
+  res.setHeader("Content-Disposition", "inline");
+  pdfDocGenerator.pipe(res);
+  pdfDocGenerator.end();
+});
+
+const ExamFormPdf: IExamFormPdf = {
+  collegeName: "ABC College",
+  examMonthAndYear: "May 2024",
+  studentName: "John Doe",
+  motherName: "Jane Doe",
+  studentPhoto: `${process.cwd()}/public/collegeLogo/123.png`,
+  studentSignature: `${process.cwd()}/public/collegeLogo/xyz.png`,
+  prnNo: "1234567890",
+  gender: "Male",
+  physicallyChallenged: "No",
+  medium: "English",
+  eligibility: "Eligible",
+  examFormNumber: "EXAM123",
+  ABCID: "ABC123",
+  nationality: "American",
+  courseAbbreviation: "CS",
+  examType: "Regular",
+  examPattern: "Pattern A",
+  semesterName: "Spring 2024",
+  address: "123 Main Street",
+  city: "Anytown",
+  telNo: "0123456789",
+  mobileNumber: "9876543210",
+  email: "john.doe@example.com",
+  dob: "01/01/2000",
+  category: "General",
+  examFee: '100',
+  examFormFee: '1000',
+  examLateFee: '10000',
+  provisionalCertificateFee: '0',
+  subTotalFee: '3000500',
+  numberOfSemesters: 8,
+  currentSemester: 8,
+  isEvenSemester: true,
+  oddSemester: {
+    semesterName: "Spring 2024",
+    examType: "Regular",
+    examPattern: "Pattern A",
+    collegeRollNo: "CSE123456",
+    examAppearanceType: "Regular",
+    centerPreference: "Center A",
+    venuePreference: "Venue X",
+    subjects: [
+      {
+        paperCode: "CS101",
+        paperName: "Introduction to Computer Science",
+        AMAT: "Pass"
+      },
+      {
+        paperCode: "CS102",
+        paperName: "Programming Fundamentals",
+        AMAT: "Pass"
+      },
+      {
+        paperCode: "CS101",
+        paperName: "Introduction to Computer Science",
+        AMAT: "Pass"
+      },
+      {
+        paperCode: "CS102",
+        paperName: "Programming Fundamentals",
+        AMAT: "Pass"
+      },
+    ]
+  }, 
+
+  evenSemester: {
+    semesterName: "Fall 2024",
+    examType: "Regular",
+    examPattern: "Pattern B",
+    collegeRollNo: "CSE123457",
+    examAppearanceType: "Regular",
+    centerPreference: "Center B",
+    venuePreference: "Venue Y",
+    subjects: [
+      {
+        paperCode: "CS201",
+        paperName: "Data Structures",
+        AMAT: "Pass"
+      },
+      {
+        paperCode: "CS202",
+        paperName: "Algorithms",
+        AMAT: "Pass"
+      }
+    ]
+  }
+};
+
+
+
+app.get("/sol-examform", async(req: Request, res: Response) => {
+  const pdfDocGenerator = pdfmake.createPdfKitDocument(solExamForm([ExamFormPdf]));
   res.setHeader("Content-Type", "application/pdf");
   res.setHeader("Content-Disposition", "inline");
   pdfDocGenerator.pipe(res);

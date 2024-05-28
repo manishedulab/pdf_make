@@ -139,3 +139,157 @@ export const getBarcodeByPrnNo = async (prnNo: string) => {
   const dataURL = `data:image/png;base64,${pngBuffer.toString('base64')}`;
   return dataURL;
 };
+
+
+
+
+export const  pdfFunctionForTableCreation = (student:any) => {
+  
+  let oddMarkTheory = 0
+  let oddMarkPractical = 0
+  let oddMarkTheoryColumnWidth = 0
+  for(let m = 0; m < student.oddSemesterdata.marks.length; m++) {
+    oddMarkTheory = student.oddSemesterdata.marks[m].theory.length;
+    oddMarkPractical = student.oddSemesterdata.marks[m].practical.length;
+  }
+  
+  const table10:any = {
+    widths: [60, 30, ...Array.from({ length: oddMarkTheory*2 }, () => 25), 22, 22, 22, 30, ...Array.from({ length: oddMarkPractical*2 }, () => 25), 22, 22, 22, 22, 22, 22, 15, 20, 20, 22, 22],
+    headerRows: 1,
+    body: [
+      [
+        {
+          text: ``,
+          alignment: "center",
+          bold: true,
+          border: [true, true, true, false],
+          margin: [0, 0, 0, 0],
+        },
+        {
+          text: ``,
+          alignment: "center",
+          bold: true,
+          border: [false, true, true, false],
+          margin: [0, 0, 0, 0],
+        },
+      ],
+      [
+        {
+          text: `Code`,
+          alignment: "center",
+          bold: true,
+          border: [true, false, true, true],
+          margin: [0, 0, 0, 0],
+        },
+        {
+          text: `AM`,
+          alignment: "center",
+          bold: true,
+          border: [false, false, true, true],
+          margin: [0, 0, 0, 0],
+        },
+      ]
+    ],
+  }
+
+  const table11:any = {
+    widths: [60, 30, ...Array.from({ length: oddMarkTheory*2 }, () => 25), 22, 22, 22, 30, ...Array.from({ length: oddMarkPractical*2 }, () => 25), 22, 22, 22, 22, 22, 22, 15, 20, 20, 22, 22],
+    // headerRows: 1,
+    body: [],
+  }
+
+  // console.log('student.oddSemesterdata.marks.length', student.oddSemesterdata.marks.length)
+
+  const markLength = student.oddSemesterdata.marks.length
+  for(let l = 0; l < markLength; l++) {
+    let ms = [];
+    const value = student.oddSemesterdata.marks[l]
+     ms.push({ text: `${value.code || "-"}`, alignment: "center", margin: [0, 0, 0, 0], border: l == markLength-1 ? [true, false, true, true] : [true, false, true, false]})
+     ms.push({ text: `${'Theory' || "-"}`, alignment: "center", margin: [0, 0, 0, 0], border:  l == markLength-1 ? [false, false, true, true] : [false, false, true, false]})
+    
+     for(let w = 0; w < oddMarkTheory; w++) {
+       ms.push({ text: value.theory[w].AssessmentTypeMin || '-', alignment: 'center', margin: [0,0,0,0],border:  l == markLength-1 ? [false, false, true, true] : [false, false, true, false], })
+       ms.push({ text: value.theory[w].AssessmentTypeObt || '-', alignment: 'center', margin: [0,0,0,0],border:  l == markLength-1 ? [false, false, true, true] : [false, false, true, false], })
+      }
+        ms.push({ text: value.theory[l].totalMax || '-', alignment: 'center', margin: [0,0,0,0],border:  l == markLength-1 ? [false, false, true, true] : [false, false, true, false], })
+        ms.push({ text: value.theory[l].totalMin || '-', alignment: 'center', margin: [0,0,0,0],border:  l == markLength-1 ? [false, false, true, true] : [false, false, true, false], })
+        ms.push({ text: value.theory[l].totalObt || '-', alignment: 'center', margin: [0,0,0,0],border:  l == markLength-1 ? [false, false, true, true] : [false, false, true, false], })
+     
+
+     ms.push({ text: `${'Practical' || "-"}`, alignment: "center", margin: [0, 0, 0, 0], border:  l == markLength-1 ? [false, false, true, true] : [false, false, true, false]})
+
+     for(let x = 0; x < oddMarkPractical; x++) {
+       ms.push({ text: value.practical[x].AssessmentTypeMin || '-', alignment: 'center', margin: [0,0,0,0],border:  l == markLength-1 ? [false, false, true, true] : [false, false, true, false], })
+       ms.push({ text: value.practical[x].AssessmentTypeObt || '-', alignment: 'center', margin: [0,0,0,0],border:  l == markLength-1 ? [false, false, true, true] : [false, false, true, false], })
+      }
+      ms.push({ text: value.practical[l].totalMax || '-', alignment: 'center', margin: [0,0,0,0],border:  l == markLength-1 ? [false, false, true, true] : [false, false, true, false], })
+      ms.push({ text: value.practical[l].totalMin || '-', alignment: 'center', margin: [0,0,0,0],border:  l == markLength-1 ? [false, false, true, true] : [false, false, true, false], })
+      ms.push({ text: value.practical[l].totalObt || '-', alignment: 'center', margin: [0,0,0,0],border:  l == markLength-1 ? [false, false, true, true] : [false, false, true, false], })
+
+     ms.push({ text: value.totalMax || '-', alignment: 'center', margin: [0,0,0,0],border:  l == markLength-1 ? [false, false, true, true] : [false, false, true, false], })
+     ms.push({ text: value.totalMin || '-', alignment: 'center', margin: [0,0,0,0],border:  l == markLength-1 ? [false, false, true, true] : [false, false, true, false], })
+     ms.push({ text: value.totalObt || '-', alignment: 'center', margin: [0,0,0,0],border:  l == markLength-1 ? [false, false, true, true] : [false, false, true, false], })
+    
+
+     ms.push({ text: value.grade || '-', alignment: 'center', margin: [0,0,0,0],border:  l == markLength-1 ? [false, false, true, true] : [false, false, true, false], })
+     ms.push({ text: value.gradePoint || '-', alignment: 'center', margin: [0,0,0,0],border:  l == markLength-1 ? [false, false, true, true] : [false, false, true, false], })
+     ms.push({ text: value.egp || '-', alignment: 'center', margin: [0,0,0,0],border:  l == markLength-1 ? [false, false, true, true] : [false, false, true, false], })
+     ms.push({ text: value.status || '-', alignment: 'center', margin: [0,0,0,0],border:  l == markLength-1 ? [false, false, true, true] : [false, false, true, false], })
+     ms.push({ text: value.remark || '-', alignment: 'center', margin: [0,0,0,0],border:  l == markLength-1 ? [false, false, true, true] : [false, false, true, false], })
+    
+    //  console.log('first',ms)
+
+     table11.body.push(ms)
+   }
+
+  for(let k = 0; k < oddMarkTheory; k++) {
+    table10.body[0].push({ text: student.oddSemesterdata.marks[0].theory[k].AssessmentName, alignment: 'center', colSpan:2, bold: true, margin: [0,0,0,0], border: [false, true, true, false],})
+    table10.body[0].push({ text: '', alignment: 'center', bold: true, margin: [0,0,0,0], border: [false, false, false, false],})
+    table10.body[1].push({ text: 'MIN', alignment: 'center', bold: true, margin: [0,0,0,0], border: [false, false, true, true],})
+    table10.body[1].push({ text: 'OBT', alignment: 'center', bold: true, margin: [0,0,0,0], border: [false, false, true, true],})
+  }
+
+  table10.body[0].push({ text: `TOT`, alignment: "center", bold: true, margin: [0, 0, 0, 0], colSpan:3, border: [false, true, true, false]})
+  table10.body[0].push({ text: '', alignment: 'center', bold: true, margin: [0,0,0,0], border: [false, false, false, false],})
+  table10.body[0].push({ text: '', alignment: 'center', bold: true, margin: [0,0,0,0], border: [false, false, false, false],})
+  table10.body[1].push({ text: `MAX`, alignment: "center", bold: true, margin: [0, 0, 0, 0], border: [false, false, true, true]})
+  table10.body[1].push({ text: `MIN`, alignment: "center", bold: true, margin: [0, 0, 0, 0], border: [false, false, true, true]})
+  table10.body[1].push({ text: `OBT`, alignment: "center", bold: true, margin: [0, 0, 0, 0], border: [false, false, true, true]})
+  table10.body[0].push({ text: ``, alignment: "center", bold: true, margin: [0, 0, 0, 0], border: [false, true, true, false]})
+  table10.body[1].push({ text: `AM`, alignment: "center", bold: true, margin: [0, 0, 0, 0], border: [false, false, true, true]})
+  
+  for(let k = 0; k < oddMarkPractical; k++) {
+    table10.body[0].push({ text: student.oddSemesterdata.marks[0].practical[k].AssessmentName, alignment: 'center', colSpan:2, bold: true, margin: [0,0,0,0],border: [false, true, true, false], })
+    table10.body[0].push({ text: '', alignment: 'center', bold: true, margin: [0,0,0,0],border: [false, false, false, false], })
+    table10.body[1].push({ text: 'MIN', alignment: 'center', bold: true, margin: [0,0,0,0],border: [false, false, true, true], })
+    table10.body[1].push({ text: 'OBT', alignment: 'center', bold: true, margin: [0,0,0,0],border: [false, false, true, true], })
+  }
+
+  table10.body[0].push({ text: `TOT`, alignment: "center", bold: true, margin: [0, 0, 0, 0], colSpan:3, border: [false, true, true, false]})
+  table10.body[0].push({ text: '', alignment: 'center', bold: true, margin: [0,0,0,0], border: [false, false, false, false],})
+  table10.body[0].push({ text: '', alignment: 'center', bold: true, margin: [0,0,0,0], border: [false, false, false, false],})
+  table10.body[1].push({ text: `MAX`, alignment: "center", bold: true, margin: [0, 0, 0, 0], border: [false, false, true, true]})
+  table10.body[1].push({ text: `MIN`, alignment: "center", bold: true, margin: [0, 0, 0, 0], border: [false, false, true, true]})
+  table10.body[1].push({ text: `OBT`, alignment: "center", bold: true, margin: [0, 0, 0, 0], border: [false, false, true, true]})
+
+  table10.body[0].push({ text: `TOT`, alignment: "center", bold: true, margin: [0, 0, 0, 0], colSpan:3, border: [false, true, true, false]})
+  table10.body[0].push({ text: '', alignment: 'center', bold: true, margin: [0,0,0,0], border: [false, false, false, false],})
+  table10.body[0].push({ text: '', alignment: 'center', bold: true, margin: [0,0,0,0], border: [false, false, false, false],})
+  table10.body[1].push({ text: `MAX`, alignment: "center", bold: true, margin: [0, 0, 0, 0], border: [false, false, true, true]})
+  table10.body[1].push({ text: `MIN`, alignment: "center", bold: true, margin: [0, 0, 0, 0], border: [false, false, true, true]})
+  table10.body[1].push({ text: `OBT`, alignment: "center", bold: true, margin: [0, 0, 0, 0], border: [false, false, true, true]})
+
+  table10.body[0].push({ text: '', alignment: 'center', bold: true, margin: [0,0,0,0], border: [false, true, true, false],})
+  table10.body[0].push({ text: '', alignment: 'center', bold: true, margin: [0,0,0,0], border: [false, true, true, false],})
+  table10.body[0].push({ text: '', alignment: 'center', bold: true, margin: [0,0,0,0], border: [false, true, true, false],})
+  table10.body[0].push({ text: '', alignment: 'center', bold: true, margin: [0,0,0,0], border: [false, true, true, false],})
+  table10.body[0].push({ text: '', alignment: 'center', bold: true, margin: [0,0,0,0], border: [false, true, true, false],})
+
+  table10.body[1].push({ text: `GR`, alignment: "center", bold: true, margin: [0, 0, 0, 0], border: [false, false, true, true]})
+  table10.body[1].push({ text: `GP`, alignment: "center", bold: true, margin: [0, 0, 0, 0], border: [false, false, true, true]})
+  table10.body[1].push({ text: `EGP`, alignment: "center", bold: true, margin: [0, 0, 0, 0], border: [false, false, true, true]})
+  table10.body[1].push({ text: `STS`, alignment: "center", bold: true, margin: [0, 0, 0, 0], border: [false, false, true, true]})
+  table10.body[1].push({ text: `RMK`, alignment: "center", bold: true, margin: [0, 0, 0, 0], border: [false, false, true, true]})
+
+
+}
