@@ -1,9 +1,18 @@
-import { IResult } from "./types";
+import { PDF } from "./constant";
+import { IMaksRemarksType, IResult, IsubjectDetails } from "./types";
 import { intToRoman } from "./utiles";
 
-function generateFooter(data: any[]) {
+
+
+function generateFooter(data: IResult[]) {
   let table6;
   for (let i = 0; i < data.length; i++) {
+    let principalSignature;
+  if (data[i].collegeCode === 8) {
+    principalSignature = `${process.cwd()}/public/collegeLogo/defaultLogo.png`
+  } else {
+    principalSignature = `${data[i].principalSign ? data[i].principalSign : `${process.cwd()}/public/collegeLogo/defaultLogo.png`}`;
+  }
     table6 = {
       widths: [185, 135, 150, 193, 160],
       headerRows: 1,
@@ -17,9 +26,7 @@ function generateFooter(data: any[]) {
           "",
           "",
           {
-            image: `${data[i].principalSign}`
-              ? `${data[i].principalSign}`
-              : `${process.cwd()}/public/collegeLogo/defaultLogo.png`,
+            image: principalSignature,
             width: 93,
             height: 20,
             alignment: "center",
@@ -42,7 +49,7 @@ function generateFooter(data: any[]) {
             margin: [0, -65.69, 0, 0],
           },
           {
-            text: "Seal of the Univesity",
+            text: "Seal of the University",
             bold: true,
             margin: [0, -65.69, 0, 0],
           },
@@ -67,8 +74,8 @@ function generateFooter(data: any[]) {
         ],
         [
           {
-            text: `f : Female, F : Fail, AB:Absent, '' : Not Applicable, @ : O 2020, # : O 2020, $ : Carry Forword`,
-            colSpan: 3,
+            text: `/ : Female, F : Fail, AB:Absent, '' : Not Applicable, @ : O.2020/04/(e), O.2020/04/(f), O.2020/04/(d), * : O.2020/04/(g), ~ : A.C/4.29/11.05.2017`,
+            colSpan: 4,
             fontSize: 9,
             margin: [0, -50, 0, 0],
           },
@@ -83,76 +90,13 @@ function generateFooter(data: any[]) {
   return table6;
 }
 
-function result(data: any[]) {
+function result(data: IResult[]) {
+  // console.log(data[0]);
   const contentDefinition: any = {
     pageSize: {
       width: 912.982, //322.08mm
       height: 666.708, //235.20,
     },
-    background: function (currentPage: any, pageSize: any) {
-      // Constants for text, font size, and opacity
-      const abcText = "HSNCU UNIVERSITY";
-      const abcFontSize = 10;
-      const abcOpacity = 0.05;
-    
-      // Grid settings
-      const gridSpacing = 97; // Adjust this value based on your preference
-      const columns = 9;
-      const rows = 7
-    
-      // Array to store ABC elements
-      const abcElements = [];
-    
-      // Loop to create ABC elements
-      for (let i = 0; i < columns; i++) {
-        for (let j = 0; j < rows; j++) {
-          let xPosition = i * gridSpacing;
-          let yPosition = j * gridSpacing;
-    
-          
-          // Pushing ABC elements with different y positions
-          for (let k = 0; k < 9; k++) {
-           if(j === rows-1 && k > 4)
-           {
-            break;
-           } else {
-             abcElements.push({
-               text: abcText,
-               opacity: abcOpacity,
-               fontSize: abcFontSize,
-               absolutePosition: { x: xPosition + 20, y: yPosition + 18 + k * 10, },
-             });
-           }
-            
-          }
-        }
-      }
-    
-      // Canvas elements for border lines
-      const borderLines = [
-        { type: "line", x1: 5, y1: 9, x2: pageSize.width, y2: 9, lineWidth: 18, lineColor: "#BD9C47" }, // Up line
-        { type: "line", x1: 9, y1: 0, x2: 9, y2: pageSize.height, lineWidth: 18, lineColor: "#BD9C47" }, // Left line
-        { type: "line", x1: 5, y1: pageSize.height - 8, x2: pageSize.width, y2: pageSize.height - 8, lineWidth: 18, lineColor: "#BD9C47" }, // Bottom line
-        { type: "line", x1: pageSize.width - 9, y1: 10, x2: pageSize.width - 9, y2: pageSize.height - 10, lineWidth: 18, lineColor: "#BD9C47" }, // Right line
-      ];
-    
-      // Adding canvas elements and ABC elements to the final array
-      const resultArray = [
-        { canvas: borderLines },
-        {
-          image: data[0].universityLogo ? `${data[0].universityLogo}` : `${process.cwd()}/public/collegeLogo/HSNCULogo.png`,
-          width: 200,
-          alignment: "center",
-          opacity: 0.2,
-          absolutePosition: { x: 0, y: 180 },
-        },
-        { text: "NOT FOR PRINT", opacity: 0.2, fontSize: 35, absolutePosition: { x: 120, y: 200 } },
-        ...abcElements,
-      ];
-    
-      return resultArray;
-    },
-    
     pageMargins: [0, 0, 0, 0],
     content: [],
     footer: {
@@ -166,16 +110,19 @@ function result(data: any[]) {
   for (let i = 0; i < data.length; i++) {
     function pdf() {
       const numRows = data[i].subjects.length;
+      const sgpi = data[i].sgpi === '0.00' ? '-' : data[i].sgpi;
+      const NSSSGPI = data[i].NSSSGPI === '0.00' ? '-' : data[i].NSSSGPI;
+
       const table3 = {
         headerRows: 1,
         // widths: [ 59.38, 198.79, 38.211, 36.396, 47.99, 38.211, 36.396, 47.99, 38.211, 36.396, 47.99, 41.244, 48.472, 44.759, 40.762, 41.357],
         widths: [
-          51.13, 190.13, 30.13, 28.13, 39.13, 30.13, 28.13, 39.13, 30.13, 28.13,
-          39.13, 33.13, 40.13, 36.13, 32.13, 33.13,
+          45, 180, 35, 30.13, 28.13, 37, 30.13, 28.13, 37, 30.13, 28.13,
+              35, 30, 33, 30, 32.13, 30,
         ],
         // widths: [80, 260, 44, 44, 50, 44, 44, 50, 44, 44, 50, 43, 40, 40, 35, 40],
         body: [
-          ...data[i].subjects.map((value: any, index: number) => [
+          ...data[i].subjects.map((value: IsubjectDetails, index: number) => [
             {
               text: value.subjectCode || "-",
               margin: [0, 1, 0, 1],
@@ -187,6 +134,12 @@ function result(data: any[]) {
               margin: [0, 1, 0, 1],
               border: [true, false, true, true],
               //   alignment: "center",
+            },
+            {
+              text: value.passingMonthYear || "-",
+              margin: [0, 1, 0, 1],
+              border: [true, false, true, true],
+                alignment: "center",
             },
             {
               text: value.internalMax || "-",
@@ -201,7 +154,8 @@ function result(data: any[]) {
               alignment: "center",
             },
             {
-              text: value.internalObt || "-",
+              text: value.subjectRemarkInternal === IMaksRemarksType.PRESENT && value.internalObt === 0 ? 0 : (value.internalObt || "-"),
+              // text: (value.internalObt === 0 ? 0 : value.internalObt) || "-",
               margin: [0, 1, 0, 1],
               border: [true, false, true, true],
               alignment: "center",
@@ -219,7 +173,8 @@ function result(data: any[]) {
               alignment: "center",
             },
             {
-              text: value.externalObt || "-",
+              text: value.subjectRemarkExternal === IMaksRemarksType.PRESENT && value.externalObt === 0 ? 0 : (value.externalObt || "-"),
+              // text: value.externalObt === 0 ? 0 :( value.externalObt|| "-" ),
               margin: [0, 1, 0, 1],
               border: [true, false, true, true],
               alignment: "center",
@@ -237,7 +192,8 @@ function result(data: any[]) {
               alignment: "center",
             },
             {
-              text: value.totalObt || "-",
+              text: (value.externalObt == 'AB' && !value.internalObt) ? 'AB' : (value.internalObt == 'AB' && !value.externalObt) ? 'AB' : (value.internalObt == 'AB' && value.externalObt == 'AB') ? 'AB' : value.totalObt || "-",
+              // text: value.totalObt || "-",
               margin: [0, 1, 0, 1],
               border: [true, false, true, true],
               alignment: "center",
@@ -267,7 +223,7 @@ function result(data: any[]) {
               border: [true, false, true, true],
             },
             {
-              text: data[i].sgpi,
+              text: sgpi || "-",
               alignment: "center",
               rowSpan: numRows,
               bold: true,
@@ -281,8 +237,7 @@ function result(data: any[]) {
       const table4 = {
         headerRows: 1,
         widths: [
-          120, 120, 16, 20, 40, 30, 40, 50, 20, 40, 37.5, 37, 36.3, 36.13,
-          32.13, 33.13,
+          120, 120, 39.5, 20, 40, 30, 40, 50, 20, 35.7, 37.5, 37, 26, 30, 32.13, 30,
         ],
         body: [
           [
@@ -294,7 +249,7 @@ function result(data: any[]) {
               bold: true,
             },
             {
-              text: `Grade : ${data[i].totalGrade || "-"}`,
+              text: `Grade : ${data[i].totalGrade === "F" ? "FAIL/ATKT" : data[i].totalGrade || "-"}`,
               margin: [0, 5, 0, 0],
               border: [true, false, true, true],
               //   alignment: "center",
@@ -338,9 +293,8 @@ function result(data: any[]) {
               alignment: "center",
             },
             {
-              text: `Total : ${data[i].outOfTotal || "-"}/${
-                data[i].totalOfTotal || "-"
-              }`,
+              text: `Total : ${data[i].outOfTotal || "-"}/${data[i].totalOfTotal || "-"
+                }`,
               margin: [0, 5, 0, 0],
               border: [true, false, true, true],
               alignment: "center",
@@ -388,7 +342,7 @@ function result(data: any[]) {
             },
 
             {
-              text: data[i].sgpi || "-",
+              text: NSSSGPI || "-",
               alignment: "center",
               margin: [0, 5, 0, 0],
               border: [true, false, true, true],
@@ -398,8 +352,8 @@ function result(data: any[]) {
         ],
       };
 
-      const table2 = {
-        widths: [133, 162, 305, 216],
+      const table10 = {
+        widths: [133, 282, 185, 216],
         // widths: ["*", "*", "*", "*"],
         headerRows: 1,
         body: [
@@ -407,7 +361,7 @@ function result(data: any[]) {
             {
               text: `PROGRAMME : ${data[i].courseName || "-"}`,
               colSpan: 2,
-              border: [true, true, false, true],
+              border: [true, true, false, false],
               // alignment:'center',
               margin: [0, 5, 0, 0],
               // lineHeight: 1.5,
@@ -415,21 +369,59 @@ function result(data: any[]) {
             },
             {
               text: "",
+              border: [false, false, false, false],
             },
             {
               text: `SEMESTER : ${data[i].semName || "-"}`,
-              alignment: "center",
+              // alignment: "center",
               margin: [0, 5, 0, 0],
-              border: [false, true, true, true],
+              border: [false, true, true, false],
               bold: true,
             },
             {
               text: `ACADEMIC YEAR : ${data[i].acadamicYear || "-"}`,
               alignment: "center",
               margin: [0, 5, 0, 0],
+              border: [false, true, true, false],
               bold: true,
             },
           ],
+        ],
+      };
+
+
+      const table2 = {
+        widths: [133, 162, 305, 216],
+        // widths: ["*", "*", "*", "*"],
+        headerRows: 1,
+        body: [
+          // [
+          //   {
+          //     text: `PROGRAMME : ${data[i].courseName || "-"}`,
+          //     colSpan: 2,
+          //     border: [true, true, false, true],
+          //     // alignment:'center',
+          //     margin: [0, 5, 0, 0],
+          //     // lineHeight: 1.5,
+          //     bold: true,
+          //   },
+          //   {
+          //     text: "",
+          //   },
+          //   {
+          //     text: `SEMESTER : ${data[i].semName || "-"}`,
+          //     alignment: "center",
+          //     margin: [0, 5, 0, 0],
+          //     border: [false, true, true, true],
+          //     bold: true,
+          //   },
+          //   {
+          //     text: `ACADEMIC YEAR : ${data[i].acadamicYear || "-"}`,
+          //     alignment: "center",
+          //     margin: [0, 5, 0, 0],
+          //     bold: true,
+          //   },
+          // ],
           [
             {
               text: "PRN",
@@ -447,7 +439,7 @@ function result(data: any[]) {
               bold: true,
             },
             {
-              text: "Month & Year of Examination",
+              text: "ABC Number",
               alignment: "center",
               bold: true,
             },
@@ -460,7 +452,8 @@ function result(data: any[]) {
               // lineHeight:1.2,
             },
             {
-              text: `${data[i].seatNumber || "-"}`,
+              // text: `${data[i].seatNumber || "-"}`,
+              text: `${data[i].rollNo || "-"}`,
               alignment: "center",
               margin: [0, 5, 0, 0],
             },
@@ -470,7 +463,7 @@ function result(data: any[]) {
               margin: [0, 5, 0, 0],
             },
             {
-              text: `${data[i].monthAndYear || "-"}`,
+              text: `${data[i].abcNo || "-"}`,
               alignment: "center",
               margin: [0, 5, 0, 0],
             },
@@ -479,7 +472,8 @@ function result(data: any[]) {
       };
 
       const numSemesters = data[i].numberOfSem;
-      let width = [150, 58];
+
+      let width = [140, 68];
       if (numSemesters === 4 || numSemesters > 6) {
         width = [(72 * 275) / 100, (28 * 275) / 100];
       }
@@ -507,16 +501,14 @@ function result(data: any[]) {
                   body: [
                     [
                       {
-                        text: `${
-                          semester1Data.semName || "Sem-" + intToRoman(i + 1)
-                        } : Credits Earned = ${
-                          semester1Data.creditEarned || "-"
-                        }`,
+                        text: `${semester1Data.semName || "Sem-" + intToRoman(i + 1)
+                          } : Credits Earned = ${semester1Data.creditEarned || "-"
+                          }`,
                         // alignment: "center",
                         bold: true,
                       },
                       {
-                        text: `  SGPI = ${semester1Data.sgpi || "-"}`,
+                        text: `  SGPA = ${semester1Data.sgpi == '0.00' ? '-' : semester1Data.sgpi || "-"}`,//
                         // alignment: "center",
                         bold: true,
                       },
@@ -535,13 +527,12 @@ function result(data: any[]) {
                 body: [
                   [
                     {
-                      text: `${
-                        semester2Data.semName || "Sem-" + intToRoman(i + 2)
-                      }: Credits Earned = ${semester2Data.creditEarned || "-"}`,
+                      text: `${semester2Data.semName || "Sem-" + intToRoman(i + 2)
+                        }: Credits Earned = ${semester2Data.creditEarned || "-"}`,
                       bold: true,
                     },
                     {
-                      text: `SGPI = ${semester2Data.sgpi || "-"}`,
+                      text: `SGPA = ${semester2Data.sgpi == '0.00' ? '-' : semester2Data.sgpi || "-"}`,//
                       bold: true,
                     },
                   ],
@@ -627,7 +618,7 @@ function result(data: any[]) {
             ],
             border: [true, false, true, true],
           });
-        } 
+        }
         if (!isNumSemestersGreaterThan6) {
           // Add the CGPA data for the student at the end for numSemesters being 2 or 4
           dataRow.push({
@@ -662,7 +653,7 @@ function result(data: any[]) {
           dataRow.length === 3
         ) {
           numBlanks = 5;
-        } 
+        }
         if (
           (numSemesters === 2 || numSemesters === 1) &&
           dataRow.length === 2
@@ -672,12 +663,10 @@ function result(data: any[]) {
 
         // Add the necessary blank objects to dataRow
         for (let i = 0; i < numBlanks; i++) {
-          if(numSemesters < 7)
-          {
-          dataRow.push({ stack: [], border: [false, false, false, false] });
+          if (numSemesters < 7) {
+            dataRow.push({ stack: [], border: [false, false, false, false] });
           }
-          if(numSemesters > 6)
-          {
+          if (numSemesters > 6) {
             dataRow.push({ stack: [], border: [false, false, true, true] });
           }
         }
@@ -712,7 +701,7 @@ function result(data: any[]) {
           headerRows: 1,
           body: [
             tableBody[0].slice(0, 3),
-            tableBody[0].slice(4, tableBody[0].length-1),
+            tableBody[0].slice(4, tableBody[0].length - 1),
           ],
         };
       } else {
@@ -738,7 +727,7 @@ function result(data: any[]) {
                   // D:\pdf\pdfmake gu\img\KCC_Mumbai_logo.svg.png
                   // image: data[i].collegeLogo
                   //   ? data[i].collegeLogo
-                  //   : `${process.cwd()}/public/collegeLogo/defaultLogo.png`,
+                  //   : PDF.defaultPhoto,
                   // margin: [148.42, 28.4, 0, 0],
                   // // alignment: "right",
                   // width: 76,
@@ -747,55 +736,54 @@ function result(data: any[]) {
                 },
                 {
                   // text: [
-                    // {
-                    //   text: "HSNC UNIVERSITY, MUMBAI",
-                    //   fontSize: 20,
-                    //   alignment: "center",
-                    //   bold: true,
-                    //   color: "#1E6332",
-                    //   margin: [0, 50, 0, 0],
-                    // },
-                    // "\n",
-                    // {
-                    //   text: "A STATE CLUSTER UNIVERSITY",
-                    //   //   fontSize: 14,
-                    //   color: "#BD9C47",
-                    //   alignment: "center",
-                    //   bold: true,
-                    // },
-                    // "\n",
-                    // {
-                    //   text: "47, Dr. R. G. Thadani Marg, Worli, Mumbai – 400 018.",
-                    //   alignment: "center",
-                    //   fontSize: 8,
-                    //   bold: true,
-                    //   lineHeight: 1.5,
-                    // },
-                    // "\n",
-                    // {
-                      // text: data[i].collegeName || "-",
-                      // //   fontSize: 14,
-                      // color: "#344B9E",
-                      // alignment: "center",
-                      // bold: true,
-                    // },
-                    // "\n",
-                    // {
-                    //   text: "A CONSTITUENT COLLEGE OF HSNC UNIVERSITY, MUMBAI",
-                    //   fontSize: 8,
-                    //   alignment: "center",
-                    //   bold: true,
-                    //   margin: [0, 0, 0, 0],
-                    // },
+                  // {
+                  //   text: "HSNC UNIVERSITY, MUMBAI",
+                  //   fontSize: 20,
+                  //   alignment: "center",
+                  //   bold: true,
+                  //   color: "#1E6332",
+                  //   margin: [0, 50, 0, 0],
+                  // },
+                  // "\n",
+                  // {
+                  //   text: "A STATE CLUSTER UNIVERSITY",
+                  //   //   fontSize: 14,
+                  //   color: "#BD9C47",
+                  //   alignment: "center",
+                  //   bold: true,
+                  // },
+                  // "\n",
+                  // {
+                  //   text: "47, Dr. R. G. Thadani Marg, Worli, Mumbai – 400 018.",
+                  //   alignment: "center",
+                  //   fontSize: 8,
+                  //   bold: true,
+                  //   lineHeight: 1.5,
+                  // },
+                  // "\n",
+                  // {
+                  // text: data[i].collegeName || "-",
+                  // //   fontSize: 14,
+                  // color: "#344B9E",
+                  // alignment: "center",
+                  // bold: true,
+                  // },
+                  // "\n",
+                  // {
+                  //   text: "A CONSTITUENT COLLEGE OF HSNC UNIVERSITY, MUMBAI",
+                  //   fontSize: 8,
+                  //   alignment: "center",
+                  //   bold: true,
+                  //   margin: [0, 0, 0, 0],
+                  // },
                   // ],
                   // margin: [-100, 72.7, 0, 0],
-                  text:''
+                  text: ''
                 },
                 {
                   image: data[i].studentPhoto
                     ? data[i].studentPhoto
-                    : `${process.cwd()}/public/collegeLogo/123.png`,
-                  // alignment: "right",
+                    : PDF.defaultPhoto,
                   width: 62.36,
                   height: 59.52,
                   margin: [54, 29.5, 36.99, 3],
@@ -806,6 +794,17 @@ function result(data: any[]) {
             ],
           },
           layout: "noBorders",
+        },
+        {
+          margin: [29.87, 0, 30.5, 0],
+          table: table10,
+          fontSize: 10,
+          //   layout:{  hLineWidth: function(i:number, node:any) { return (i === 0 || i === node.table.body.length) ? 10 : 1;},
+          //   vLineWidth: function(i:number, node:any) { return (i === 0 || i === node.table.widths.length) ? 10 : 1; },
+          //   hLineColor: function(i:number, node:any) {return (i === 0 || i === node.table.body.length) ? 'black' : 'gray'; },
+          //   vLineColor: function(i:number, node:any) { return (i === 0 || i === node.table.widths.length) ? 'black' : 'gray';}
+          // }
+          // layout: "noBorders",
         },
         {
           margin: [29.87, 0, 30.5, 0],
@@ -838,8 +837,8 @@ function result(data: any[]) {
           table: {
             // widths: [ 59.38, 198.79, 38.211, 36.396, 47.99, 38.211, 36.396, 47.99, 38.211, 36.396, 47.99, 41.244, 48.472, 44.759, 40.762, 41.357],
             widths: [
-              51.13, 190.13, 30.13, 28.13, 39.13, 30.13, 28.13, 39.13, 30.13,
-              28.13, 39.13, 33.13, 40.13, 36.13, 32.13, 33.13,
+              45, 180, 35, 30.13, 28.13, 37, 30.13, 28.13, 37, 30.13, 28.13,
+              35, 30, 33, 30, 32.13, 30,
             ],
             // widths: [80, 260, 44, 44, 50, 44, 44, 50, 44, 44, 50, 43, 40, 40, 35, 40],
             headerRows: 2,
@@ -860,7 +859,14 @@ function result(data: any[]) {
                   bold: true,
                   margin: [0, 5, 0, 0],
                   rowSpan: 2,
-                  height: 65.53,
+                },
+                {
+                  text: `Applied in
+                  MM/YY`,
+                  alignment: "center",
+                  bold: true,
+                  margin: [0, 5, 0, 0],
+                  rowSpan: 2,
                 },
                 {
                   text: `Internal Examination`,
@@ -940,7 +946,7 @@ function result(data: any[]) {
                   margin: [0, 5, 0, 0],
                 },
                 {
-                  text: `SGPI= ΣCG/\nΣC`,
+                  text: `SGPA= ΣCG/\nΣC`,
                   alignment: "center",
                   bold: true,
                   rowSpan: 2,
@@ -949,6 +955,7 @@ function result(data: any[]) {
               ],
               [
                 "", //margin: [10, 2, 0, 0],
+                "",
                 "",
                 { text: "Max Marks", bold: true, alignment: "center" },
                 { text: "Min Marks", bold: true, alignment: "center" },
@@ -967,7 +974,7 @@ function result(data: any[]) {
               ],
             ],
           },
-          fontSize: 9,
+          fontSize: 8,
           // layout: "noBorders",
         },
         {

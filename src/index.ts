@@ -12,15 +12,23 @@ import barCode from "./barCode";
 import feeRes from "./feeRes";
 import IdCard from "./idCard";
 import markSheet from "./markStatement";
-import puppeteer from 'puppeteer';
+import puppeteer from "puppeteer";
 import ms from "./MOCK_DATA (5).json";
-import ms1 from "./MOCK_DATA (1).json";
+import solapurTimeTableData from "./timetable.json";
 import marksheet from "./markStatement";
 import hsncMarksheet from "./hsncMarksheet";
 import result from "./result";
 import admissionForm from "./admission";
-import { IAddmission, IExamFormPdf, IReassessmentFeeSlip, ISolapurHallticketPdf, ISolLedger, ISolMarksheet } from "./types";
-import HallTicket from './HSNC_hallticket'
+import {
+  IAddmission,
+  IAttendanceSheet,
+  IExamFormPdf,
+  IReassessmentFeeSlip,
+  ISolapurHallticketPdf,
+  ISolLedger,
+  ISolMarksheet,
+} from "./types";
+import HallTicket from "./HSNC_hallticket";
 import mockDataResult from "./marksheetdata";
 import reassessmentReceipt from "./reassessment-recipt";
 import generatePDF from "./questionPaper";
@@ -30,6 +38,8 @@ import { getBarcodeByPrnNo } from "./utiles";
 import solLedger from "./solapur_ledger";
 import solHallticket from "./solHallticket";
 import solExamForm from "./solapurExamForm";
+import attendanceSheet from "./attendance";
+import solapurExamTimeTable from "./solapurTimeTable";
 // const contentDefinition = require('./pdf');
 // const Hallticket = require('./hallTicket');
 // const Certificate = require('./certificate');
@@ -37,10 +47,10 @@ const app = express();
 
 const fonts = {
   Roboto: {
-    normal: "roboto/Roboto-Regular.ttf",
-    bold: "roboto/Roboto-Bold.ttf",
-    italics: "roboto/Roboto-Italic.ttf",
-    bolditalics: "roboto/Roboto-MediumItalic.ttf",
+    normal: `${process.cwd()}/Times New Roman/times new roman.ttf`, // `${__dirname}/roboto/roboto/Roboto-Regular.ttf`
+    bold: `${process.cwd()}/Times New Roman/times new roman bold.ttf`, // `${__dirname}/roboto/roboto/Roboto-Medium.ttf
+    italics: `${process.cwd()}/Times New Roman/times new roman italic.ttf`, // `${__dirname}/roboto/roboto/Roboto-Italic.ttf`
+    bolditalics: `${process.cwd()}/Times New Roman/times new roman bold italic.ttf`, // `${__dirname}/roboto/roboto/Roboto-MediumItalic.ttf
   },
 };
 
@@ -367,182 +377,194 @@ app.get("/generate-markstatement", (req: Request, res: Response) => {
 
 const mockResult = [
   {
-    collegeName: "H.R. COLLEGE OF COMMERCE AND ECONOMICS",
-    collegeLogo: "img/KCC_Mumbai_logo.svg.png",
-    studentPhoto: "img/cds.jpg",
-    courseName: "Computer Science Engineering",
-    semName: "V",
-    acadamicYear: "2022-2023",
-    prnNo: "1234567890",
-    seatNumber: 1234,
-    studentName: "John Doe",
-    monthAndYear: "June 2023 BACKLOG",
-    sgpi: "8.75",
-    result: "successful",
-    totalGrade: "A",
+    courseName: "Master of Business Administration in Real Estate",
+    semName: "I",
+    acadamicYear: "2023-2024",
+    seatNumber: 23072181004,
+    studentName: "/ HARIA ZEEL SHASHIKANT",
+    prnNo: "23072181004",
+    rollNo: "12",
+    collegeName: "Niranjan Hiranandani School of Management and Real Estate",
+    collegeCode: 7,
+    result: "UNSUCCESSFUL",
+    totalGrade: "F",
+    abcNo: "667265669922",
+    totalCredit: 21,
     totalOfTotal: 700,
-    outOfTotal: 324,
-    totalCredit: 20.0,
-    numberOfSem: 12,
-    cg: "8.50",
-    credits: [
-      {
-        creditEarned: 4,
-        semName: "Sem I",
-        sgpi: 9.0,
-      },
-      {
-        creditEarned: 4,
-        semName: "Sem II",
-        sgpi: 9.0,
-      },
-      {
-        creditEarned: 4,
-        semName: "Sem III",
-        sgpi: 9.0,
-      },
-      {
-        creditEarned: 4,
-        semName: "Sem IV",
-        sgpi: 9.0,
-      },
-      
-    ],
-    cgpa: 8.7,
-    finalGrade: "A+",
-    principalSign: "img/xyz.png",
-    directorSign: "img/xyz.png",
-    date: "27th July 2023",
-    place: "City, Country",
-    universityLogo: "img/Hsnc-university-logo.png",
+    outOfTotal: "500",
+    numberOfSem: 4,
+    cg: "168",
+    monthAndYear: "January 2024 REGULAR",
+    sgpi: "0.00",
+    NSSSGPI: "0.00",
     subjects: [
       {
-        subjectCode: "UH-FMM-103",
-        subjectName: "Introduction to Programming of computer programming",
-        internalMax: 30,
-        internalMin: 10,
-        internalObt: 25,
-        externalMax: 70,
-        externalMin: 30,
-        externalObt: 65,
+        subjectCode: "MBARE-101",
+        subjectName: "Real Estate Concepts",
+        passingMonthYear: "03/24",
+        externalMax: 60,
+        externalMin: 24,
+        internalMax: 40,
+        internalMin: 16,
+        externalObt: 30,
+        internalObt: 29,
+        subjectRemarkExternal: "PRESENT",
+        subjectRemarkInternal: "PRESENT",
         totalMax: 100,
         totalMin: 40,
-        totalObt: 90,
+        totalObt: 59,
+        grade: "B+",
+        gradePoint: 7,
+        creditPoint: 3,
+        cg: 21,
+      },
+      {
+        subjectCode: "MBARE-102",
+        subjectName: "Real Estate Economics (I)- Micro",
+        passingMonthYear: "03/24",
+        externalMax: 60,
+        externalMin: 24,
+        internalMax: 40,
+        internalMin: 16,
+        externalObt: 51,
+        internalObt: 36,
+        subjectRemarkExternal: "PRESENT",
+        subjectRemarkInternal: "PRESENT",
+        totalMax: 100,
+        totalMin: 40,
+        totalObt: 87,
+        grade: "O",
+        gradePoint: 10,
+        creditPoint: 3,
+        cg: 30,
+      },
+      {
+        subjectCode: "MBARE-103",
+        subjectName: "General Laws",
+        passingMonthYear: "03/24",
+        externalMax: 60,
+        externalMin: 24,
+        internalMax: 40,
+        internalMin: 16,
+        externalObt: 38,
+        internalObt: 36,
+        subjectRemarkExternal: "PRESENT",
+        subjectRemarkInternal: "PRESENT",
+        totalMax: 100,
+        totalMin: 40,
+        totalObt: 74,
         grade: "A+",
-        gradePoint: 4.0,
-        creditPoint: 16.0,
-        cg: 6.4,
+        gradePoint: 9,
+        creditPoint: 3,
+        cg: 27,
       },
       {
-        subjectCode: "UH-FMM-103",
-        subjectName: "Data Structures",
-        internalMax: 30,
-        internalMin: 10,
-        internalObt: 28,
-        externalMax: 70,
-        externalMin: 30,
-        externalObt: 60,
+        subjectCode: "MBARE-104",
+        subjectName: "Real Estate Accounting",
+        passingMonthYear: "03/24",
+        externalMax: 60,
+        externalMin: 24,
+        internalMax: 40,
+        internalMin: 16,
+        externalObt: 48,
+        internalObt: 35,
+        subjectRemarkExternal: "PRESENT",
+        subjectRemarkInternal: "PRESENT",
         totalMax: 100,
         totalMin: 40,
-        totalObt: 88,
-        grade: "A",
-        gradePoint: 3.67,
-        creditPoint: 12.0,
-        cg: 4.8,
+        totalObt: 83,
+        grade: "O",
+        gradePoint: 10,
+        creditPoint: 3,
+        cg: 30,
       },
       {
-        subjectCode: "UH-FMM-103",
-        subjectName: "Introduction to Programming",
-        internalMax: 30,
-        internalMin: 10,
-        internalObt: 25,
-        externalMax: 70,
-        externalMin: 30,
-        externalObt: 65,
+        subjectCode: "MBARE-105",
+        subjectName: "Principles & Practices of Management",
+        passingMonthYear: "03/24",
+        externalMax: 60,
+        externalMin: 24,
+        internalMax: 40,
+        internalMin: 16,
+        externalObt: 48,
+        internalObt: 35,
+        subjectRemarkExternal: "PRESENT",
+        subjectRemarkInternal: "PRESENT",
         totalMax: 100,
         totalMin: 40,
-        totalObt: 90,
-        grade: "A+",
-        gradePoint: 4.0,
-        creditPoint: 16.0,
-        cg: 6.4,
+        totalObt: 83,
+        grade: "O",
+        gradePoint: 10,
+        creditPoint: 3,
+        cg: 30,
       },
       {
-        subjectCode: "UH-FMM-103",
-        subjectName: "Data Structures",
-        internalMax: 30,
-        internalMin: 10,
-        internalObt: 28,
-        externalMax: 70,
-        externalMin: 30,
-        externalObt: 60,
+        subjectCode: "MBARE-106",
+        subjectName: "Marketing Management",
+        passingMonthYear: "03/24",
+        externalMax: 60,
+        externalMin: 24,
+        internalMax: 40,
+        internalMin: 16,
+        externalObt: "AB",
+        internalObt: 29,
+        subjectRemarkExternal: "ABSENT",
+        subjectRemarkInternal: "PRESENT",
         totalMax: 100,
         totalMin: 40,
-        totalObt: 88,
-        grade: "A",
-        gradePoint: 3.67,
-        creditPoint: 12.0,
-        cg: 4.8,
+        totalObt: 29,
+        grade: "F",
+        gradePoint: 0,
+        creditPoint: 3,
+        cg: 0,
       },
       {
-        subjectCode: "UH-FMM-103",
-        subjectName: "Introduction to Programming",
-        internalMax: 30,
-        internalMin: 10,
-        internalObt: 25,
-        externalMax: 70,
-        externalMin: 30,
-        externalObt: 65,
+        subjectCode: "MBARE-107",
+        subjectName: "Introduction to Built Environment",
+        passingMonthYear: "03/24",
+        externalMax: 60,
+        externalMin: 24,
+        internalMax: 40,
+        internalMin: 16,
+        externalObt: 52,
+        internalObt: 33,
+        subjectRemarkExternal: "PRESENT",
+        subjectRemarkInternal: "PRESENT",
         totalMax: 100,
         totalMin: 40,
-        totalObt: 90,
-        grade: "A+",
-        gradePoint: 4.0,
-        creditPoint: 16.0,
-        cg: 6.4,
+        totalObt: 85,
+        grade: "O",
+        gradePoint: 10,
+        creditPoint: 3,
+        cg: 30,
       },
-      {
-        subjectCode: "UH-FMM-103",
-        subjectName: "Data Structures",
-        internalMax: 30,
-        internalMin: 10,
-        internalObt: 28,
-        externalMax: 70,
-        externalMin: 30,
-        externalObt: 60,
-        totalMax: 100,
-        totalMin: 40,
-        totalObt: 88,
-        grade: "A",
-        gradePoint: 3.67,
-        creditPoint: 12.0,
-        cg: 4.8,
-      },
-      {
-        subjectCode: "UH-FMM-103",
-        subjectName: "Introduction to Programming",
-        internalMax: 30,
-        internalMin: 10,
-        internalObt: 25,
-        externalMax: 70,
-        externalMin: 30,
-        externalObt: 65,
-        totalMax: 100,
-        totalMin: 40,
-        totalObt: 90,
-        grade: "A+",
-        gradePoint: 4.0,
-        creditPoint: 16.0,
-        cg: 6.4,
-      },
-      // Add more subjects here if needed...
     ],
+    credits: [
+      {
+        semName: "Sem-I",
+        creditEarned: "18",
+        sgpi: "0.00",
+      },
+    ],
+    cgpa: 0,
+    finalGrade: "-",
+    collegeLogo:
+      "D:\\guExam\\guExamServer1\\guExamServer\\uploads\\collegeLogo\\1691415043348-500354839.png",
+    collegeColor: "#1c2950",
+    studentPhoto:
+      "D:\\guExam\\guExamServer1\\guExamServer/public/collegeLogo/corrupt.jpg",
+    principalSign: "",
+    directorSign:
+      "D:\\guExam\\guExamServer1\\guExamServer/public/collegeLogo/DBOEE_Blue_Sign.png",
+    date: "",
+    place: "MUMBAI",
+    universityLogo: "",
   },
 ];
 
 //* Define the endpoint that generates and returns the PDF document
 app.get("/result", (req: Request, res: Response) => {
-  const pdfDocGenerator = pdfmake.createPdfKitDocument(result([mockDataResult]));
+  const pdfDocGenerator = pdfmake.createPdfKitDocument(result(mockResult));
   res.setHeader("Content-Type", "application/pdf");
   res.setHeader("Content-Disposition", "inline");
   pdfDocGenerator.pipe(res);
@@ -757,10 +779,10 @@ const data3 = [
 //   }
 // ]
 // console.log("first",data)
-app.get('/hsnc', (req:Request, res:Response) => {
+app.get("/hsnc", (req: Request, res: Response) => {
   const pdfDocGenerator = pdfmake.createPdfKitDocument(HallTicket(data3));
-  res.setHeader('Content-Type', 'application/pdf');
-  res.setHeader('Content-Disposition', 'inline');
+  res.setHeader("Content-Type", "application/pdf");
+  res.setHeader("Content-Disposition", "inline");
   pdfDocGenerator.pipe(res);
   pdfDocGenerator.end();
 });
@@ -909,20 +931,20 @@ app.get("/hsnc-time", (req: Request, res: Response) => {
 
 const reassessmentFeeSlip: IReassessmentFeeSlip = {
   receiptNo: 123456,
-  courseName: 'Computer Science',
-  studentName: 'John Doe',
-  semester: 'Sem-1',
+  courseName: "Computer Science",
+  studentName: "John Doe",
+  semester: "Sem-1",
   feeDetails: [
     {
-      subjectName: 'Programming Fundamentals',
+      subjectName: "Programming Fundamentals",
       amount: 50,
     },
     {
-      subjectName: 'Database Management',
+      subjectName: "Database Management",
       amount: 75,
     },
     {
-      subjectName: 'Web Development',
+      subjectName: "Web Development",
       amount: 60,
     },
   ],
@@ -930,13 +952,14 @@ const reassessmentFeeSlip: IReassessmentFeeSlip = {
 
 //* Define the endpoint that generates and returns the PDF document
 app.get("/reassessment", (req: Request, res: Response) => {
-  const pdfDocGenerator = pdfmake.createPdfKitDocument(reassessmentReceipt([reassessmentFeeSlip]));
+  const pdfDocGenerator = pdfmake.createPdfKitDocument(
+    reassessmentReceipt([reassessmentFeeSlip])
+  );
   res.setHeader("Content-Type", "application/pdf");
   res.setHeader("Content-Disposition", "inline");
   pdfDocGenerator.pipe(res);
   pdfDocGenerator.end();
 });
-
 
 const mockBarCodeData = [
   {
@@ -1008,41 +1031,46 @@ app.get("/generate", (req: Request, res: Response) => {
   pdfDocGenerator.end();
 });
 
-const IdmockData=[
+const IdmockData = [
   {
     studentId: 17059,
-    abcNo: '',
-    prnNo: '23032031073',
+    abcNo: "",
+    prnNo: "23032031073",
     courseId: 5,
     collegeCode: 11,
     registrationNo: 801279,
-    gender: 'Female',
-    courseName: 'M. A. Entertainment, Media and Advertising',
-    collegeName: 'School of Interdisciplinary Studies',
-    collegeLogo: '',
-    studentName: 'Mohammed Osaid Mohammed Salim Sopariwala',
-    fullName: 'DESAI KHUSHI JITESH SONALI',
-    bloodGroup: '',
-    address: '8/F/76, 4TH FLOOR, SONAWALA BUILDING, SLEATER ROAD, TARDEO, , MUMBAI, 400007',
-    parentPhone: '9821023263',
-    dob: 'Invalid date',
-    studentEmail: 'desaikhushi135@gmail.com',
-    studentPhoto: 'D:\\guExam\\guExamServer1\\guExamServer\\uploads\\compressed_studentPhotoAndSignature\\801279_p.jpeg',
+    gender: "Female",
+    courseName: "M. A. Entertainment, Media and Advertising",
+    collegeName: "School of Interdisciplinary Studies",
+    collegeLogo: "",
+    studentName: "Mohammed Osaid Mohammed Salim Sopariwala",
+    fullName: "DESAI KHUSHI JITESH SONALI",
+    bloodGroup: "",
+    address:
+      "8/F/76, 4TH FLOOR, SONAWALA BUILDING, SLEATER ROAD, TARDEO, , MUMBAI, 400007",
+    parentPhone: "9821023263",
+    dob: "Invalid date",
+    studentEmail: "desaikhushi135@gmail.com",
+    studentPhoto:
+      "D:\\guExam\\guExamServer1\\guExamServer\\uploads\\compressed_studentPhotoAndSignature\\801279_p.jpeg",
     studentSign: null,
     collegeId: 11,
-    currentSem: 'Sem-1',
-    principalSignature: 'D:\\guExam\\guExamServer1\\guExamServer\\uploads\\PrincipalSignature\\1697609420913-173439590.png',
-    primaryColor: '#292C57',
-    filename: '',
-    abbrevation: 'M.A.E.M.A\r\n',
-    issuingAuthority: 'D:\\guExam\\guExamServer1\\guExamServer\\uploads\\PrincipalSignature\\1697609420913-173439590.png',
-    Program: 'M.A.E.M.A\r\n',
-    yearPrefix: 'FY',
-    contactNo: '9821023263',
-    email: 'desaikhushi135@gmail.com',
-    barcode: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHAAAAAYCAYAAAAiR3l8AAAAHnRFWHRTb2Z0d2FyZQBid2lwLWpzLm1ldGFmbG9vci5jb21Tnbi0AAAA4ElEQVR4nO2RQYpCUQwEc/9L60bENF1xZinUQmxCp14+NTPzeP3m438+5tesZWIlY47Zf98k1l/ezfwYfpPepR7N2s6378lves8UuLMCgZWMduTVVyDsKXBnBQIrGe3Iq69A2FPgzgoEVjLakVdfgbCnwJ0VCKxktCOvvgJhT4E7KxBYyWhHXn0Fwp4Cd1YgsJLRjrz6CoQ9Be6sQGAlox159RUIewrcWYHASkY78uorEPYUuLMCgZWMduTVVyDsKXBnBQIrGe3Iq69A2FPgzgoEVjLakVdfgbCnwJ1/SuATzbzKfN7vJjIAAAAASUVORK5CYII='
-  }
-]
+    currentSem: "Sem-1",
+    principalSignature:
+      "D:\\guExam\\guExamServer1\\guExamServer\\uploads\\PrincipalSignature\\1697609420913-173439590.png",
+    primaryColor: "#292C57",
+    filename: "",
+    abbrevation: "M.A.E.M.A\r\n",
+    issuingAuthority:
+      "D:\\guExam\\guExamServer1\\guExamServer\\uploads\\PrincipalSignature\\1697609420913-173439590.png",
+    Program: "M.A.E.M.A\r\n",
+    yearPrefix: "FY",
+    contactNo: "9821023263",
+    email: "desaikhushi135@gmail.com",
+    barcode:
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHAAAAAYCAYAAAAiR3l8AAAAHnRFWHRTb2Z0d2FyZQBid2lwLWpzLm1ldGFmbG9vci5jb21Tnbi0AAAA4ElEQVR4nO2RQYpCUQwEc/9L60bENF1xZinUQmxCp14+NTPzeP3m438+5tesZWIlY47Zf98k1l/ezfwYfpPepR7N2s6378lves8UuLMCgZWMduTVVyDsKXBnBQIrGe3Iq69A2FPgzgoEVjLakVdfgbCnwJ0VCKxktCOvvgJhT4E7KxBYyWhHXn0Fwp4Cd1YgsJLRjrz6CoQ9Be6sQGAlox159RUIewrcWYHASkY78uorEPYUuLMCgZWMduTVVyDsKXBnBQIrGe3Iq69A2FPgzgoEVjLakVdfgbCnwJ1/SuATzbzKfN7vJjIAAAAASUVORK5CYII=",
+  },
+];
 
 //* Define the endpoint that generates and returns the PDF document
 app.get("/idcard", (req: Request, res: Response) => {
@@ -1053,50 +1081,53 @@ app.get("/idcard", (req: Request, res: Response) => {
   pdfDocGenerator.end();
 });
 
-const mockAddmission: IAddmission[] = [{
-  collegeName: "ABC College",
-  universityLogo:"img/Hsnc-university-logo.png",
-  studentName: "John Doe",
-  studentPhoto: "img/cds.jpg",
-  courseName: "Computer Science",
-  semName: "Fall 2023",
-  prnNo: 1234567890,
-  rollNumber: 101,
-  gender: "Male",
-  dob: "1998-05-15",
-  contactNo: "123-456-7890",
-  address: "123 Main St, Cityville",
-  email: "john.doe@example.com",
-  aadharNumber: 987654321012,
-  firstName: "John",
-  middleName: "Jacob",
-  lastName: "Doe",
-  motherName: "Jane Doe",
-  bloodGroup: "A+",
-  city: "Cityville",
-  state: "Stateville",
-  pincode: "12345",
-  studentSignature: "img/xyz.png",
-  subjects: [
-    {
-      subjectCode: "CS101",
-      subjectName: "Introduction to Computer Science",
-    },
-    {
-      subjectCode: "MAT101",
-      subjectName: "Mathematics for Computer Science",
-    },
-    {
-      subjectCode: "PHY101",
-      subjectName: "Physics Fundamentals",
-    },
-  ],
-}];
-
+const mockAddmission: IAddmission[] = [
+  {
+    collegeName: "ABC College",
+    universityLogo: "img/Hsnc-university-logo.png",
+    studentName: "John Doe",
+    studentPhoto: "img/cds.jpg",
+    courseName: "Computer Science",
+    semName: "Fall 2023",
+    prnNo: 1234567890,
+    rollNumber: 101,
+    gender: "Male",
+    dob: "1998-05-15",
+    contactNo: "123-456-7890",
+    address: "123 Main St, Cityville",
+    email: "john.doe@example.com",
+    aadharNumber: 987654321012,
+    firstName: "John",
+    middleName: "Jacob",
+    lastName: "Doe",
+    motherName: "Jane Doe",
+    bloodGroup: "A+",
+    city: "Cityville",
+    state: "Stateville",
+    pincode: "12345",
+    studentSignature: "img/xyz.png",
+    subjects: [
+      {
+        subjectCode: "CS101",
+        subjectName: "Introduction to Computer Science",
+      },
+      {
+        subjectCode: "MAT101",
+        subjectName: "Mathematics for Computer Science",
+      },
+      {
+        subjectCode: "PHY101",
+        subjectName: "Physics Fundamentals",
+      },
+    ],
+  },
+];
 
 //* Define the endpoint that generates and returns the PDF document
 app.get("/admission", (req: Request, res: Response) => {
-  const pdfDocGenerator = pdfmake.createPdfKitDocument(admissionForm(mockAddmission));
+  const pdfDocGenerator = pdfmake.createPdfKitDocument(
+    admissionForm(mockAddmission)
+  );
   res.setHeader("Content-Type", "application/pdf");
   res.setHeader("Content-Disposition", "inline");
   pdfDocGenerator.pipe(res);
@@ -1105,100 +1136,106 @@ app.get("/admission", (req: Request, res: Response) => {
 
 const questions = [
   {
-      "id": 57,
-      "setName": "D",
-      "assessmentId": 175,
-      "quePaperUploadId": null,
-      "ansPaperUploadId": null,
-      "createdAt": "2024-03-13T01:55:54.105Z",
-      "updatedAt": "2024-03-30T07:16:28.000Z",
-      "assessmentCode": "1000R",
-      "questions": [
+    id: 57,
+    setName: "D",
+    assessmentId: 175,
+    quePaperUploadId: null,
+    ansPaperUploadId: null,
+    createdAt: "2024-03-13T01:55:54.105Z",
+    updatedAt: "2024-03-30T07:16:28.000Z",
+    assessmentCode: "1000R",
+    questions: [
+      {
+        marks: 10,
+        questions: [
           {
-              "marks": 10,
-              "questions": [
-                  {
-                      "marks": 5,
-                      "questions": [
-                          {
-                              "marks": 1,
-                              "questions": [],
-                              "questionId": "01d372b4-8310-4bad-bc6e-19d24bc81613",
-                              "questionText": "<h3>What are the various data types that exist in JavaScript?</h3>",
-                              "questionIndex": "1.A.i",
-                              "subQuestionsAllowed": false,
-                              "maxSubQuestionsAttempt": 0
-                          }
-                      ],
-                      "questionId": "db428ae2-ee16-4835-a888-acf0f973360b",
-                      "questionText": "<h3>What's the difference between JavaScript and Java?</h3>",
-                      "questionIndex": "1.A",
-                      "subQuestionsAllowed": true,
-                      "maxSubQuestionsAttempt": "5"
-                  }
-              ],
-              "questionId": "ce22b09d-299b-44ec-9d3f-9dccf6cc1c0a",
-              "questionText": "<h3>What do you understand about JavaScript?</h3>",
-              "questionIndex": "1",
-              "subQuestionsAllowed": true,
-              "maxSubQuestionsAttempt": 2
+            marks: 5,
+            questions: [
+              {
+                marks: 1,
+                questions: [],
+                questionId: "01d372b4-8310-4bad-bc6e-19d24bc81613",
+                questionText:
+                  "<h3>What are the various data types that exist in JavaScript?</h3>",
+                questionIndex: "1.A.i",
+                subQuestionsAllowed: false,
+                maxSubQuestionsAttempt: 0,
+              },
+            ],
+            questionId: "db428ae2-ee16-4835-a888-acf0f973360b",
+            questionText:
+              "<h3>What's the difference between JavaScript and Java?</h3>",
+            questionIndex: "1.A",
+            subQuestionsAllowed: true,
+            maxSubQuestionsAttempt: "5",
+          },
+        ],
+        questionId: "ce22b09d-299b-44ec-9d3f-9dccf6cc1c0a",
+        questionText: "<h3>What do you understand about JavaScript?</h3>",
+        questionIndex: "1",
+        subQuestionsAllowed: true,
+        maxSubQuestionsAttempt: 2,
+      },
+      {
+        marks: 4,
+        questions: [
+          {
+            marks: 2,
+            questions: [
+              {
+                marks: 2,
+                questions: [],
+                questionId: "019d7df5-a9d1-4722-b689-edb6d2c64c2d",
+                questionText:
+                  "<h3>What are the various data types that exist in JavaScript?</h3><p><br></p>",
+                questionIndex: "2.A.i",
+                subQuestionsAllowed: false,
+                maxSubQuestionsAttempt: 0,
+              },
+            ],
+            questionId: "de3e1819-792b-4eb9-abbc-084bd75da1cf",
+            questionText:
+              "<h3>What are the various data types that exist in JavaScript?</h3>",
+            questionIndex: "2.A",
+            subQuestionsAllowed: true,
+            maxSubQuestionsAttempt: 1,
           },
           {
-              "marks": 4,
-              "questions": [
-                  {
-                      "marks": 2,
-                      "questions": [
-                          {
-                              "marks": 2,
-                              "questions": [],
-                              "questionId": "019d7df5-a9d1-4722-b689-edb6d2c64c2d",
-                              "questionText": "<h3>What are the various data types that exist in JavaScript?</h3><p><br></p>",
-                              "questionIndex": "2.A.i",
-                              "subQuestionsAllowed": false,
-                              "maxSubQuestionsAttempt": 0
-                          }
-                      ],
-                      "questionId": "de3e1819-792b-4eb9-abbc-084bd75da1cf",
-                      "questionText": "<h3>What are the various data types that exist in JavaScript?</h3>",
-                      "questionIndex": "2.A",
-                      "subQuestionsAllowed": true,
-                      "maxSubQuestionsAttempt": 1
-                  },
-                  {
-                      "marks": 2,
-                      "questions": [
-                          {
-                              "marks": 2,
-                              "questions": [],
-                              "questionId": "0be2dd56-638b-468b-85be-ad1555c00394",
-                              "questionText": "<h3>What's the difference between JavaScript and Java?</h3>",
-                              "questionIndex": "2.B.i",
-                              "subQuestionsAllowed": false,
-                              "maxSubQuestionsAttempt": 0
-                          }
-                      ],
-                      "questionId": "3fe73336-ff57-4e52-8038-c6e8cbe4b457",
-                      "questionText": "<h3>What do you understand about JavaScript?</h3>",
-                      "questionIndex": "2.B",
-                      "subQuestionsAllowed": true,
-                      "maxSubQuestionsAttempt": 1
-                  }
-              ],
-              "questionId": "fa972711-747c-4989-abde-c45729d07beb",
-              "questionText": "<h3>What's the difference between JavaScript and Java?</h3><p><br></p>",
-              "questionIndex": "2",
-              "subQuestionsAllowed": true,
-              "maxSubQuestionsAttempt": 2
-          }
-      ],
-      "subjectName": "Writing for Visual Media – I",
-      "courseName": "B.A (FILMS TELEVISION AND NEW MEDIA PRODUCTION)",
-      "year": 2023,
-      "semName": "Sem-1",
-      "totalMark": 40
-  }
-]
+            marks: 2,
+            questions: [
+              {
+                marks: 2,
+                questions: [],
+                questionId: "0be2dd56-638b-468b-85be-ad1555c00394",
+                questionText:
+                  "<h3>What's the difference between JavaScript and Java?</h3>",
+                questionIndex: "2.B.i",
+                subQuestionsAllowed: false,
+                maxSubQuestionsAttempt: 0,
+              },
+            ],
+            questionId: "3fe73336-ff57-4e52-8038-c6e8cbe4b457",
+            questionText: "<h3>What do you understand about JavaScript?</h3>",
+            questionIndex: "2.B",
+            subQuestionsAllowed: true,
+            maxSubQuestionsAttempt: 1,
+          },
+        ],
+        questionId: "fa972711-747c-4989-abde-c45729d07beb",
+        questionText:
+          "<h3>What's the difference between JavaScript and Java?</h3><p><br></p>",
+        questionIndex: "2",
+        subQuestionsAllowed: true,
+        maxSubQuestionsAttempt: 2,
+      },
+    ],
+    subjectName: "Writing for Visual Media – I",
+    courseName: "B.A (FILMS TELEVISION AND NEW MEDIA PRODUCTION)",
+    year: 2023,
+    semName: "Sem-1",
+    totalMark: 40,
+  },
+];
 //* Define the endpoint that generates and returns the PDF document
 app.get("/questions-1", (req: Request, res: Response) => {
   const pdfDocGenerator = pdfmake.createPdfKitDocument(generatePDF(questions));
@@ -1208,8 +1245,7 @@ app.get("/questions-1", (req: Request, res: Response) => {
   pdfDocGenerator.end();
 });
 
-app.get('/questions', async (req, res) => {
-  
+app.get("/questions", async (req, res) => {
   const browser = await puppeteer.launch({
     headless: true, // Set to true to run in headless mode
   });
@@ -1220,89 +1256,211 @@ app.get('/questions', async (req, res) => {
 
   // Generate PDF
   const pdfBuffer = await page.pdf({
-    format: 'A4', // Paper format
-    printBackground: true // Include background graphics
+    format: "A4", // Paper format
+    printBackground: true, // Include background graphics
   });
 
   await browser.close();
 
   // Send PDF as response
   res.set({
-    'Content-Type': 'application/pdf',
-    'Content-Disposition': 'attachment; filename="output.pdf"' // Force download
+    "Content-Type": "application/pdf",
+    "Content-Disposition": 'attachment; filename="output.pdf"', // Force download
   });
   res.send(pdfBuffer);
 });
 
-const mockDataSolMarksheet = [{
-  barcode: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJEAAAAYCAYAAAD6Zx8zAAAAHnRFWHRTb2Z0d2FyZQBid2lwLWpzLm1ldGFmbG9vci5jb21Tnbi0AAAA4klEQVR4nO3SQQ7CQBADwfn/p+GCUGTtZNv3PiCUxQQ71MzM5/eax/s8zk9nA/Lb9e2zLUs6bJ2avpnN+2+/ufU4bb49h7f/43RNn9HWgWw5fed/JqL3rIhEJCLQgWwRUdE3syISkYhAB7JFREXfzIpIRCICHcgWERV9MysiEYkIdCBbRFT0zayIRCQi0IFsEVHRN7MiEpGIQAeyRURF38yKSEQiAh3IFhEVfTMrIhGJCHQgW0RU9M2siEQkItCBbBFR0TezIhKRiEAHskVERd/MikhEIgIdyBYRFX0zK6ILoi/cSkkaIkg+AAAAAABJRU5ErkJggg==",
-  studentName: "BHURALE ONKAR VIDYACHANDRA (VIJAYA)",
-  studentPhoto: '',
-  DBOEESignature: '',
-  specialization: "Science & Technology",
-  prnNo: "202301102076388 ",
-  collegeName: "School of Life Sciences",
-  examCenter: "Solapur University",
-  seatNo: "202201102",
-  courseName: "Ph.D Course Work",
-  examination: "Part-1",
-  ECAMark: "Nil(Balance - Nil Marks)",
-  totalCredit: "14",
-  totalEgp: "20",
-  sgpa: "1.43",
-  status: "ATKT",
-  examMonthAndYear: 'Oct-2022',
-  ordinance: "Not Applied",
-  statementNo: "202015869435",
-  subjects: [
+const mockDataSolMarksheet = [
+  {
+    examEvent: "Mar-2019",
+    barcode: `${process.cwd()}/public/collegeLogo/barcode.png`,
+    studentName: "KASABE ROHINI SHIVAJI (MANGAL)",
+    studentPhoto: `${process.cwd()}/public/Student Photos/bscStudent.png`, // Placeholder, add actual URL if available
+    totalMarks: 3600, // Placeholder
+    totalObtainMarks: 2265, // Placeholder
+    percentage: "62.92%", // Placeholder
+    DBOEESignature: `${process.cwd()}/public/collegeLogo/Sol_DBOEE_ANDHARE_SIR.jpeg`, // Placeholder, add actual signature data if available
+    specialization: "History",
+    courseFullName: "Bachelor of Arts (Regular)",
+    prnNo: "2013032500049173",
+    resultDate: "08 May 2019",
+    collegeName: "Vasundhara Kala Mahavidhyalaya, Solapur (VASU)",
+    examCenter: "Solapur (01)",
+    finalGrade: "B+", // Placeholder
+    seatNo: "530183",
+    courseName: "T.Y.B.A. Sem-VI",
+    examination: "Mar-2019",
+    ECAMark: "Nil",
+    totalCredit: "144.00",
+    totalEgp: "1108.00",
+    subjectName: "", // Placeholder
+    sgpa: "7.69",
+    status: "Pass",
+    evenSemesterCredits: [
       {
-          paperCode: "1000999",
-          paperName: "Research Methodology",
-          credits: "4",
-          gradeObtained: "C+",
-          gradePoint: "5",
-          earnedGRPoints: "20",
-          remarks: "E,C"
-      },
-      {
-          paperCode: "1001111",
-          paperName: "Information & Computer Technology",
-          credits: "2",
-          gradeObtained: "F",
-          gradePoint: "0.00",
-          earnedGRPoints: "0.00",
-          remarks: "FR,C"
-      },
-      {
-          paperCode: "1002222",
-          paperName: "Research & Publication Ehics",
-          credits: "2",
-          gradeObtained: "F",
-          gradePoint: "0.00",
-          earnedGRPoints: "0.00",
-          remarks: "FR,C"
-      },
-      {
-          paperCode: "1003333",
-          paperName: "Advanced Knowledge in Core domain of concered subject",
-          credits: "6",
-          gradeObtained: "F",
-          gradePoint: "0.00",
-          earnedGRPoints: "0.00",
-          remarks: "FC,C"
+        semesterName: "Sem-VI",
+        credits: 24,
+        egp: "196.00",
+        sgpa: "8.17",
+        status: "Pass",
+        seatNo: "530183",
+        examEvent: "Mar-2019"
       }
-  ],
-  credits: [{
-      semesterName: "Part-I",
-      credits: "14",
-      egp: "20",
-      sgpa: "1.43",
-      status: "ATKT",
-      seatNo: "202201102",
-      examEvent: "Part-I"
-  }]
-}];
-
+    ],
+    oddSemesterCredits: [
+      {
+        semesterName: "Sem-V",
+        credits: 24,
+        egp: "212.00",
+        sgpa: "8.83",
+        status: "Pass",
+        seatNo: "*135263",
+        examEvent: "Mar-2019"
+      }
+    ],
+    ordinance: "Not Applied",
+    statementNo: "7473305",
+    examMonthAndYear: "Mar-2019",
+    previousYearData: [
+      {
+        seatNo: "006937",
+        year: "F.Y.B.A",
+        examEvent: "Mar-2017",
+        totalCredits: "48.00",
+        egp: "316.00",
+        sgpa: "6.58",
+      },
+      {
+        seatNo: "103170",
+        year: "S.Y.B.A",
+        examEvent: "Mar-2019",
+        totalCredits: "48.00",
+        egp: "384.00",
+        sgpa: "8.00",
+      },
+      {
+        year: "Sem-V",
+        totalCredits: "24.00",
+        egp: "212.00",
+        sgpa: "8.83",
+        seatNo: "*135263",
+        examEvent: "Mar-2019"
+      }
+    ],
+    oddSemesterSubjects: [
+      {
+        paperCode: "101501",
+        paperName: "English(Compulsory)",
+        credits: "4.00",
+        gradeObtained: "A",
+        gradePoint: "8.00",
+        earnedGRPoints: "32.00",
+        remarks: "E,X"
+      },
+      {
+        paperCode: "101527",
+        paperName: "History-Paper-VII",
+        credits: "4.00",
+        gradeObtained: "A+",
+        gradePoint: "9.00",
+        earnedGRPoints: "36.00",
+        remarks: "E,X"
+      },
+      {
+        paperCode: "101528",
+        paperName: "History-Paper-VIII",
+        credits: "4.00",
+        gradeObtained: "A",
+        gradePoint: "8.00",
+        earnedGRPoints: "32.00",
+        remarks: "E,X"
+      },
+      {
+        paperCode: "101529",
+        paperName: "History-Paper-IX",
+        credits: "4.00",
+        gradeObtained: "A+",
+        gradePoint: "9.00",
+        earnedGRPoints: "36.00",
+        remarks: "E,X"
+      },
+      {
+        paperCode: "101530",
+        paperName: "History-Paper-X",
+        credits: "4.00",
+        gradeObtained: "A+",
+        gradePoint: "9.00",
+        earnedGRPoints: "36.00",
+        remarks: "E,X"
+      },
+      {
+        paperCode: "101531",
+        paperName: "History-Paper-XI",
+        credits: "4.00",
+        gradeObtained: "O",
+        gradePoint: "10.00",
+        earnedGRPoints: "40.00",
+        remarks: "E,X"
+      }
+    ],
+    evenSemesterSubjects: [
+      {
+        paperCode: "101601",
+        paperName: "English(Compulsory)",
+        credits: "4.00",
+        gradeObtained: "B",
+        gradePoint: "6.00",
+        earnedGRPoints: "24.00",
+        remarks: "E,C"
+      },
+      {
+        paperCode: "101627",
+        paperName: "History-Paper-XII",
+        credits: "4.00",
+        gradeObtained: "A",
+        gradePoint: "8.00",
+        earnedGRPoints: "32.00",
+        remarks: "E,C"
+      },
+      {
+        paperCode: "101628",
+        paperName: "History-Paper-XIII",
+        credits: "4.00",
+        gradeObtained: "A+",
+        gradePoint: "9.00",
+        earnedGRPoints: "36.00",
+        remarks: "E,C"
+      },
+      {
+        paperCode: "101629",
+        paperName: "History-Paper-XIV",
+        credits: "4.00",
+        gradeObtained: "A+",
+        gradePoint: "9.00",
+        earnedGRPoints: "36.00",
+        remarks: "E,C"
+      },
+      {
+        paperCode: "101630",
+        paperName: "History-Paper-XV",
+        credits: "4.00",
+        gradeObtained: "A+",
+        gradePoint: "9.00",
+        earnedGRPoints: "36.00",
+        remarks: "E,C"
+      },
+      {
+        paperCode: "101631",
+        paperName: "History-Paper-XVI",
+        credits: "4.00",
+        gradeObtained: "A",
+        gradePoint: "8.00",
+        earnedGRPoints: "32.00",
+        remarks: "E,C"
+      }
+    ]
+  },
+];
 
 const mockDataSolLedger: ISolLedger = {
   faculty: "Engineering",
@@ -1331,37 +1489,37 @@ const mockDataSolLedger: ISolLedger = {
         {
           AssessmentName: "ESE",
           AssessmentTypeMax: "50",
-          AssessmentTypeMin: "18"
+          AssessmentTypeMin: "18",
         },
         {
           AssessmentName: "POE",
           AssessmentTypeMax: "100",
-          AssessmentTypeMin: "40"
+          AssessmentTypeMin: "40",
         },
         {
           AssessmentName: "ESE",
           AssessmentTypeMax: "50",
-          AssessmentTypeMin: "18"
+          AssessmentTypeMin: "18",
         },
         {
           AssessmentName: "POE",
           AssessmentTypeMax: "100",
-          AssessmentTypeMin: "40"
-        }
+          AssessmentTypeMin: "40",
+        },
       ],
       practical: [
         {
           AssessmentName: "ISE",
           AssessmentTypeMax: "50",
-          AssessmentTypeMin: "18"
+          AssessmentTypeMin: "18",
         },
         {
           AssessmentName: "ICA",
           AssessmentTypeMax: "100",
-          AssessmentTypeMin: "40"
-        }
+          AssessmentTypeMin: "40",
+        },
       ],
-      total: "140"
+      total: "140",
     },
     {
       code: "CS101",
@@ -1372,37 +1530,37 @@ const mockDataSolLedger: ISolLedger = {
         {
           AssessmentName: "ESE",
           AssessmentTypeMax: "50",
-          AssessmentTypeMin: "18"
+          AssessmentTypeMin: "18",
         },
         {
           AssessmentName: "POE",
           AssessmentTypeMax: "100",
-          AssessmentTypeMin: "40"
+          AssessmentTypeMin: "40",
         },
         {
           AssessmentName: "ESE",
           AssessmentTypeMax: "50",
-          AssessmentTypeMin: "18"
+          AssessmentTypeMin: "18",
         },
         {
           AssessmentName: "POE",
           AssessmentTypeMax: "100",
-          AssessmentTypeMin: "40"
-        }
+          AssessmentTypeMin: "40",
+        },
       ],
       practical: [
         {
           AssessmentName: "ISE",
           AssessmentTypeMax: "50",
-          AssessmentTypeMin: "18"
+          AssessmentTypeMin: "18",
         },
         {
           AssessmentName: "ICA",
           AssessmentTypeMax: "100",
-          AssessmentTypeMin: "40"
-        }
+          AssessmentTypeMin: "40",
+        },
       ],
-      total: "180"
+      total: "180",
     },
     {
       code: "CS101",
@@ -1413,37 +1571,37 @@ const mockDataSolLedger: ISolLedger = {
         {
           AssessmentName: "ESE",
           AssessmentTypeMax: "50",
-          AssessmentTypeMin: "18"
+          AssessmentTypeMin: "18",
         },
         {
           AssessmentName: "POE",
           AssessmentTypeMax: "100",
-          AssessmentTypeMin: "40"
+          AssessmentTypeMin: "40",
         },
         {
           AssessmentName: "ESE",
           AssessmentTypeMax: "50",
-          AssessmentTypeMin: "18"
+          AssessmentTypeMin: "18",
         },
         {
           AssessmentName: "POE",
           AssessmentTypeMax: "100",
-          AssessmentTypeMin: "40"
-        }
+          AssessmentTypeMin: "40",
+        },
       ],
       practical: [
         {
           AssessmentName: "ISE",
           AssessmentTypeMax: "50",
-          AssessmentTypeMin: "18"
+          AssessmentTypeMin: "18",
         },
         {
           AssessmentName: "ICA",
           AssessmentTypeMax: "100",
-          AssessmentTypeMin: "40"
-        }
+          AssessmentTypeMin: "40",
+        },
       ],
-      total: "200"
+      total: "200",
     },
     {
       code: "CS101",
@@ -1454,39 +1612,38 @@ const mockDataSolLedger: ISolLedger = {
         {
           AssessmentName: "ESE",
           AssessmentTypeMax: "50",
-          AssessmentTypeMin: "18"
+          AssessmentTypeMin: "18",
         },
         {
           AssessmentName: "POE",
           AssessmentTypeMax: "100",
-          AssessmentTypeMin: "40"
+          AssessmentTypeMin: "40",
         },
         {
           AssessmentName: "ESE",
           AssessmentTypeMax: "50",
-          AssessmentTypeMin: "18"
+          AssessmentTypeMin: "18",
         },
         {
           AssessmentName: "POE",
           AssessmentTypeMax: "100",
-          AssessmentTypeMin: "40"
-        }
+          AssessmentTypeMin: "40",
+        },
       ],
       practical: [
         {
           AssessmentName: "ISE",
           AssessmentTypeMax: "50",
-          AssessmentTypeMin: "18"
+          AssessmentTypeMin: "18",
         },
         {
           AssessmentName: "ICA",
           AssessmentTypeMax: "100",
-          AssessmentTypeMin: "40"
-        }
+          AssessmentTypeMin: "40",
+        },
       ],
-      total: "100"
+      total: "100",
     },
-
   ],
   students: [
     {
@@ -1510,15 +1667,15 @@ const mockDataSolLedger: ISolLedger = {
       ordinance: "Passed",
       previousYearDetails: [
         {
-        year: 'B.Tech-IV',
-        seatNo:'1558961475963584',
-        examEvent:'OCT-2024',
-        egp: '125',
-        sgpa: '8.7',
-        credits: '30',
-        status:'pass',
-        grade:'E,X'
-        }
+          year: "B.Tech-IV",
+          seatNo: "1558961475963584",
+          examEvent: "OCT-2024",
+          egp: "125",
+          sgpa: "8.7",
+          credits: "30",
+          status: "pass",
+          grade: "E,X",
+        },
       ],
       oddSemesterdata: {
         semName: "Sem-V",
@@ -1549,7 +1706,7 @@ const mockDataSolLedger: ISolLedger = {
                 AssessmentName: "POE",
                 AssessmentTypeObt: "50",
                 AssessmentTypeMin: "60",
-              }
+              },
             ],
             practical: [
               {
@@ -1571,7 +1728,7 @@ const mockDataSolLedger: ISolLedger = {
                 AssessmentName: "POE",
                 AssessmentTypeObt: "80",
                 AssessmentTypeMin: "40",
-              }
+              },
             ],
             theoryTotalMax: "190",
             theoryTotalMin: "72",
@@ -1586,11 +1743,11 @@ const mockDataSolLedger: ISolLedger = {
             gradePoint: "9.5",
             egp: "340",
             status: "Pass",
-            remark: "E,X"
+            remark: "E,X",
           },
-        ]
+        ],
       },
-      evenSemesterdata:  {
+      evenSemesterdata: {
         semName: "Sem-VI",
         totalCredit: "8",
         egp: "30",
@@ -1619,7 +1776,7 @@ const mockDataSolLedger: ISolLedger = {
                 AssessmentName: "POE",
                 AssessmentTypeObt: "50",
                 AssessmentTypeMin: "60",
-              }
+              },
             ],
             practical: [
               {
@@ -1641,7 +1798,7 @@ const mockDataSolLedger: ISolLedger = {
                 AssessmentName: "POE",
                 AssessmentTypeObt: "80",
                 AssessmentTypeMin: "40",
-              }
+              },
             ],
             theoryTotalMax: "120",
             theoryTotalMin: "80",
@@ -1656,9 +1813,9 @@ const mockDataSolLedger: ISolLedger = {
             gradePoint: "9.5",
             egp: "340",
             status: "Pass",
-            remark: "E,X"
+            remark: "E,X",
           },
-        ]
+        ],
       },
     },
     {
@@ -1682,15 +1839,15 @@ const mockDataSolLedger: ISolLedger = {
       ordinance: "Passed",
       previousYearDetails: [
         {
-        year: 'B.Tech-IV',
-        seatNo:'1558961475963584',
-        examEvent:'OCT-2024',
-        egp: '125',
-        sgpa: '8.7',
-        credits: '30',
-        status:'pass',
-        grade:'E,X'
-        }
+          year: "B.Tech-IV",
+          seatNo: "1558961475963584",
+          examEvent: "OCT-2024",
+          egp: "125",
+          sgpa: "8.7",
+          credits: "30",
+          status: "pass",
+          grade: "E,X",
+        },
       ],
       oddSemesterdata: {
         semName: "Sem-V",
@@ -1721,7 +1878,7 @@ const mockDataSolLedger: ISolLedger = {
                 AssessmentName: "POE",
                 AssessmentTypeObt: "50",
                 AssessmentTypeMin: "60",
-              }
+              },
             ],
             practical: [
               {
@@ -1743,7 +1900,7 @@ const mockDataSolLedger: ISolLedger = {
                 AssessmentName: "POE",
                 AssessmentTypeObt: "80",
                 AssessmentTypeMin: "40",
-              }
+              },
             ],
             theoryTotalMax: "190",
             theoryTotalMin: "72",
@@ -1758,7 +1915,7 @@ const mockDataSolLedger: ISolLedger = {
             gradePoint: "9.5",
             egp: "340",
             status: "Pass",
-            remark: "E,X"
+            remark: "E,X",
           },
           {
             code: "CS101",
@@ -1782,7 +1939,7 @@ const mockDataSolLedger: ISolLedger = {
                 AssessmentName: "POE",
                 AssessmentTypeObt: "50",
                 AssessmentTypeMin: "60",
-              }
+              },
             ],
             practical: [
               {
@@ -1804,7 +1961,7 @@ const mockDataSolLedger: ISolLedger = {
                 AssessmentName: "POE",
                 AssessmentTypeObt: "80",
                 AssessmentTypeMin: "40",
-              }
+              },
             ],
             theoryTotalMax: "190",
             theoryTotalMin: "72",
@@ -1819,11 +1976,11 @@ const mockDataSolLedger: ISolLedger = {
             gradePoint: "9.5",
             egp: "340",
             status: "Pass",
-            remark: "E,X"
+            remark: "E,X",
           },
-        ]
+        ],
       },
-      evenSemesterdata:  {
+      evenSemesterdata: {
         semName: "Sem-VI",
         totalCredit: "8",
         egp: "30",
@@ -1852,7 +2009,7 @@ const mockDataSolLedger: ISolLedger = {
                 AssessmentName: "POE",
                 AssessmentTypeObt: "50",
                 AssessmentTypeMin: "60",
-              }
+              },
             ],
             practical: [
               {
@@ -1874,7 +2031,7 @@ const mockDataSolLedger: ISolLedger = {
                 AssessmentName: "POE",
                 AssessmentTypeObt: "80",
                 AssessmentTypeMin: "40",
-              }
+              },
             ],
             theoryTotalMax: "120",
             theoryTotalMin: "80",
@@ -1889,7 +2046,7 @@ const mockDataSolLedger: ISolLedger = {
             gradePoint: "9.5",
             egp: "340",
             status: "Pass",
-            remark: "E,X"
+            remark: "E,X",
           },
           {
             code: "CS101",
@@ -1913,7 +2070,7 @@ const mockDataSolLedger: ISolLedger = {
                 AssessmentName: "POE",
                 AssessmentTypeObt: "50",
                 AssessmentTypeMin: "60",
-              }
+              },
             ],
             practical: [
               {
@@ -1935,7 +2092,7 @@ const mockDataSolLedger: ISolLedger = {
                 AssessmentName: "POE",
                 AssessmentTypeObt: "80",
                 AssessmentTypeMin: "40",
-              }
+              },
             ],
             theoryTotalMax: "120",
             theoryTotalMin: "80",
@@ -1950,16 +2107,15 @@ const mockDataSolLedger: ISolLedger = {
             gradePoint: "9.5",
             egp: "340",
             status: "Pass",
-            remark: "E,X"
+            remark: "E,X",
           },
-        ]
+        ],
       },
-    }
-  ]
-};;
+    },
+  ],
+};
 
-
-app.get("/sol-marksheet", async(req: Request, res: Response) => {
+app.get("/sol-marksheet", async (req: Request, res: Response) => {
   const pdfDocGenerator = pdfmake.createPdfKitDocument(solMarksheet(mockDataSolMarksheet));
   res.setHeader("Content-Type", "application/pdf");
   res.setHeader("Content-Disposition", "inline");
@@ -1967,8 +2123,10 @@ app.get("/sol-marksheet", async(req: Request, res: Response) => {
   pdfDocGenerator.end();
 });
 
-app.get("/sol-ledger", async(req: Request, res: Response) => {
-  const pdfDocGenerator = pdfmake.createPdfKitDocument(solLedger([mockDataSolLedger]));
+app.get("/sol-ledger", async (req: Request, res: Response) => {
+  const pdfDocGenerator = pdfmake.createPdfKitDocument(
+    solLedger([mockDataSolLedger])
+  );
   res.setHeader("Content-Type", "application/pdf");
   res.setHeader("Content-Disposition", "inline");
   pdfDocGenerator.pipe(res);
@@ -1990,10 +2148,10 @@ const hallticketmockData: ISolapurHallticketPdf = {
   rollNumber: "A123",
   seatNumber: "101",
   examCenter: "Solapur",
-  courseAbbreviation:'B.com',
-  examType:'Regular',
-  examPattern: 'CBCS Pattern 2022',
-  semesterName: 'Sem-II',
+  courseAbbreviation: "B.com",
+  examType: "Regular",
+  examPattern: "CBCS Pattern 2022",
+  semesterName: "Sem-II",
   subjects: [
     {
       paperCode: "101",
@@ -2001,7 +2159,7 @@ const hallticketmockData: ISolapurHallticketPdf = {
       date: "15th April 2024",
       time: "10:00 AM - 1:00 PM",
       subjectType: "Theory",
-      assessment: "Written"
+      assessment: "Written",
     },
     {
       paperCode: "102",
@@ -2009,13 +2167,15 @@ const hallticketmockData: ISolapurHallticketPdf = {
       date: "17th April 2024",
       time: "10:00 AM - 1:00 PM",
       subjectType: "Theory",
-      assessment: "Written"
+      assessment: "Written",
     },
-  ]
+  ],
 };
 
-app.get("/sol-hallticket", async(req: Request, res: Response) => {
-  const pdfDocGenerator = pdfmake.createPdfKitDocument(solHallticket([hallticketmockData]));
+app.get("/sol-hallticket", async (req: Request, res: Response) => {
+  const pdfDocGenerator = pdfmake.createPdfKitDocument(
+    solHallticket([hallticketmockData])
+  );
   res.setHeader("Content-Type", "application/pdf");
   res.setHeader("Content-Disposition", "inline");
   pdfDocGenerator.pipe(res);
@@ -2048,11 +2208,11 @@ const ExamFormPdf: IExamFormPdf = {
   email: "john.doe@example.com",
   dob: "01/01/2000",
   category: "General",
-  examFee: '100',
-  examFormFee: '1000',
-  examLateFee: '10000',
-  provisionalCertificateFee: '0',
-  subTotalFee: '3000500',
+  examFee: "100",
+  examFormFee: "1000",
+  examLateFee: "10000",
+  provisionalCertificateFee: "0",
+  subTotalFee: "3000500",
   numberOfSemesters: 8,
   currentSemester: 8,
   isEvenSemester: true,
@@ -2068,25 +2228,25 @@ const ExamFormPdf: IExamFormPdf = {
       {
         paperCode: "CS101",
         paperName: "Introduction to Computer Science",
-        AMAT: "Pass"
+        AMAT: "Pass",
       },
       {
         paperCode: "CS102",
         paperName: "Programming Fundamentals",
-        AMAT: "Pass"
+        AMAT: "Pass",
       },
       {
         paperCode: "CS101",
         paperName: "Introduction to Computer Science",
-        AMAT: "Pass"
+        AMAT: "Pass",
       },
       {
         paperCode: "CS102",
         paperName: "Programming Fundamentals",
-        AMAT: "Pass"
+        AMAT: "Pass",
       },
-    ]
-  }, 
+    ],
+  },
 
   evenSemester: {
     semesterName: "Fall 2024",
@@ -2100,27 +2260,86 @@ const ExamFormPdf: IExamFormPdf = {
       {
         paperCode: "CS201",
         paperName: "Data Structures",
-        AMAT: "Pass"
+        AMAT: "Pass",
       },
       {
         paperCode: "CS202",
         paperName: "Algorithms",
-        AMAT: "Pass"
-      }
-    ]
-  }
+        AMAT: "Pass",
+      },
+    ],
+  },
 };
 
-
-
-app.get("/sol-examform", async(req: Request, res: Response) => {
-  const pdfDocGenerator = pdfmake.createPdfKitDocument(solExamForm([ExamFormPdf]));
+app.get("/sol-examform", async (req: Request, res: Response) => {
+  const pdfDocGenerator = pdfmake.createPdfKitDocument(
+    solExamForm([ExamFormPdf])
+  );
   res.setHeader("Content-Type", "application/pdf");
   res.setHeader("Content-Disposition", "inline");
   pdfDocGenerator.pipe(res);
   pdfDocGenerator.end();
 });
 
+const attendanceSheetData: IAttendanceSheet[] = [
+  {
+    collegeName: "Springfield University",
+    centerName: "Main Campus",
+    courseName: "Bachelor of Science",
+    specialization: "Computer Science",
+    courseAbbreviation: "BSc",
+    examType: "Final",
+    examPattern: "Semester",
+    courseYear: "BSc-II",
+    semesterName: "Semester 4",
+    paperCode: "CS204",
+    paperName: "Data Structures",
+    examDate: "2024-06-15",
+    examTime: "10:00 AM - 1:00 PM",
+    blockNumber: "Block A",
+    generatedBy: "John Doe",
+    seatNumbers: ["A01", "A02", "A03", "A04", "A05"],
+  },
+  {
+    collegeName: "Shelby College",
+    centerName: "Downtown Campus",
+    courseName: "Master of Science",
+    specialization: "Biotechnology",
+    courseAbbreviation: "MSc",
+    examType: "Midterm",
+    examPattern: "Trimester",
+    courseYear: "MSc-I",
+    semesterName: "Trimester 2",
+    paperCode: "BT102",
+    paperName: "Genetics",
+    examDate: "2024-07-10",
+    examTime: "2:00 PM - 5:00 PM",
+    blockNumber: "Block C",
+    generatedBy: "Jane Smith",
+    seatNumbers: ["C21", "C22", "C23", "C24", "C25"],
+  },
+];
+
+app.get("/sol-attendance", async (req: Request, res: Response) => {
+  const pdfDocGenerator = pdfmake.createPdfKitDocument(
+    attendanceSheet(attendanceSheetData)
+  );
+  res.setHeader("Content-Type", "application/pdf");
+  res.setHeader("Content-Disposition", "inline");
+  pdfDocGenerator.pipe(res);
+  pdfDocGenerator.end();
+});
+
+//* Define the endpoint that generates and returns the PDF document
+app.get("/sol-time-table", (req: Request, res: Response) => {
+  const pdfDocGenerator = pdfmake.createPdfKitDocument(
+    solapurExamTimeTable(solapurTimeTableData)
+  );
+  res.setHeader("Content-Type", "application/pdf");
+  res.setHeader("Content-Disposition", "inline");
+  pdfDocGenerator.pipe(res);
+  pdfDocGenerator.end();
+});
 
 //* Start the server
 app.listen(3001, () => {

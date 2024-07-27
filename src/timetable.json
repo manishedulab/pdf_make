@@ -1,0 +1,346 @@
+[
+    {
+      "examId": 17,
+      "course": "Doctor of Philosophy in Science & Technology",
+      "collegeName": "",
+      "semesterName": "I",
+      "year": "2024",
+      "examMonth": "Jul",
+      "collegeLogo": "",
+      "subjectData": [
+        {
+          "srno": 1,
+          "date": "22/07/2024",
+          "Day": "Monday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-101",
+          "subjectName": "Research Methodology",
+          "show": 1
+        },
+        {
+          "srno": 2,
+          "date": "24/07/2024",
+          "Day": "Wednesday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-103(B)",
+          "subjectName": "Research & Publication Ethics (Part B)",
+          "show": 1
+        },
+        {
+          "srno": 9,
+          "date": "24/07/2024",
+          "Day": "Wednesday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-102(A)",
+          "subjectName": "Information & Computer Technology (Part A)",
+          "show": 1
+        },
+        {
+          "srno": 3,
+          "date": "26/07/2024",
+          "Day": "Friday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-120",
+          "subjectName": "Advanced Knowledge in Core Domain of Chemistry (Recent Trends in Chemistry)",
+          "show": 1
+        },
+        {
+          "srno": 4,
+          "date": "26/07/2024",
+          "Day": "Friday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-121",
+          "subjectName": "Advanced Knowledge in Core Domain of Physics (Characterization Techniques)",
+          "show": 1
+        },
+        {
+          "srno": 5,
+          "date": "26/07/2024",
+          "Day": "Friday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-123",
+          "subjectName": "Advanced Knowledge in Core Domain of Statistics (Advanced Statistics)",
+          "show": 1
+        },
+        {
+          "srno": 6,
+          "date": "26/07/2024",
+          "Day": "Friday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-122",
+          "subjectName": "Advanced Knowledge in Core Domain of Botany (Recent Trends In Botany )",
+          "show": 1
+        },
+        {
+          "srno": 7,
+          "date": "26/07/2024",
+          "Day": "Friday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-124",
+          "subjectName": "Advanced Knowledge in Core Domain of Zoology (Advanced Knowledge in - Zoology)",
+          "show": 1
+        },
+        {
+          "srno": 8,
+          "date": "26/07/2024",
+          "Day": "Friday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-125",
+          "subjectName": "Advanced Knowledge in Core Domain of Microbiology(Medical microbiology and Immunology)",
+          "show": 1
+        },
+        {
+          "srno": 10,
+          "date": "26/07/2024",
+          "Day": "Friday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-126",
+          "subjectName": "Advanced Knowledge in Core Domain of Microbiology(Industrial and food microbiology)",
+          "show": 1
+        },
+        {
+          "srno": 11,
+          "date": "26/07/2024",
+          "Day": "Friday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-127",
+          "subjectName": "Advanced Knowledge in Core Domain of Microbiology(Environmental and Agricultural Microbiology)",
+          "show": 1
+        },
+        {
+          "srno": 12,
+          "date": "26/07/2024",
+          "Day": "Friday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-128",
+          "subjectName": "Advanced Knowledge in Core Domain of Mathematics(Fractional Differential Equations)",
+          "show": 1
+        },
+        {
+          "srno": 13,
+          "date": "26/07/2024",
+          "Day": "Friday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-129",
+          "subjectName": "Advanced Knowledge in Core Domain of Mathematics(Computational Methods for Boundary Layer Theory)",
+          "show": 1
+        },
+        {
+          "srno": 14,
+          "date": "26/07/2024",
+          "Day": "Friday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-164",
+          "subjectName": "Advanced Knowledge in Core Domain of Mathematics ",
+          "show": 1
+        },
+        {
+          "srno": 15,
+          "date": "26/07/2024",
+          "Day": "Friday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-130",
+          "subjectName": " Advanced Knowledge in Core Domain of Applied Geology",
+          "show": 1
+        },
+        {
+          "srno": 16,
+          "date": "26/07/2024",
+          "Day": "Friday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-131",
+          "subjectName": " Advanced Knowledge in Core Domain of Geography (Recent Trends Geography)",
+          "show": 1
+        },
+        {
+          "srno": 17,
+          "date": "26/07/2024",
+          "Day": "Friday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-132",
+          "subjectName": " Advanced Knowledge in Core Domain of Electronics (Recent Trends in Electronics)",
+          "show": 1
+        },
+        {
+          "srno": 18,
+          "date": "26/07/2024",
+          "Day": "Friday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-133",
+          "subjectName": " Advanced Knowledge in Core Domain of Computer Science",
+          "show": 1
+        },
+        {
+          "srno": 19,
+          "date": "26/07/2024",
+          "Day": "Friday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-134",
+          "subjectName": " Advanced Knowledge in Core Domain of Environmental Science (Applied Research in Environmental Science)",
+          "show": 1
+        },
+        {
+          "srno": 20,
+          "date": "26/07/2024",
+          "Day": "Friday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-136",
+          "subjectName": " Advanced Knowledge in Core Domain of Pharmacy",
+          "show": 1
+        },
+        {
+          "srno": 21,
+          "date": "26/07/2024",
+          "Day": "Friday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-137",
+          "subjectName": " Advanced Knowledge in Core Domain of Geoinformatics",
+          "show": 1
+        },
+        {
+          "srno": 22,
+          "date": "26/07/2024",
+          "Day": "Friday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-138",
+          "subjectName": " Advanced Knowledge in Core Domain of Mechanical Engineering-Design Engineering",
+          "show": 1
+        },
+        {
+          "srno": 23,
+          "date": "26/07/2024",
+          "Day": "Friday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-139",
+          "subjectName": " Advanced Knowledge in Core Domain of Mechanical Engineering-Manufacturing Engineering",
+          "show": 1
+        },
+        {
+          "srno": 24,
+          "date": "26/07/2024",
+          "Day": "Friday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-140",
+          "subjectName": " Advanced Knowledge in Core Domain of Mechanical Engineering-Thermal and Heat Power Engineering",
+          "show": 1
+        },
+        {
+          "srno": 25,
+          "date": "26/07/2024",
+          "Day": "Friday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-135",
+          "subjectName": " Advanced Knowledge in Core Domain of Biotechnology",
+          "show": 1
+        },
+        {
+          "srno": 26,
+          "date": "26/07/2024",
+          "Day": "Friday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-141",
+          "subjectName": "Advanced Knowledge in Core Domain of Electronics and Telecommication Engineering-Advances in Telecommunication",
+          "show": 1
+        },
+        {
+          "srno": 27,
+          "date": "26/07/2024",
+          "Day": "Friday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-142",
+          "subjectName": "Advanced Knowledge in Core Domain of Electronics and Telecommication Engineering-Machine Learning",
+          "show": 1
+        },
+        {
+          "srno": 28,
+          "date": "26/07/2024",
+          "Day": "Friday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-144",
+          "subjectName": "Advanced Knowledge in Core Domain of Computer Science and Engineering-Data Science & Machine Learning",
+          "show": 1
+        },
+        {
+          "srno": 29,
+          "date": "26/07/2024",
+          "Day": "Friday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-146",
+          "subjectName": " Advanced Knowledge in Core Domain of Computer Science and Engineering-Image Processing",
+          "show": 1
+        },
+        {
+          "srno": 30,
+          "date": "26/07/2024",
+          "Day": "Friday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-147",
+          "subjectName": "Advanced Knowledge in Core Domain of Civil Engineering-Advanced Knowledge in Structural Engineering & Concrete Technology",
+          "show": 1
+        },
+        {
+          "srno": 31,
+          "date": "26/07/2024",
+          "Day": "Friday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-148",
+          "subjectName": "Advanced Knowledge in Core Domain of Civil Engineering-Advanced Knowledge in Geotechnical Engineering and Construction Management",
+          "show": 1
+        },
+        {
+          "srno": 32,
+          "date": "26/07/2024",
+          "Day": "Friday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-149",
+          "subjectName": "Advanced Knowledge in Core Domain of Civil Engineering-Advanced Knowledge in Environmental Engineering and Water Resources Engineering",
+          "show": 1
+        },
+        {
+          "srno": 33,
+          "date": "26/07/2024",
+          "Day": "Friday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-143",
+          "subjectName": "Advanced Knowledge in Core Domain of Electronics and Telecommication Engineering-Advances in Image and Video Processing",
+          "show": 1
+        },
+        {
+          "srno": 34,
+          "date": "26/07/2024",
+          "Day": "Friday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-151",
+          "subjectName": "Advanced Knowledge in Core Domain of Electronics Engineering-Advances in Image and Video Processing",
+          "show": 1
+        },
+        {
+          "srno": 35,
+          "date": "26/07/2024",
+          "Day": "Friday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-150",
+          "subjectName": "Advanced Knowledge in Core Domain of Electronics Engineering-Machine Learning",
+          "show": 1
+        },
+        {
+          "srno": 36,
+          "date": "26/07/2024",
+          "Day": "Friday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-152",
+          "subjectName": " Advanced Knowledge in Core Domain of Electronics Engineering-Advances in Telecommunication",
+          "show": 1
+        },
+        {
+          "srno": 37,
+          "date": "26/07/2024",
+          "Day": "Friday",
+          "time": "11:00 AM TO 02:00 PM",
+          "subjectCode": "PHD-145",
+          "subjectName": "Advanced Knowledge in Core Domain of Computer Science and Engineering-Network Security and Cloud Computing",
+          "show": 1
+        }
+      ]
+    }
+  ]

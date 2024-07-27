@@ -22,7 +22,7 @@ export const PDF = {
 
 export const SolapurPdf = {
   universityName: 'Punyashlok Ahilyadevi Holkar Solapur University, Solapur',
-  universityAddress: 'Kegaon, Solapur-Pune National Highway, Solapur-413255',
+  universityAddress: 'Dnyanteerth Nagar, Kegaon, Solapur-Pune National Highway, Solapur-413255, Maharashtra, India.',
   DBOEESign: fs.existsSync(`${process.cwd()}/public/collegeLogo/Sol_DBOEE_ANDHARE_SIR.jpeg`) ? `${process.cwd()}/public/collegeLogo/Sol_DBOEE_ANDHARE_SIR.jpeg` : `${process.cwd()}/public/collegeLogo/defaultLogo.png`,
   defaultPhoto: `${process.cwd()}/public/collegeLogo/defaultLogo.png`,
   universityUrl: 'https://example.com/university',

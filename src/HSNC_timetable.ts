@@ -2,6 +2,7 @@
 
 import {collegeLogo} from "./utiles";
 export interface ITimeTable {
+  examMonth: any;
   course:string;
   collegeName:string;
   semesterName:string;
@@ -21,6 +22,7 @@ export interface ITimeTable {
 }
 
 export interface ISubjectArray {
+  show: boolean | number;
   srno: number;
   date: string;
   Day: string;
@@ -81,7 +83,7 @@ function examTimeTable(data2: ITimeTable[]) {
           headerRows: 1,
           widths: [30, 80, 90, 150, 130, 270,"*"],
           body: [
-            ...data2[i].subjectData.map((value1: ISubjectArray ) =>[
+            ...data2[i].subjectData.map((value1: any ) =>[
               {
                 text: value1.srno,
                 margin: 7,

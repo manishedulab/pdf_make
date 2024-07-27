@@ -195,57 +195,71 @@ export interface IReassessmentFeeSlip {
   // }
 
   
-export interface IResult {
-  collegeName: string;
-  collegeLogo: string;
-  studentPhoto: string;
-  courseName: string;
-  semName: string; // (I,II,III,IV)
-  acadamicYear: string; // 2020-2021
-  prnNo: string;
-  seatNumber: number;
-  studentName: string;
-  monthAndYear: string; // June 2021 BACKLOG, March 2021 REGULAR
-  sgpi: string;
-  result: string; // successfull
-  totalGrade: string; // A+, B, A
-  totalOfTotal: number; // 421/700
-  outOfTotal: number
-  totalCredit: number; // 20.00
-  cg: string; // Total of cg
-  cgpa: number;
-  finalGrade: string;
-  principalSign: string;
-  directorSign: string;
-  date: string;
-  place: string;
-  universityLogo: string;
-  numberOfSem: number;
-  credits: Icredits[];
-  subjects: IsubjectDetails[];
-}
-export interface IsubjectDetails {
-  subjectCode: string;
-  subjectName: string;
-  internalMax: number;
-  internalMin: number;
-  internalObt: number;
-  externalMax: number;
-  externalMin: number;
-  externalObt: number;
-  totalMax: number;
-  totalMin: number;
-  totalObt: number;
-  grade: string;
-  gradePoint: number;
-  creditPoint: number;
-  cg: number;
-}
-export interface Icredits {
-  semName: string;
-  creditEarned: string;
-  sgpi: string;
-}
+  export interface IResult {
+    collegeColor: string;
+    collegeName: string;
+    collegeLogo: string;
+    studentPhoto: string;
+    courseName: string;
+    semName: string; // (I,II,III,IV)
+    acadamicYear: string; // 2020-2021
+    abcNo: string; // 145654652
+    prnNo: string;
+    rollNo: string;
+    seatNumber: number;
+    studentName: string;
+    monthAndYear: string; // June 2021 BACKLOG, March 2021 REGULAR
+    sgpi: string;
+    NSSSGPI: string;
+    result: string; // successfull
+    totalGrade: string; // A+, B, A
+    totalOfTotal: number; // 421/700
+    outOfTotal: string | number;
+    totalCredit: number; // 20.00
+    cg: string; // Total of cg
+    cgpa: number | string;
+    finalGrade: string;
+    principalSign: string;
+    directorSign: string;
+    date: string;
+    place: string;
+    universityLogo: string;
+    numberOfSem: number;
+    collegeCode?: number;
+    credits: Icredits[];
+    subjects: IsubjectDetails[];
+  }
+
+  export enum IMaksRemarksType {
+    PRESENT = 'PRESENT',
+    ABSENT = 'ABSENT',
+    RESERVE = 'RESERVE',
+  }
+  export interface IsubjectDetails {
+    subjectCode: string;
+    subjectName: string;
+    passingMonthYear: string;
+    internalMax: number;
+    internalMin: number;
+    internalObt: number | string;
+    externalMax: number;
+    subjectRemarkInternal: string
+    subjectRemarkExternal: string
+    externalMin: number;
+    externalObt:number | string;
+    totalMax: number;
+    totalMin: number;
+    totalObt: number;
+    grade: string;
+    gradePoint: number;
+    creditPoint: number;
+    cg: number;
+  }
+  export interface Icredits {
+    semName: string;
+    creditEarned: string;
+    sgpi: string;
+  }
 
   export interface IAddmission {
     universityLogo:string;
@@ -279,47 +293,90 @@ export interface Icredits {
     subjectName: string;
   }
 
-export interface ISolMarksheet {
-  barcode: string;
-  studentName:string;
-  studentPhoto:string;
-  DBOEESignature:string;
-  specialization:string;
-  prnNo:string;
-  collegeName:string;
-  examCenter:string;
-  seatNo:string;
-  courseName:string;
-  examMonthAndYear:string;
-  examination:string;
-  ECAMark:string;
-  totalCredit:string;
-  totalEgp:string;
-  sgpa:string;
-  status:string;
-  ordinance:string;
-  statementNo:string;
-  subjects:{
-    paperCode:string;
-    paperName:string;
-    credits:string;
-    gradeObtained:string;
-    gradePoint:string;
-    earnedGRPoints:string;
-    remarks:string;
-  }[],
-  credits: {
-    semesterName:string;
-    credits:string;
-    egp:string;
-    sgpa:string;
-    status:string;
-    seatNo:string;
-    examEvent:string;
-  }[],
+  export interface ISolMarksheet {
+    examEvent: string;
+    barcode: string;
+    studentName: string;
+    studentPhoto: string;
+    totalMarks: number;
+    totalObtainMarks: number | string;
+    percentage: string;
+    DBOEESignature: string;
+    specialization: string;
+    courseFullName: string;
+    prnNo: string;
+    resultDate: string;
+    collegeName: string;
+    examCenter: string;
+    finalGrade: string;
+    seatNo: string;
+    courseName: string;
+    examination: string;
+    ECAMark: string;
+    totalCredit: string;
+    totalEgp: string;
+    subjectName: string;
+    sgpa: string;
+    status: string;
+    evenSemesterCredits: IEvenSemesterCredits[];
+    oddSemesterCredits: IEvenSemesterCredits[];
+    ordinance: string;
+    statementNo: string;
+    examMonthAndYear: string;
+    previousYearData: IPreviousYearData[];
+    oddSemesterSubjects: IOddSemesterSubjects[];
+    evenSemesterSubjects: IOddSemesterSubjects[];
+  }
+  
+  export interface IEvenSemesterCredits {
+    semesterName: string;
+    credits: number;
+    egp: string;
+    sgpa: string;
+    status: string;
+    seatNo: string;
+    examEvent: string;
+  }
+  
+  interface IPreviousYearData {
+    seatNo: string;
+    year: string;
+    examEvent: string;
+    totalCredits: string;
+    egp: string;
+    sgpa: string;
+  }
+  
+  export interface IOddSemesterSubjects {
+    paperCode: string;
+    paperName: string;
+    credits: string;
+    gradeObtained: string;
+    gradePoint: string;
+    earnedGRPoints: string;
+    remarks: string;
+  }
+  
+
+
+export interface IAttendanceSheet {
+  collegeName: string;
+  centerName: string;
+  courseName: string;
+  specialization: string;
+  courseAbbreviation: string;
+  examType: string;
+  examPattern: string;
+  courseYear: string; // Msc-I, Bsc-II
+  semesterName: string;
+  paperCode: string;
+  paperName: string;
+  examDate: string;
+  examTime: string;
+  blockNumber: string;
+  generatedBy: string;
+  seatNumbers: string[];
 }
-
-
 export interface ISolLedger {
   faculty:string;
   courseName:string;
