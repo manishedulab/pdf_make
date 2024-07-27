@@ -105,7 +105,7 @@ export const RABBITMQ = {
 export const TIMETAKENFORSUB = {
   lecture_hour: 3.2,
   Lecture_per_Week: 4,
-  months_taken: 4,
+  months_taken: 6,
 };
 
 export const DBOEE_SIGN = `${process.cwd()}/public/collegeLogo/DBOEE_Blue_Sign.png`;
