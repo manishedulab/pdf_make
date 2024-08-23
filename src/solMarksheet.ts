@@ -21,9 +21,9 @@ function generateFooter(currentPage:number, data: ISolMarksheet[]) {
               ? `${data[currentPage-1]?.DBOEESignature}`
               : PDF.defaultPhoto,
             width: 93,
-            height: 30,
+            height: 40,
             alignment: "center",
-            margin: [10, -62, 0, 0],
+            margin: [10, -70, 0, 0],
             // text: ' '
           },
         ],
@@ -376,7 +376,7 @@ for (let i = 0; i < data.length; i++) {
             border: [true, false, true, true],
           },
           {
-            text: `Status: Pass`,
+            text: `Status: ${data[i].status || '-'}`,
             bold: true,
             
             borderColor: ['#6b7280', '#6b7280', '#6b7280', '#6b7280'],
@@ -387,7 +387,7 @@ for (let i = 0; i < data.length; i++) {
           "",
           { text: `Grand Total: ${data[i].totalObtainMarks}/${data[i].totalMarks}`, bold: true,  borderColor: ['#6b7280', '#6b7280', '#6b7280', '#6b7280'],},
           // ${data[i].ordinance || '-'}
-          { text: `Equivalent Percentage: ${data[i].percentage}`, bold: true, colSpan:2,  borderColor: ['#6b7280', '#6b7280', '#6b7280', '#6b7280'],},
+          { text: `Equivalent Percentage: ${data[i].percentage || '-'}`, bold: true, colSpan:2,  borderColor: ['#6b7280', '#6b7280', '#6b7280', '#6b7280'],},
           '',
           { text: `Grade: ${data[i].finalGrade || '-'}`, bold: true,  borderColor: ['#6b7280', '#6b7280', '#6b7280', '#6b7280'],},
           { text:[{
@@ -403,68 +403,69 @@ for (let i = 0; i < data.length; i++) {
     }
     
     const ms:any = [];
-    for(let m = data[i].previousYearData.length-1; m >=0; m--) {
-    const value = data[i].previousYearData[m]
-    ms.push(
-    [
-      {
-        text: `${value.year} (Seat No:${value.seatNo}  Exam Event: ${value.examEvent})`,
-        borderColor: ['#6b7280', '#6b7280', '#6b7280', '#6b7280'],
-        border: [true, false, true, true],
-        bold: true,
-        colSpan: 6
-      },
-      '',
-      '',
-      '',
-      '',
-      "",
-    ],
-      [
-        {
-          text: '',
-          borderColor: ['#6b7280', '#6b7280', '#6b7280', '#6b7280'],
-         },
-      {
-        text: `Total Credits: ${value.totalCredits}`,
-        bold: true,
-        
-        borderColor: ['#6b7280', '#6b7280', '#6b7280', '#6b7280'],
-        border: [true, false, true, true],
-      },
-      {
-        text: `EGP: ${value.egp}`,
-        bold: true,
-        
-        borderColor: ['#6b7280', '#6b7280', '#6b7280', '#6b7280'],
-        border: [true, false, true, true],
-      },
-      {
-        text:  `SGPA: ${value.sgpa}`,
-        bold: true,
-        
-        borderColor: ['#6b7280', '#6b7280', '#6b7280', '#6b7280'],
-        border: [true, false, true, true],
-      },
-      {
-        text:  `Status: ${data[i].status}`,
-        bold: true,
-        
-        borderColor: ['#6b7280', '#6b7280', '#6b7280', '#6b7280'],
-        border: [true, false, true, true],
-      },
-      {
-        text: '',
-        borderColor: ['#6b7280', '#6b7280', '#6b7280', '#6b7280'],
-       },
-    ])};
-    
-    
-    
+    if (data[i].previousYearData.length > 0) {
+      for(let m = data[i].previousYearData.length-1; m >=0; m--) {
+        const value = data[i].previousYearData[m]
+        ms.push(
+        [
+          {
+            text: `${value.year} (Seat No:${value.seatNo}  Exam Event: ${value.examEvent})`,
+            borderColor: ['#6b7280', '#6b7280', '#6b7280', '#6b7280'],
+            border: [true, false, true, true],
+            bold: true,
+            colSpan: 6
+          },
+          '',
+          '',
+          '',
+          '',
+          "",
+        ],
+          [
+            {
+              text: '',
+              borderColor: ['#6b7280', '#6b7280', '#6b7280', '#6b7280'],
+             },
+          {
+            text: `Total Credits: ${value.totalCredits}`,
+            bold: true,
+            
+            borderColor: ['#6b7280', '#6b7280', '#6b7280', '#6b7280'],
+            border: [true, false, true, true],
+          },
+          {
+            text: `EGP: ${value.egp}`,
+            bold: true,
+            
+            borderColor: ['#6b7280', '#6b7280', '#6b7280', '#6b7280'],
+            border: [true, false, true, true],
+          },
+          {
+            text:  `SGPA: ${value.sgpa}`,
+            bold: true,
+            
+            borderColor: ['#6b7280', '#6b7280', '#6b7280', '#6b7280'],
+            border: [true, false, true, true],
+          },
+          {
+            text:  `Status: ${data[i].status}`,
+            bold: true,
+            
+            borderColor: ['#6b7280', '#6b7280', '#6b7280', '#6b7280'],
+            border: [true, false, true, true],
+          },
+          {
+            text: '',
+            borderColor: ['#6b7280', '#6b7280', '#6b7280', '#6b7280'],
+           },
+        ])};
+    }
+
     const table7 = {
       widths: [50, 80, 70, 52, 89, 128],
       body: ms 
     }
+
 
   //    const table8 = {
   //     widths: [50, 80, 70, 52, 89, 128],
@@ -538,11 +539,11 @@ for (let i = 0; i < data.length; i++) {
             stack:[
               {
                 // text:`Statement of Grade for ${data[i].courseName || '-'} Choice Based Credit System`,
-                text:`Statement of Grade for Bachelor of Arts (Regular) Choice Based Credit
-                      System T.Y.B.A. Sem-VI`,
+                text:`Statement of Grade for Faculty of Science and Technology (Hons):-
+                  B.Sc (with Credits) - Regular - CBCS Pattern 2019 - B.Sc-III Sem-VI`,
                 bold:true,
                 alignment: 'center',
-                // margin: [60, 0, 10, 0],
+                margin: [-10, 0, 0, 0],
             },
               {
                 // text: `Examination: (${data[i].examMonthAndYear || '-'})`,
@@ -668,10 +669,10 @@ for (let i = 0; i < data.length; i++) {
         //   table: table8,
         //   fontSize: 8,
         // },
-        {
+        data[i].previousYearData.length > 0 ?{
           table: table7,
           fontSize: 8,
-        },
+        } : "",
           {
               table: table4,
               fontSize: 8,

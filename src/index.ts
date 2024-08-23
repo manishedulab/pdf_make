@@ -1283,10 +1283,10 @@ const mockDataSolMarksheet = [
     specialization: "History",
     courseFullName: "Bachelor of Arts (Regular)",
     prnNo: "2013032500049173",
-    resultDate: "08 May 2019",
+    resultDate: "29 July 2024",
     collegeName: "Vasundhara Kala Mahavidhyalaya, Solapur (VASU)",
     examCenter: "Solapur (01)",
-    finalGrade: "B+", // Placeholder
+    finalGrade: "A", // Placeholder
     seatNo: "530183",
     courseName: "T.Y.B.A. Sem-VI",
     examination: "Mar-2019",
@@ -1304,8 +1304,8 @@ const mockDataSolMarksheet = [
         sgpa: "8.17",
         status: "Pass",
         seatNo: "530183",
-        examEvent: "Mar-2019"
-      }
+        examEvent: "Mar-2019",
+      },
     ],
     oddSemesterCredits: [
       {
@@ -1315,8 +1315,8 @@ const mockDataSolMarksheet = [
         sgpa: "8.83",
         status: "Pass",
         seatNo: "*135263",
-        examEvent: "Mar-2019"
-      }
+        examEvent: "Mar-2019",
+      },
     ],
     ordinance: "Not Applied",
     statementNo: "7473305",
@@ -1344,8 +1344,8 @@ const mockDataSolMarksheet = [
         egp: "212.00",
         sgpa: "8.83",
         seatNo: "*135263",
-        examEvent: "Mar-2019"
-      }
+        examEvent: "Mar-2019",
+      },
     ],
     oddSemesterSubjects: [
       {
@@ -1355,7 +1355,7 @@ const mockDataSolMarksheet = [
         gradeObtained: "A",
         gradePoint: "8.00",
         earnedGRPoints: "32.00",
-        remarks: "E,X"
+        remarks: "E,X",
       },
       {
         paperCode: "101527",
@@ -1364,7 +1364,7 @@ const mockDataSolMarksheet = [
         gradeObtained: "A+",
         gradePoint: "9.00",
         earnedGRPoints: "36.00",
-        remarks: "E,X"
+        remarks: "E,X",
       },
       {
         paperCode: "101528",
@@ -1373,7 +1373,7 @@ const mockDataSolMarksheet = [
         gradeObtained: "A",
         gradePoint: "8.00",
         earnedGRPoints: "32.00",
-        remarks: "E,X"
+        remarks: "E,X",
       },
       {
         paperCode: "101529",
@@ -1382,7 +1382,7 @@ const mockDataSolMarksheet = [
         gradeObtained: "A+",
         gradePoint: "9.00",
         earnedGRPoints: "36.00",
-        remarks: "E,X"
+        remarks: "E,X",
       },
       {
         paperCode: "101530",
@@ -1391,7 +1391,7 @@ const mockDataSolMarksheet = [
         gradeObtained: "A+",
         gradePoint: "9.00",
         earnedGRPoints: "36.00",
-        remarks: "E,X"
+        remarks: "E,X",
       },
       {
         paperCode: "101531",
@@ -1400,8 +1400,8 @@ const mockDataSolMarksheet = [
         gradeObtained: "O",
         gradePoint: "10.00",
         earnedGRPoints: "40.00",
-        remarks: "E,X"
-      }
+        remarks: "E,X",
+      },
     ],
     evenSemesterSubjects: [
       {
@@ -1411,7 +1411,7 @@ const mockDataSolMarksheet = [
         gradeObtained: "B",
         gradePoint: "6.00",
         earnedGRPoints: "24.00",
-        remarks: "E,C"
+        remarks: "E,C",
       },
       {
         paperCode: "101627",
@@ -1420,7 +1420,7 @@ const mockDataSolMarksheet = [
         gradeObtained: "A",
         gradePoint: "8.00",
         earnedGRPoints: "32.00",
-        remarks: "E,C"
+        remarks: "E,C",
       },
       {
         paperCode: "101628",
@@ -1429,7 +1429,7 @@ const mockDataSolMarksheet = [
         gradeObtained: "A+",
         gradePoint: "9.00",
         earnedGRPoints: "36.00",
-        remarks: "E,C"
+        remarks: "E,C",
       },
       {
         paperCode: "101629",
@@ -1438,7 +1438,7 @@ const mockDataSolMarksheet = [
         gradeObtained: "A+",
         gradePoint: "9.00",
         earnedGRPoints: "36.00",
-        remarks: "E,C"
+        remarks: "E,C",
       },
       {
         paperCode: "101630",
@@ -1447,7 +1447,7 @@ const mockDataSolMarksheet = [
         gradeObtained: "A+",
         gradePoint: "9.00",
         earnedGRPoints: "36.00",
-        remarks: "E,C"
+        remarks: "E,C",
       },
       {
         paperCode: "101631",
@@ -1456,11 +1456,1330 @@ const mockDataSolMarksheet = [
         gradeObtained: "A",
         gradePoint: "8.00",
         earnedGRPoints: "32.00",
-        remarks: "E,C"
-      }
-    ]
+        remarks: "E,C",
+      },
+    ],
   },
 ];
+
+// Example Data
+const exampleMarksheet: ISolMarksheet[] = [
+  {
+    examEvent: "Oct-2018",
+    barcode: `${process.cwd()}/public/collegeLogo/barcode2.png`,
+    studentName: "NARAYANE SUNIL VIJAYKUMAR (BABINANDA)",
+    studentPhoto: `${process.cwd()}/public/Student Photos/BSCCS.png`, // Placeholder, add actual URL if available
+    totalMarks: 0, // Placeholder
+    totalObtainMarks: 0, // Placeholder
+    percentage: "", // Placeholder
+    DBOEESignature: `${process.cwd()}/public/collegeLogo/Sol_DBOEE_ANDHARE_SIR.jpeg`, // Placeholder, add actual signature data if available
+    specialization: "Computer Science",
+    courseFullName: "Bachelor of Science (Regular)",
+    prnNo: "2018032500026454",
+    resultDate: "29 July 2024",
+    collegeName: "Sangameshwar College, Solapur (SAN)",
+    examCenter: "Solapur (01)",
+    finalGrade: "", // Placeholder
+    seatNo: "336942",
+    courseName: "B.Sc.-I Sem-I: Entire Computer Science",
+    examination: "Oct-2018",
+    ECAMark: "Nil",
+    totalCredit: "20.00",
+    totalEgp: "75.00",
+    subjectName: "", // Placeholder
+    sgpa: "--",
+    status: "ATKT",
+    evenSemesterCredits: [
+      // No data for even semester credits provided in the text
+    ],
+    oddSemesterCredits: [
+      {
+        semesterName: "Sem-I",
+        credits: 20,
+        egp: "75.00",
+        sgpa: "--",
+        status: "ATKT",
+        seatNo: "336942",
+        examEvent: "Oct-2018",
+      },
+    ],
+    ordinance: "Not Applied",
+    statementNo: "4186306",
+    examMonthAndYear: "Oct-2018",
+    previousYearData: [],
+    oddSemesterSubjects: [
+      {
+        paperCode: "172013101",
+        paperName: "English Paper-I (Compulsory)",
+        credits: "4.00",
+        gradeObtained: "A",
+        gradePoint: "8.00",
+        earnedGRPoints: "32.00",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "2013102",
+        paperName: "Fundamental of Computer",
+        credits: "2.50",
+        gradeObtained: "B",
+        gradePoint: "6.00",
+        earnedGRPoints: "15.00",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "2013103",
+        paperName: "Programming using C",
+        credits: "2.50",
+        gradeObtained: "C+",
+        gradePoint: "5.00",
+        earnedGRPoints: "12.50",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "2013104",
+        paperName: "Linear Electronics-I",
+        credits: "2.50",
+        gradeObtained: "C+",
+        gradePoint: "5.00",
+        earnedGRPoints: "12.50",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "2013105",
+        paperName: "Digital Electronics-I",
+        credits: "2.50",
+        gradeObtained: "A",
+        gradePoint: "8.00",
+        earnedGRPoints: "20.00",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "2013106",
+        paperName: "Discrete Structure",
+        credits: "2.50",
+        gradeObtained: "B",
+        gradePoint: "6.00",
+        earnedGRPoints: "15.00",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "2013107",
+        paperName: "Numerical Methods",
+        credits: "2.50",
+        gradeObtained: "F",
+        gradePoint: "0.00",
+        earnedGRPoints: "0.00",
+        remarks: "FC,C",
+      },
+      {
+        paperCode: "2013108",
+        paperName: "Descriptive Statistics-I",
+        credits: "2.50",
+        gradeObtained: "F",
+        gradePoint: "0.00",
+        earnedGRPoints: "0.00",
+        remarks: "FC,C",
+      },
+      {
+        paperCode: "2013109",
+        paperName: "Probability Theory-I",
+        credits: "2.50",
+        gradeObtained: "F",
+        gradePoint: "0.00",
+        earnedGRPoints: "0.00",
+        remarks: "FC,C",
+      },
+    ],
+    evenSemesterSubjects: [],
+  },
+];
+
+// Example Data
+const exampleMarksheets: ISolMarksheet[] = [
+  {
+    examEvent: "MAR-2024",
+    barcode: `${process.cwd()}/public/collegeLogo/barcode3.png`,
+    studentName: "MATHPATI AJIT SIDRAMAYYA (JAYASHRI)",
+    studentPhoto: `${process.cwd()}/public/Student Photos/B.Sc(Hons)-III.png`, // Placeholder, add actual URL if available
+    totalMarks: 3700,
+    totalObtainMarks: 2586,
+    percentage: "69.89%",
+    DBOEESignature: `${process.cwd()}/public/collegeLogo/Sol_DBOEE_ANDHARE_SIR.jpeg`, // Placeholder, add actual signature data if available
+    specialization: "Entire Computer Science",
+    courseFullName:
+      "Bachelor of Science (Hons) B.Sc(Hons) (with Credits) - Regular - CBCS",
+    prnNo: "202201020044098",
+    resultDate: "3 August 2024",
+    collegeName: "D.B.F.Dayanand College of Arts and Science, Solapur (DBF)",
+    examCenter: "Deshbhakta Harinarayan Bankatlal Soni College, Solapur (DHB)",
+    finalGrade: "A",
+    seatNo: "334496",
+    courseName: "B.Sc(Hons)-III Sem-VI",
+    examination: "MAR-2024",
+    ECAMark: "Nil",
+    totalCredit: "148.00",
+    totalEgp: "1234.00",
+    subjectName: "", // Placeholder
+    sgpa: "8.34",
+    status: "Pass",
+    evenSemesterCredits: [
+      {
+        semesterName: "Sem-VI",
+        credits: 36,
+        egp: "316.00",
+        sgpa: "8.78",
+        status: "Pass",
+        seatNo: "334496",
+        examEvent: "MAR-2024",
+      },
+    ],
+    oddSemesterCredits: [
+      {
+        semesterName: "Sem-V",
+        credits: 20,
+        egp: "136.00",
+        sgpa: "6.80",
+        status: "Pass",
+        seatNo: "334496",
+        examEvent: "MAR-2024",
+      },
+    ],
+    ordinance: "NA",
+    statementNo: "2920651",
+    examMonthAndYear: "MAR-2024",
+    previousYearData: [
+      {
+        seatNo: "2010207",
+        year: "B.Sc(Hons)-I",
+        examEvent: "MAR-2021",
+        totalCredits: "52",
+        egp: "460.00",
+        sgpa: "8.85",
+      },
+      {
+        seatNo: "037330",
+        year: "B.Sc(Hons)-II",
+        examEvent: "MAR-2023",
+        totalCredits: "40",
+        egp: "322.00",
+        sgpa: "8.05",
+      },
+      {
+        seatNo: "334496",
+        year: "B.Sc(Hons)-III",
+        examEvent: "MAR-2024",
+        totalCredits: "56",
+        egp: "452.00",
+        sgpa: "8.07",
+      },
+    ],
+    oddSemesterSubjects: [
+      {
+        paperCode: "ECS0501",
+        paperName: "English (Business English)-I",
+        credits: "2.00",
+        gradeObtained: "B",
+        gradePoint: "6",
+        earnedGRPoints: "12",
+        remarks: "E,X",
+      },
+      {
+        paperCode: "ECS0502",
+        paperName: "Data Communication and Networking",
+        credits: "4.00",
+        gradeObtained: "A",
+        gradePoint: "8",
+        earnedGRPoints: "32",
+        remarks: "E,X",
+      },
+      {
+        paperCode: "ECS0503",
+        paperName: "Theory of Computer Science",
+        credits: "4.00",
+        gradeObtained: "C+",
+        gradePoint: "5",
+        earnedGRPoints: "20",
+        remarks: "E,X",
+      },
+      {
+        paperCode: "ECS0504",
+        paperName: "Visual Programming",
+        credits: "4.00",
+        gradeObtained: "B",
+        gradePoint: "6",
+        earnedGRPoints: "24",
+        remarks: "E,X",
+      },
+      {
+        paperCode: "ECS0505",
+        paperName: "Advanced Java",
+        credits: "4.00",
+        gradeObtained: "A",
+        gradePoint: "8",
+        earnedGRPoints: "32",
+        remarks: "E,X",
+      },
+      {
+        paperCode: "ECS0506",
+        paperName: "Advanced Python Programming",
+        credits: "4.00",
+        gradeObtained: "B+",
+        gradePoint: "7",
+        earnedGRPoints: "28",
+        remarks: "E,X",
+      },
+    ],
+    evenSemesterSubjects: [
+      {
+        paperCode: "ECS0601",
+        paperName: "English (Business English)-II",
+        credits: "2.00",
+        gradeObtained: "A",
+        gradePoint: "8",
+        earnedGRPoints: "16",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "ECS0602",
+        paperName: "System Security",
+        credits: "4.00",
+        gradeObtained: "B",
+        gradePoint: "6",
+        earnedGRPoints: "24",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "ECS0603",
+        paperName: "Compiler Construction",
+        credits: "4.00",
+        gradeObtained: "B+",
+        gradePoint: "7",
+        earnedGRPoints: "28",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "ECS0604",
+        paperName: "Internet Programming Using ASP.Net",
+        credits: "4.00",
+        gradeObtained: "A",
+        gradePoint: "8",
+        earnedGRPoints: "32",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "ECS0605",
+        paperName: "Angular JS",
+        credits: "4.00",
+        gradeObtained: "A+",
+        gradePoint: "9",
+        earnedGRPoints: "36",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "ECS0606",
+        paperName: "Mobile Application Development",
+        credits: "4.00",
+        gradeObtained: "A+",
+        gradePoint: "9",
+        earnedGRPoints: "36",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "ECS0607",
+        paperName: "Practical-IX",
+        credits: "4.00",
+        gradeObtained: "O",
+        gradePoint: "10",
+        earnedGRPoints: "40",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "ECS0608",
+        paperName: "Practical-X",
+        credits: "4.00",
+        gradeObtained: "O",
+        gradePoint: "10",
+        earnedGRPoints: "40",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "ECS0609",
+        paperName: "Practical-XI",
+        credits: "4.00",
+        gradeObtained: "O",
+        gradePoint: "10",
+        earnedGRPoints: "40",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "ECS0610",
+        paperName: "Project Work",
+        credits: "4.00",
+        gradeObtained: "O",
+        gradePoint: "10",
+        earnedGRPoints: "40",
+        remarks: "E,C",
+      },
+    ],
+  },
+];
+
+const studentData: ISolMarksheet[] = [
+  {
+    examEvent: "March-2014",
+    barcode: `${process.cwd()}/public/collegeLogo/barcode.png`,
+    studentName: "KULKARNI ANAND HANMANT",
+    studentPhoto: "",
+    totalMarks: 600,
+    totalObtainMarks: 276,
+    percentage: "46.00%",
+    DBOEESignature: `${process.cwd()}/public/collegeLogo/Sol_DBOEE_ANDHARE_SIR.jpeg`,
+    specialization: "",
+    courseFullName: "B.Com.-Regular Pattern 2013-Sem-I",
+    prnNo: "2013032500072005",
+    resultDate: "07 August 2024",
+    collegeName: "Shankarrao Mohite Mahavidyalaya, Akluj",
+    oddSemesterSubjects: [
+      {
+        paperCode: "BC1S1BE",
+        paperName: "Business Economics",
+        credits: "", // Assuming credits as an example; you might need to adjust this
+        gradeObtained: "",
+        gradePoint: "", // Assuming gradePoint as "N/A"; you might need to calculate or replace with actual value
+        earnedGRPoints: "", // Assuming earnedGRPoints as "N/A"; you might need to calculate or replace with actual value
+        remarks: "",
+      },
+      {
+        paperCode: "BC1S1ENG",
+        paperName: "English (Compulsory)",
+        credits: "", // Assuming credits as an example; you might need to adjust this
+        gradeObtained: "",
+        gradePoint: "", // Assuming gradePoint as "N/A"; you might need to calculate or replace with actual value
+        earnedGRPoints: "", // Assuming earnedGRPoints as "N/A"; you might need to calculate or replace with actual value
+        remarks: "",
+      },
+      {
+        paperCode: "BC1S1FA",
+        paperName: "Financial Accounting",
+        credits: "", // Assuming credits as an example; you might need to adjust this
+        gradeObtained: "",
+        gradePoint: "", // Assuming gradePoint as "N/A"; you might need to calculate or replace with actual value
+        earnedGRPoints: "", // Assuming earnedGRPoints as "N/A"; you might need to calculate or replace with actual value
+        remarks: "",
+      },
+      {
+        paperCode: "BC1S1PBM",
+        paperName: "Principles of Business Management",
+        credits: "", // Assuming credits as an example; you might need to adjust this
+        gradeObtained: "",
+        gradePoint: "", // Assuming gradePoint as "N/A"; you might need to calculate or replace with actual value
+        earnedGRPoints: "", // Assuming earnedGRPoints as "N/A"; you might need to calculate or replace with actual value
+        remarks: "",
+      },
+      {
+        paperCode: "BC1S1PM",
+        paperName: "Principles of Marketing",
+        credits: "", // Assuming credits as an example; you might need to adjust this
+        gradeObtained: "",
+        gradePoint: "", // Assuming gradePoint as "N/A"; you might need to calculate or replace with actual value
+        earnedGRPoints: "", // Assuming earnedGRPoints as "N/A"; you might need to calculate or replace with actual value
+        remarks: "",
+      },
+      {
+        paperCode: "BC1S1INS",
+        paperName: "Insurance",
+        credits: "", // Assuming credits as an example; you might need to adjust this
+        gradeObtained: "",
+        gradePoint: "", // Assuming gradePoint as "N/A"; you might need to calculate or replace with actual value
+        earnedGRPoints: "", // Assuming earnedGRPoints as "N/A"; you might need to calculate or replace with actual value
+        remarks: "",
+      },
+    ],
+    evenSemesterSubjects: [
+      {
+        paperCode: "BC1S2BE",
+        paperName: "Business Economics",
+        credits: "", // Assuming credits as an example; you might need to adjust this
+        gradeObtained: "",
+        gradePoint: "", // Assuming gradePoint as "N/A"; you might need to calculate or replace with actual value
+        earnedGRPoints: "", // Assuming earnedGRPoints as "N/A"; you might need to calculate or replace with actual value
+        remarks: "",
+      },
+      {
+        paperCode: "BC1S2ENG",
+        paperName: "English (Compulsory)",
+        credits: "", // Assuming credits as an example; you might need to adjust this
+        gradeObtained: "",
+        gradePoint: "", // Assuming gradePoint as "N/A"; you might need to calculate or replace with actual value
+        earnedGRPoints: "", // Assuming earnedGRPoints as "N/A"; you might need to calculate or replace with actual value
+        remarks: "",
+      },
+      {
+        paperCode: "BC1S2FA",
+        paperName: "Financial Accounting",
+        credits: "", // Assuming credits as an example; you might need to adjust this
+        gradeObtained: "",
+        gradePoint: "", // Assuming gradePoint as "N/A"; you might need to calculate or replace with actual value
+        earnedGRPoints: "", // Assuming earnedGRPoints as "N/A"; you might need to calculate or replace with actual value
+        remarks: "",
+      },
+      {
+        paperCode: "BC1S2PBM",
+        paperName: "Principles of Business Management",
+        credits: "", // Assuming credits as an example; you might need to adjust this
+        gradeObtained: "",
+        gradePoint: "", // Assuming gradePoint as "N/A"; you might need to calculate or replace with actual value
+        earnedGRPoints: "", // Assuming earnedGRPoints as "N/A"; you might need to calculate or replace with actual value
+        remarks: "",
+      },
+      {
+        paperCode: "BC1S2PM",
+        paperName: "Principles of Marketing",
+        credits: "", // Assuming credits as an example; you might need to adjust this
+        gradeObtained: "",
+        gradePoint: "", // Assuming gradePoint as "N/A"; you might need to calculate or replace with actual value
+        earnedGRPoints: "", // Assuming earnedGRPoints as "N/A"; you might need to calculate or replace with actual value
+        remarks: "",
+      },
+      {
+        paperCode: "BC1S2INS",
+        paperName: "Insurance",
+        credits: "", // Assuming credits as an example; you might need to adjust this
+        gradeObtained: "",
+        gradePoint: "", // Assuming gradePoint as "N/A"; you might need to calculate or replace with actual value
+        earnedGRPoints: "", // Assuming earnedGRPoints as "N/A"; you might need to calculate or replace with actual value
+        remarks: "",
+      },
+    ],
+    examCenter: "",
+    finalGrade: "",
+    seatNo: "069396",
+    courseName: "",
+    examination: "",
+    ECAMark: "",
+    totalCredit: "",
+    totalEgp: "",
+    subjectName: "",
+    sgpa: "",
+    status: "Pass",
+    evenSemesterCredits: [
+      {
+        semesterName: "Sem-II",
+        credits: 0,
+        egp: "",
+        sgpa: "",
+        status: "Pass",
+        seatNo: "069396",
+        examEvent: "Mar-14",
+      },
+    ],
+    oddSemesterCredits: [
+      {
+        semesterName: "Sem-I",
+        credits: 0,
+        egp: "",
+        sgpa: "",
+        status: "Pass",
+        seatNo: "069396",
+        examEvent: "Oct-13",
+      },
+    ],
+    ordinance: "N/A",
+    statementNo: "",
+    examMonthAndYear: "",
+    previousYearData: [],
+  },
+];
+
+export const solMarksheetdata: ISolMarksheet[] = [
+  {
+    examEvent: "March 2024",
+    barcode: `${process.cwd()}/public/collegeLogo/barcode7.png`,
+    studentName: "KHATAL SANJAY SAUDAGAR (SATYASHILA)",
+    studentPhoto: `${process.cwd()}/public/Student Photos/KHATAL SANJAY SAUDAGAR (SATYASHILA).png`, // Assuming the photo is not available in the PDF
+    totalMarks: 3400,
+    totalObtainMarks: 2570,
+    percentage: "75.59%",
+    DBOEESignature: `${process.cwd()}/public/collegeLogo/Sol_DBOEE_ANDHARE_SIR.jpeg`, // Signature not provided in the PDF
+    specialization: "B.Sc(Hons) (with Credits)",
+    courseFullName: "B.Sc(Hons)-III Sem-VI",
+    prnNo: "202301082074065",
+    resultDate: "22 August 2024",
+    collegeName: "Shri Shivaji Mahavidyalaya, Barshi, SMB",
+    examCenter: "Shri Shivaji Mahavidyalaya, Barshi, SMB",
+    finalGrade: "A+",
+    seatNo: "347889",
+    courseName: "B.Sc(Hons) (with Credits) - Regular - CBCS Pattern 2019",
+    examination: "B.Sc(Hons)-III Sem-VI HELD IN March 2024",
+    ECAMark: "NA",
+    totalCredit: "136.00",
+    totalEgp: "1218.00",
+    subjectName: "", // Not explicitly provided, can be derived from subjects below
+    sgpa: "8.96",
+    status: "Pass",
+    evenSemesterCredits: [
+      {
+        semesterName: "Sem-VI",
+        credits: 32,
+        egp: "312.00",
+        sgpa: "9.75",
+        status: "Pass",
+        seatNo: "347889",
+        examEvent: "March 2024",
+      },
+    ],
+    oddSemesterCredits: [
+      {
+        semesterName: "Sem-V",
+        credits: 20,
+        egp: "188.00",
+        sgpa: "9.40",
+        status: "Pass",
+        seatNo: "347889",
+        examEvent: "OCT-2023",
+      },
+    ],
+    ordinance: "NA",
+    statementNo: "2024E00000001", // Not explicitly provided
+    examMonthAndYear: "March 2024",
+    previousYearData: [
+      {
+        seatNo: "221923",
+        year: "B.Sc-I",
+        examEvent: "OCT-2023",
+        totalCredits: "48",
+        egp: "392.00",
+        sgpa: "8.17",
+      },
+      {
+        seatNo: "221923",
+        year: "B.Sc-II",
+        examEvent: "OCT-2023",
+        totalCredits: "36",
+        egp: "326.00",
+        sgpa: "9.06",
+      },
+      {
+        seatNo: "347889",
+        year: "B.Sc-III",
+        examEvent: "MAR-2024",
+        totalCredits: "52",
+        egp: "500.00",
+        sgpa: "9.62",
+      },
+    ],
+    oddSemesterSubjects: [
+      {
+        paperCode: "19201500",
+        paperName: "Compulsory English",
+        credits: "2", // Credits not explicitly mentioned
+        gradeObtained: "A",
+        gradePoint: "8",
+        earnedGRPoints: "16",
+        remarks: "E,X",
+      },
+      {
+        paperCode: "19201511",
+        paperName: "Physics Paper-IX",
+        credits: "4",
+        gradeObtained: "A+",
+        gradePoint: "9",
+        earnedGRPoints: "36",
+        remarks: "E,X",
+      },
+      {
+        paperCode: "19201512",
+        paperName: "Physics Paper-X",
+        credits: "4",
+        gradeObtained: "A+",
+        gradePoint: "9",
+        earnedGRPoints: "36",
+        remarks: "E,X",
+      },
+      {
+        paperCode: "19201513",
+        paperName: "Physics Paper-XI",
+        credits: "4",
+        gradeObtained: "O",
+        gradePoint: "10",
+        earnedGRPoints: "40",
+        remarks: "E,X",
+      },
+      {
+        paperCode: "19201514",
+        paperName: "Physics Paper-XII",
+        credits: "4",
+        gradeObtained: "O",
+        gradePoint: "10",
+        earnedGRPoints: "40",
+        remarks: "E,X",
+      },
+      {
+        paperCode: "19201518",
+        paperName: "Medicial Physics",
+        credits: "4",
+        gradeObtained: "A+",
+        gradePoint: "9",
+        earnedGRPoints: "36",
+        remarks: "E,X",
+      },
+    ],
+    evenSemesterSubjects: [
+      {
+        paperCode: "19201600",
+        paperName: "Compulsory English",
+        credits: "2",
+        gradeObtained: "A+",
+        gradePoint: "9",
+        earnedGRPoints: "18",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "19201619",
+        paperName: "Physics Paper-XIV",
+        credits: "4",
+        gradeObtained: "O",
+        gradePoint: "10",
+        earnedGRPoints: "40",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "19201620",
+        paperName: "Physics Paper-XV",
+        credits: "4",
+        gradeObtained: "O",
+        gradePoint: "10",
+        earnedGRPoints: "40",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "19201621",
+        paperName: "Physics Paper-XVI",
+        credits: "4",
+        gradeObtained: "A+",
+        gradePoint: "9",
+        earnedGRPoints: "36",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "19201622",
+        paperName: "Physics Paper-XVII",
+        credits: "4",
+        gradeObtained: "A+",
+        gradePoint: "9",
+        earnedGRPoints: "36",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "19201623",
+        paperName: "Physics Practical-I",
+        credits: "4",
+        gradeObtained: "O",
+        gradePoint: "10",
+        earnedGRPoints: "40",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "19201624",
+        paperName: "Physics Practical-II",
+        credits: "4",
+        gradeObtained: "O",
+        gradePoint: "10",
+        earnedGRPoints: "40",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "19201625",
+        paperName: "Physics Practical-III",
+        credits: "4",
+        gradeObtained: "O",
+        gradePoint: "10",
+        earnedGRPoints: "40",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "19201626",
+        paperName: "Physics Practical-IV",
+        credits: "4",
+        gradeObtained: "O",
+        gradePoint: "10",
+        earnedGRPoints: "40",
+        remarks: "E,C",
+      },
+    ],
+  },
+];
+
+const solMarksheetOfStudent: ISolMarksheet[] = [
+  {
+    examEvent: "MAR-2024",
+    barcode: `${process.cwd()}/public/collegeLogo/barcode.png`,
+    studentName: "BHAIRAPPA PRANAV SHAILESH (VAISHALI)",
+    studentPhoto: `${process.cwd()}/public/Student Photos/BHAIRAPPA PRANAV SHAILESH (VAISHALI).png`,
+    totalMarks: 1800,
+    totalObtainMarks: "1152",
+    percentage: "64.00%",
+    DBOEESignature: `${process.cwd()}/public/collegeLogo/Sol_DBOEE_ANDHARE_SIR.jpeg`,
+    specialization: "",
+    courseFullName:
+      "Bachelor of Commerce (Hons) B.Com. (Hons) (with Credits) - Regular - CBCS Pattern 2019",
+    prnNo: "202301054074285",
+    resultDate: "20 August 2024",
+    collegeName: "Sangameshwar Night College, Solapur, Solapur (SANC)",
+    examCenter: "Laxmibai Bhaurao Patil Mahila Mahavidyalay, Solapur (LBP)",
+    finalGrade: "A",
+    seatNo: "347821",
+    courseName: "B.Com. (Hons)-III Sem-VI",
+    examination: "Faculty of Commerce & Management",
+    ECAMark: "",
+    totalCredit: "144.00",
+    totalEgp: "1120.00",
+    subjectName: "",
+    sgpa: "7.78",
+    status: "Pass",
+    evenSemesterCredits: [
+      {
+        semesterName: "Sem-VI",
+        credits: 24,
+        egp: "180.00",
+        sgpa: "7.50",
+        status: "Pass",
+        seatNo: "347821",
+        examEvent: "MAR-2024",
+      },
+    ],
+    oddSemesterCredits: [
+      {
+        semesterName: "Sem-V",
+        credits: 24,
+        egp: "164.00",
+        sgpa: "6.83",
+        status: "Pass",
+        seatNo: "347821",
+        examEvent: "MAR-2024",
+      },
+    ],
+    ordinance: "*O.96 (Mark/s 3)",
+    statementNo: "2915889",
+    examMonthAndYear: "MAR-2024",
+    previousYearData: [
+      {
+        seatNo: "223864",
+        year: "B.Com. (Hons)-I",
+        examEvent: "OCT-2022",
+        totalCredits: "48",
+        egp: "384.00",
+        sgpa: "8.00",
+      },
+      {
+        seatNo: "223864",
+        year: "B.Com. (Hons)-II",
+        examEvent: "OCT-2022",
+        totalCredits: "48",
+        egp: "392.00",
+        sgpa: "8.17",
+      },
+      {
+        seatNo: "347821",
+        year: "B.Com. (Hons)-III",
+        examEvent: "MAR-2024",
+        totalCredits: "48",
+        egp: "344.00",
+        sgpa: "7.17",
+      },
+    ],
+    oddSemesterSubjects: [
+      {
+        paperCode: "19405501",
+        paperName: "Modern Management Practices-I",
+        credits: "4.00",
+        gradeObtained: "A+",
+        gradePoint: "9",
+        earnedGRPoints: "36",
+        remarks: "E,X",
+      },
+      {
+        paperCode: "19405502",
+        paperName: "Business Regulatory Framework-I",
+        credits: "4.00",
+        gradeObtained: "B",
+        gradePoint: "6",
+        earnedGRPoints: "24",
+        remarks: "E,X",
+      },
+      {
+        paperCode: "19405503",
+        paperName: "Business Economics-I",
+        credits: "4.00",
+        gradeObtained: "A",
+        gradePoint: "8",
+        earnedGRPoints: "32",
+        remarks: "E,X",
+      },
+      {
+        paperCode: "19405504",
+        paperName: "Co-operative Development-I",
+        credits: "4.00",
+        gradeObtained: "B",
+        gradePoint: "6",
+        earnedGRPoints: "24",
+        remarks: "E,X",
+      },
+      {
+        paperCode: "19405505",
+        paperName: "Advanced Accounting And Auditing-I",
+        credits: "4.00",
+        gradeObtained: "B",
+        gradePoint: "6",
+        earnedGRPoints: "24",
+        remarks: "E,X *",
+      },
+      {
+        paperCode: "19405506",
+        paperName: "Advanced Accounting And Auditing-II",
+        credits: "4.00",
+        gradeObtained: "B",
+        gradePoint: "6",
+        earnedGRPoints: "24",
+        remarks: "E,X",
+      },
+    ],
+    evenSemesterSubjects: [
+      {
+        paperCode: "19405601",
+        paperName: "Modern Management Practices-II",
+        credits: "4.00",
+        gradeObtained: "B+",
+        gradePoint: "7",
+        earnedGRPoints: "28",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "19405602",
+        paperName: "Business Regulatory Framework-II",
+        credits: "4.00",
+        gradeObtained: "B+",
+        gradePoint: "7",
+        earnedGRPoints: "28",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "19405603",
+        paperName: "Business Economics-II",
+        credits: "4.00",
+        gradeObtained: "A",
+        gradePoint: "8",
+        earnedGRPoints: "32",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "19405604",
+        paperName: "Co-operative Development-II",
+        credits: "4.00",
+        gradeObtained: "A",
+        gradePoint: "8",
+        earnedGRPoints: "32",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "19405605",
+        paperName: "Advanced Accounting And Auditing-III",
+        credits: "4.00",
+        gradeObtained: "B",
+        gradePoint: "6",
+        earnedGRPoints: "24",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "19405606",
+        paperName: "Advanced Accounting And Auditing-IV",
+        credits: "4.00",
+        gradeObtained: "A+",
+        gradePoint: "9",
+        earnedGRPoints: "36",
+        remarks: "E,C",
+      },
+    ],
+  },
+];
+
+const eexampleMarksheet: ISolMarksheet[] = [
+  {
+    examEvent: "MAR-2024",
+    barcode: `${process.cwd()}/public/collegeLogo/barcode.png`, // Assuming barcode information is not available in the provided data
+    studentName: "UGALE RUPA BHAGWAN (JANABAI)",
+    studentPhoto: `${process.cwd()}/public/Student Photos/UGALE RUPA BHAGWAN (JANABAI).png`, // Assuming photo URL or binary is not available in the provided data
+    totalMarks: 1000,
+    totalObtainMarks: "589",
+    percentage: "58.90%",
+    DBOEESignature: `${process.cwd()}/public/collegeLogo/Sol_DBOEE_ANDHARE_SIR.jpeg`, // Inferred from the PDF
+    specialization: "", // Not provided in the data
+    courseFullName: "LL.B.-III Sem-VI", // Inferred from the PDF
+    prnNo: "202301024071638",
+    resultDate: "21 August 2024",
+    collegeName: "D.G.B. Dayanand Law College, Solapur (DGB)",
+    examCenter: "A.R.Burla Mahila Varishtha Mahavidyalaya, Solapur (ARBM)",
+    finalGrade: "B+",
+    seatNo: "333303",
+    courseName: "LL.B.-III",
+    examination: "LL.B.-III Sem-VI",
+    ECAMark: "", // Assuming not provided in the data
+    totalCredit: "100.00",
+    totalEgp: "808.00",
+    subjectName: "", // This field is not applicable for the summary level
+    sgpa: "8.08",
+    status: "Pass",
+    evenSemesterCredits: [
+      {
+        semesterName: "Sem-VI",
+        credits: 20,
+        egp: "144.00",
+        sgpa: "7.20",
+        status: "Pass",
+        seatNo: "333303",
+        examEvent: "MAR-2024",
+      },
+    ],
+    oddSemesterCredits: [
+      {
+        semesterName: "Sem-V",
+        credits: 20,
+        egp: "140.00",
+        sgpa: "7.00",
+        status: "Pass",
+        seatNo: "333303",
+        examEvent: "MAR-2024",
+      },
+    ],
+    ordinance: "NA",
+    statementNo: "2931408",
+    examMonthAndYear: "March-2024",
+    previousYearData: [
+      {
+        seatNo: "1619035",
+        year: "LL.B.-I",
+        examEvent: "OCT-2019",
+        totalCredits: "20",
+        egp: "188.00",
+        sgpa: "9.00",
+      },
+      {
+        seatNo: "109263",
+        year: "LL.B.-II",
+        examEvent: "MAR-2023",
+        totalCredits: "40",
+        egp: "336.00",
+        sgpa: "8.40",
+      },
+      {
+        seatNo: "333303",
+        year: "LL.B.-III",
+        examEvent: "MAR-2024",
+        totalCredits: "40",
+        egp: "284.00",
+        sgpa: "7.10",
+      },
+    ], // Assuming no previous year data provided
+    oddSemesterSubjects: [
+      {
+        paperCode: "19602501",
+        paperName: "Law of Crimes-II (Cr. P.C.)",
+        credits: "4.00",
+        gradeObtained: "A",
+        gradePoint: "8",
+        earnedGRPoints: "32",
+        remarks: "E,X",
+      },
+      {
+        paperCode: "19602502",
+        paperName: "Law of Evidence",
+        credits: "4.00",
+        gradeObtained: "A",
+        gradePoint: "8",
+        earnedGRPoints: "32",
+        remarks: "E,X",
+      },
+      {
+        paperCode: "19602503",
+        paperName: "Civil Procedure Code and Limitation Act",
+        credits: "4.00",
+        gradeObtained: "A",
+        gradePoint: "8",
+        earnedGRPoints: "32",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "19602504",
+        paperName: "Principles of Taxation Law",
+        credits: "4.00",
+        gradeObtained: "C+",
+        gradePoint: "5",
+        earnedGRPoints: "20",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "19602505",
+        paperName: "Company Law",
+        credits: "4.00",
+        gradeObtained: "B",
+        gradePoint: "6",
+        earnedGRPoints: "24",
+        remarks: "E,X",
+      },
+    ],
+    evenSemesterSubjects: [
+      {
+        paperCode: "19602601",
+        paperName: "Drafting, Pleading & Conveyance (Clinical Course)",
+        credits: "4.00",
+        gradeObtained: "B",
+        gradePoint: "6",
+        earnedGRPoints: "24",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "19602602",
+        paperName: "Moot Court, Exercise and Internship (Clinical Course)",
+        credits: "4.00",
+        gradeObtained: "A+",
+        gradePoint: "9",
+        earnedGRPoints: "36",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "19602604",
+        paperName: "Equity & Trust",
+        credits: "4.00",
+        gradeObtained: "B+",
+        gradePoint: "7",
+        earnedGRPoints: "28",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "19602605",
+        paperName: "Land Laws Including Tenure & Tenancy System",
+        credits: "4.00",
+        gradeObtained: "B",
+        gradePoint: "6",
+        earnedGRPoints: "24",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "19602608",
+        paperName: "International Human Rights",
+        credits: "4.00",
+        gradeObtained: "A",
+        gradePoint: "8",
+        earnedGRPoints: "32",
+        remarks: "E,C",
+      },
+    ],
+  },
+];
+
+export const solMarksheet1: ISolMarksheet[] = [
+  {
+    examEvent: "MAR-2024",
+    barcode: `${process.cwd()}/public/collegeLogo/barcode7.png`, // Assuming the barcode is not provided in the document.
+    studentName: "TORANGI POOJA PARAMESHWAR (MADHURI)",
+    studentPhoto: `${process.cwd()}/public/Student Photos/TORANGI POOJA PARAMESHWAR (MADHURI).png`, // Assuming no photo is provided in the document.
+    totalMarks: 1800,
+    totalObtainMarks: 1254,
+    percentage: "69.67%",
+    DBOEESignature: `${process.cwd()}/public/collegeLogo/Sol_DBOEE_ANDHARE_SIR.jpeg`,
+    specialization: "", // Assuming specialization is not mentioned.
+    courseFullName: "Bachelor of Commerce (Hons) B.Com. (Hons)",
+    prnNo: "202301069073045",
+    resultDate: "11-Jun-2024",
+    collegeName:
+      "C.B.Khedgis Basweshwar Science, Raja Vijaysinh Commerce, Raja Jaysinh Arts College, Akkalkot (CBK)",
+    examCenter:
+      "C.B.Khedgis Basweshwar Science, Raja Vijaysinh Commerce, Raja Jaysinh Arts College, Akkalkot (CBK)",
+    finalGrade: "A",
+    seatNo: "334761",
+    courseName: "B.Com. (Hons)-III Sem-VI",
+    examination: "B.Com. (Hons)-III",
+    ECAMark: "", // Not provided.
+    totalCredit: "144",
+    totalEgp: "1200.00",
+    subjectName: "", // This would be specific to each subject, see below for subjects.
+    sgpa: "8.33",
+    status: "Pass",
+    evenSemesterCredits: [
+      {
+        semesterName: "Sem-VI",
+        credits: 24,
+        egp: "192.00",
+        sgpa: "8.00",
+        status: "Pass",
+        seatNo: "334761",
+        examEvent: "MAR-2024",
+      },
+    ],
+    oddSemesterCredits: [
+      {
+        semesterName: "Sem-V",
+        credits: 24,
+        egp: "172.00",
+        sgpa: "7.17",
+        status: "Pass",
+        seatNo: "334761",
+        examEvent: "MAR-2024",
+      },
+    ],
+    ordinance: "NA",
+    statementNo: "2916144",
+    examMonthAndYear: "March-2024",
+    previousYearData: [
+      {
+        seatNo: "2007816",
+        year: "B.Com. (Hons)-I",
+        examEvent: "MAR-2021",
+        totalCredits: "48",
+        egp: "428.00",
+        sgpa: "8.92",
+      },
+      {
+        seatNo: "224603",
+        year: "B.Com. (Hons)-II",
+        examEvent: "MAR-2023",
+        totalCredits: "48",
+        egp: "408.00",
+        sgpa: "8.50",
+      },
+      {
+        seatNo: "334761",
+        year: "B.Com. (Hons)-III",
+        examEvent: "MAR-2024",
+        totalCredits: "48",
+        egp: "364.00",
+        sgpa: "7.58",
+      },
+    ],
+    oddSemesterSubjects: [
+      {
+        paperCode: "19405501",
+        paperName: "Modern Management Practices-I",
+        credits: "4.00",
+        gradeObtained: "B",
+        gradePoint: "6",
+        earnedGRPoints: "24",
+        remarks: "E,X",
+      },
+      {
+        paperCode: "19405502",
+        paperName: "Business Regulatory Framework-I",
+        credits: "4.00",
+        gradeObtained: "B",
+        gradePoint: "6",
+        earnedGRPoints: "24",
+        remarks: "E,X",
+      },
+      {
+        paperCode: "19405503",
+        paperName: "Business Economics-I",
+        credits: "4.00",
+        gradeObtained: "A+",
+        gradePoint: "9",
+        earnedGRPoints: "36",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "19405504",
+        paperName: "Co-operative Development-I",
+        credits: "4.00",
+        gradeObtained: "A+",
+        gradePoint: "9",
+        earnedGRPoints: "36",
+        remarks: "E,X",
+      },
+      {
+        paperCode: "19405505",
+        paperName: "Advanced Accounting And Auditing-I",
+        credits: "4.00",
+        gradeObtained: "B",
+        gradePoint: "6",
+        earnedGRPoints: "24",
+        remarks: "E,X",
+      },
+      {
+        paperCode: "19405506",
+        paperName: "Advanced Accounting And Auditing-II",
+        credits: "4.00",
+        gradeObtained: "B+",
+        gradePoint: "7",
+        earnedGRPoints: "28",
+        remarks: "E,X",
+      },
+    ],
+    evenSemesterSubjects: [
+      {
+        paperCode: "19405601",
+        paperName: "Modern Management Practices-II",
+        credits: "4.00",
+        gradeObtained: "O",
+        gradePoint: "10",
+        earnedGRPoints: "40",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "19405602",
+        paperName: "Business Regulatory Framework-II",
+        credits: "4.00",
+        gradeObtained: "B",
+        gradePoint: "6",
+        earnedGRPoints: "24",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "19405603",
+        paperName: "Business Economics-II",
+        credits: "4.00",
+        gradeObtained: "A+",
+        gradePoint: "9",
+        earnedGRPoints: "36",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "19405604",
+        paperName: "Co-operative Development-II",
+        credits: "4.00",
+        gradeObtained: "B",
+        gradePoint: "6",
+        earnedGRPoints: "24",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "19405605",
+        paperName: "Advanced Accounting And Auditing-III",
+        credits: "4.00",
+        gradeObtained: "A",
+        gradePoint: "8",
+        earnedGRPoints: "32",
+        remarks: "E,C",
+      },
+      {
+        paperCode: "19405606",
+        paperName: "Advanced Accounting And Auditing-IV",
+        credits: "4.00",
+        gradeObtained: "A+",
+        gradePoint: "9",
+        earnedGRPoints: "36",
+        remarks: "E,C",
+      },
+    ],
+  },
+];
+
+app.get("/sol-marksheet", async (req: Request, res: Response) => {
+  const pdfDocGenerator = pdfmake.createPdfKitDocument(
+    solMarksheet(solMarksheetdata)
+  );
+  res.setHeader("Content-Type", "application/pdf");
+  res.setHeader("Content-Disposition", "inline");
+  pdfDocGenerator.pipe(res);
+  pdfDocGenerator.end();
+});
 
 const mockDataSolLedger: ISolLedger = {
   faculty: "Engineering",
@@ -2114,14 +3433,6 @@ const mockDataSolLedger: ISolLedger = {
     },
   ],
 };
-
-app.get("/sol-marksheet", async (req: Request, res: Response) => {
-  const pdfDocGenerator = pdfmake.createPdfKitDocument(solMarksheet(mockDataSolMarksheet));
-  res.setHeader("Content-Type", "application/pdf");
-  res.setHeader("Content-Disposition", "inline");
-  pdfDocGenerator.pipe(res);
-  pdfDocGenerator.end();
-});
 
 app.get("/sol-ledger", async (req: Request, res: Response) => {
   const pdfDocGenerator = pdfmake.createPdfKitDocument(
