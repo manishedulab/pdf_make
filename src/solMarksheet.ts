@@ -539,8 +539,9 @@ for (let i = 0; i < data.length; i++) {
             stack:[
               {
                 // text:`Statement of Grade for ${data[i].courseName || '-'} Choice Based Credit System`,
-                text:`Statement of Grade for Faculty of Science and Technology (Hons):-
-                  B.Sc (with Credits) - Regular - CBCS Pattern 2019 - B.Sc-III Sem-VI`,
+                text:`Statement of Grade for Faculty of Science & Technology:-
+Bachelor of Science (Hons) B.Sc (with Credits) - Regular - CBCS Pattern
+2019 - B.Sc -III Sem-VI`,
                 bold:true,
                 alignment: 'center',
                 margin: [-10, 0, 0, 0],

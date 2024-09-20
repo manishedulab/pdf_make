@@ -357,7 +357,40 @@ export interface IReassessmentFeeSlip {
     remarks: string;
   }
   
-
+  export interface IResultReport {
+    examEvent: string;
+    examType: string;
+    course: string;
+    semester: string;
+    totalAppearedStudents: string;
+    appearedBoys: string;
+    appearedGirls: string;
+    totalPassStudents: string;
+    passBoys: string;
+    passGirls: string;
+    totalPassPercentageOfStudents: string;
+    passPercentageOfBoys: string;
+    passPercentageOfGirls: string;
+    subjectsDetail: IResultReportSubjects[];
+  }
+  
+  export interface IResultReportSubjects {
+    subjectCode: string;
+    subjectName: string;
+    noOfStudentsAsPerSubject: string;
+    noOfStudentsWithGradeO: string;
+    noOfStudentsWithGradeAPlus: string;
+    noOfStudentsWithGradeA: string;
+    noOfStudentsWithGradeBPlus: string;
+    noOfStudentsWithGradeB: string;
+    noOfStudentsWithGradeC: string;
+    noOfStudentsWithGradeD: string;
+    noOfStudentsWithGradeF: string;
+    passPercentageAsPerSubject: string;
+    failPercentageAsPerSubject: string;
+    GPA: string;
+  }
+  
 
 export interface IAttendanceSheet {
   collegeName: string;
