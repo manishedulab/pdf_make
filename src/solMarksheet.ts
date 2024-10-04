@@ -64,7 +64,7 @@ const contentDefinition: any = {
   pageMargins: [30, 10, 30, 10],
   footer: function(currentPage:number, pageCount:number) {
     return {
-        margin: [31.94, 0, 20, 10],
+        margin: [31.94, 0, 20, 0],
         table: generateFooter(currentPage, data),
         fontSize: 10,
         layout: 'noBorders'
@@ -539,9 +539,8 @@ for (let i = 0; i < data.length; i++) {
             stack:[
               {
                 // text:`Statement of Grade for ${data[i].courseName || '-'} Choice Based Credit System`,
-                text:`Statement of Grade for Faculty of Science & Technology:-
-Bachelor of Science (Hons) B.Sc (with Credits) - Regular - CBCS Pattern
-2019 - B.Sc -III Sem-VI`,
+                text:`Statement of Grade for (with Credits) - Regular - CBCS Pattern 2019 -
+                      LL.B.-III Sem-VI`,
                 bold:true,
                 alignment: 'center',
                 margin: [-10, 0, 0, 0],

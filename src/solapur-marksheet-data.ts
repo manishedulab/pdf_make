@@ -1256,3 +1256,568 @@ export const marksheet202201020041544: ISolMarksheet[] = [{
   ],
 }];
 
+export const solMarksheet202301020072275: ISolMarksheet[] = [{
+  examEvent: "MAR-2024",
+  barcode: `${process.cwd()}/public/collegeLogo/KAMBLE ONKAR DINESH (USHA).png`, // Not present in the PDF
+  studentName: "KAMBLE ONKAR DINESH (USHA)",
+  studentPhoto: `${process.cwd()}/public/Student Photos/KAMBLE ONKAR DINESH (USHA).png`, // URL to the photo if available
+  totalMarks: 3300, // Based on total EGP
+  totalObtainMarks: "2520", // Not explicitly available
+  percentage: "76.36%", // Derived from SGPA, not directly provided
+  DBOEESignature: `${process.cwd()}/public/collegeLogo/Sol_DBOEE_ANDHARE_SIR.jpeg`, // Provided at the end of the PDF
+  specialization: "Chemistry", // Based on subjects
+  courseFullName: "Bachelor of Science (Hons) B.Sc (with Credits)", 
+  prnNo: "202301020072275",
+  resultDate: "24 September 2024",
+  collegeName: "D.B.F. Dayanand College of Arts and Science, Solapur",
+  examCenter: "Hirachand Nemchand College of Commerce, Solapur",
+  finalGrade: "A+", // Not provided in the PDF
+  seatNo: "334600",
+  courseName: "B.Sc-III Sem-VI", // Based on the statement
+  examination: "Bachelor of Science (Hons) B.Sc - Regular - CBCS Pattern",
+  ECAMark: "", // Not provided
+  totalCredit: "132", // Based on cumulative total credits
+  totalEgp: "1182.00", // Based on cumulative total EGP
+  subjectName: "", // Not explicitly needed, as subjects are separately listed
+  sgpa: "8.95", // Based on cumulative SGPA
+  status: "Pass",
+  evenSemesterCredits: [
+    {
+      semesterName: "Sem-VI",
+      credits: 32,
+      egp: "304.00",
+      sgpa: "9.50",
+      status: "Pass",
+      seatNo: "334600",
+      examEvent: "MAR-2024",
+    }
+  ],
+  oddSemesterCredits: [
+    {
+      semesterName: "Sem-V",
+      credits: 16,
+      egp: "136.00",
+      sgpa: "8.50",
+      status: "Pass",
+      seatNo: "334600",
+      examEvent: "MAR-2024",
+    }
+  ],
+  ordinance: "NA",
+  statementNo: "2922087",
+  examMonthAndYear: "March-2024",
+  previousYearData: [
+    {
+      seatNo: "2010714",
+      year: "B.Sc(Hons)-I",
+      examEvent: "MAR-2021",
+      totalCredits: "48",
+      egp: "448.00",
+      sgpa: "9.33",
+    },
+    {
+      seatNo: "208622",
+      year: "B.Sc(Hons)-II",
+      examEvent: "MAR-2023",
+      totalCredits: "36",
+      egp: "294.00",
+      sgpa: "8.17",
+    },
+    {
+      seatNo: "334600",
+      year: "B.Sc(Hons)-III",
+      examEvent: "MAR-2024",
+      totalCredits: "48",
+      egp: "440.00",
+      sgpa: "9.17",
+    },
+  ], // No previous year data provided
+  oddSemesterSubjects: [
+    {
+      paperCode: "19201500",
+      paperName: "Compulsory English",
+      credits: "2.00",
+      gradeObtained: "A",
+      gradePoint: "8",
+      earnedGRPoints: "16",
+      remarks: "E,X"
+    },
+    {
+      paperCode: "19201506",
+      paperName: "Chemistry Paper-IX",
+      credits: "4.00",
+      gradeObtained: "A+",
+      gradePoint: "9",
+      earnedGRPoints: "36",
+      remarks: "E,X"
+    },
+    {
+      paperCode: "19201507",
+      paperName: "Chemistry Paper-X",
+      credits: "4.00",
+      gradeObtained: "A+",
+      gradePoint: "9",
+      earnedGRPoints: "36",
+      remarks: "E,X"
+    },
+    {
+      paperCode: "19201508",
+      paperName: "Chemistry Paper-XI",
+      credits: "4.00",
+      gradeObtained: "A",
+      gradePoint: "8",
+      earnedGRPoints: "32",
+      remarks: "E,X"
+    },
+    {
+      paperCode: "19201509",
+      paperName: "Chemistry Paper-XII Analytical and Industrial Physical Chemistry",
+      credits: "4.00",
+      gradeObtained: "A",
+      gradePoint: "8",
+      earnedGRPoints: "32",
+      remarks: "E,X"
+    }
+  ],
+  evenSemesterSubjects: [
+    {
+      paperCode: "19201600",
+      paperName: "Compulsory English",
+      credits: "4.00",
+      gradeObtained: "A+",
+      gradePoint: "9",
+      earnedGRPoints: "18",
+      remarks: "E,C"
+    },
+    {
+      paperCode: "19201610",
+      paperName: "Chemistry Paper-XIII",
+      credits: "4.00",
+      gradeObtained: "A+",
+      gradePoint: "9",
+      earnedGRPoints: "36",
+      remarks: "E,C"
+    },
+    {
+      paperCode: "19201611",
+      paperName: "Chemistry Paper-XIV",
+      credits: "4.00",
+      gradeObtained: "O",
+      gradePoint: "10",
+      earnedGRPoints: "40",
+      remarks: "E,C"
+    },
+    {
+      paperCode: "19201612",
+      paperName: "Chemistry Paper-XV",
+      credits: "4.00",
+      gradeObtained: "A+",
+      gradePoint: "9",
+      earnedGRPoints: "36",
+      remarks: "E,C"
+    },
+    {
+      paperCode: "19201613",
+      paperName: "Chemistry Practical-I",
+      credits: "4.00",
+      gradeObtained: "O",
+      gradePoint: "10",
+      earnedGRPoints: "40",
+      remarks: "E,C"
+    },
+    {
+      paperCode: "19201614",
+      paperName: "Chemistry Practical-II",
+      credits: "4.00",
+      gradeObtained: "O",
+      gradePoint: "10",
+      earnedGRPoints: "40",
+      remarks: "E,C"
+    },
+    {
+      paperCode: "19201615",
+      paperName: "Chemistry Practical-III",
+      credits: "4.00",
+      gradeObtained: "A",
+      gradePoint: "8",
+      earnedGRPoints: "32",
+      remarks: "E,C"
+    },
+    {
+      paperCode: "19201616",
+      paperName: "Chemistry Practical-IV",
+      credits: "4.00",
+      gradeObtained: "O",
+      gradePoint: "10",
+      earnedGRPoints: "40",
+      remarks: "E,C"
+    },
+    {
+      paperCode: "19201617",
+      paperName: "Chemistry Paper-XVI Analytical and Industrial Organic Chemistry",
+      credits: "4.00",
+      gradeObtained: "O",
+      gradePoint: "10",
+      earnedGRPoints: "40",
+      remarks: "E,C"
+    }
+  ]
+}];
+
+
+export const solMarksheet202201023042006: ISolMarksheet[] = [{
+  examEvent: "MAR-2024",
+  barcode: `${process.cwd()}/public/collegeLogo/WAYDANDE APARNA ASHOK (LAXMI).png`, // Not present in the PDF
+  studentName: "WAYDANDE APARNA ASHOK (LAXMI)",
+  studentPhoto: `${process.cwd()}/public/Student Photos/WAYDANDE APARNA ASHOK (LAXMI).png`, // URL to the photo if available
+  totalMarks: 3300, // Based on total EGP
+  totalObtainMarks: "2351", // Not explicitly available
+  percentage: "71.24%", // Derived from SGPA, not directly provided
+  DBOEESignature: `${process.cwd()}/public/collegeLogo/Sol_DBOEE_ANDHARE_SIR.jpeg`, // Provided at the end of the PDF
+  specialization: "Mathematics", // Based on subjects
+  courseFullName: "Bachelor of Science (Hons) B.Sc (with Credits)", 
+  prnNo: "202201023042006",
+  resultDate: "25 September 2024",
+  collegeName: "Shankarrao Mohite Mahavidyalaya, Akluj (SMM)",
+  examCenter: "Shankarrao Mohite Mahavidyalaya, Akluj (SMM)",
+  finalGrade: "A", // Not provided in the PDF
+  seatNo: "336702",
+  courseName: "B.Sc-III Sem-VI", // Based on the statement
+  examination: "Bachelor of Science (Hons) B.Sc - Regular - CBCS Pattern",
+  ECAMark: "", // Not provided
+  totalCredit: "132", // Based on cumulative total credits
+  totalEgp: "1082.00", // Based on cumulative total EGP
+  subjectName: "", // Not explicitly needed, as subjects are separately listed
+  sgpa: "8.20", // Based on cumulative SGPA
+  status: "Pass",
+  evenSemesterCredits: [
+    {
+      semesterName: "Sem-VI",
+      credits: 32,
+      egp: "260.00",
+      sgpa: "8.13",
+      status: "Pass",
+      seatNo: "336702",
+      examEvent: "MAR-2024",
+    }
+  ],
+  oddSemesterCredits: [
+    {
+      semesterName: "Sem-V",
+      credits: 16,
+      egp: "76.00",
+      sgpa: "4.75",
+      status: "Pass",
+      seatNo: "336702",
+      examEvent: "MAR-2024",
+    }
+  ],
+  ordinance: "NA",
+  statementNo: "2922000",
+  examMonthAndYear: "March-2024",
+  previousYearData: [
+    {
+      seatNo: "2012898",
+      year: "B.Sc(Hons)-I",
+      examEvent: "MAR-2021",
+      totalCredits: "48",
+      egp: "424.00",
+      sgpa: "8.83",
+    },
+    {
+      seatNo: "034290",
+      year: "B.Sc(Hons)-II",
+      examEvent: "MAR-2023",
+      totalCredits: "36",
+      egp: "322.00",
+      sgpa: "8.94",
+    },
+    {
+      seatNo: "336702",
+      year: "B.Sc(Hons)-III",
+      examEvent: "MAR-2024",
+      totalCredits: "48",
+      egp: "336.00",
+      sgpa: "7.00",
+    },
+  ],
+  oddSemesterSubjects: [
+    {
+      paperCode: "19201500",
+      paperName: "Compulsory English",
+      credits: "2.00",
+      gradeObtained: "A+",
+      gradePoint: "9",
+      earnedGRPoints: "18",
+      remarks: "E,X"
+    },
+    {
+      paperCode: "19201524",
+      paperName: "Mathematics Paper-IX",
+      credits: "4.00",
+      gradeObtained: "C",
+      gradePoint: "4",
+      earnedGRPoints: "16",
+      remarks: "E,X"
+    },
+    {
+      paperCode: "19201525",
+      paperName: "Mathematics Paper-X",
+      credits: "4.00",
+      gradeObtained: "C+",
+      gradePoint: "5",
+      earnedGRPoints: "20",
+      remarks: "E,X"
+    },
+    {
+      paperCode: "19201526",
+      paperName: "Mathematics Paper-XI",
+      credits: "4.00",
+      gradeObtained: "C+",
+      gradePoint: "5",
+      earnedGRPoints: "20",
+      remarks: "E,C"
+    },
+    {
+      paperCode: "19201527-A",
+      paperName: "Mathematics Paper-XII-A",
+      credits: "4.00",
+      gradeObtained: "C+",
+      gradePoint: "5",
+      earnedGRPoints: "20",
+      remarks: "E,C"
+    }
+  ],
+  evenSemesterSubjects: [
+    {
+      paperCode: "19201600",
+      paperName: "Compulsory English",
+      credits: "4.00",
+      gradeObtained: "O",
+      gradePoint: "10",
+      earnedGRPoints: "20",
+      remarks: "E,C"
+    },
+    {
+      paperCode: "19201635",
+      paperName: "Mathematics Paper-XIII",
+      credits: "4.00",
+      gradeObtained: "C+",
+      gradePoint: "5",
+      earnedGRPoints: "20",
+      remarks: "E,C"
+    },
+    {
+      paperCode: "19201636",
+      paperName: "Mathematics Paper-XIV",
+      credits: "4.00",
+      gradeObtained: "A",
+      gradePoint: "8",
+      earnedGRPoints: "32",
+      remarks: "E,C"
+    },
+    {
+      paperCode: "19201637",
+      paperName: "Mathematics Paper-XV",
+      credits: "4.00",
+      gradeObtained: "B+",
+      gradePoint: "7",
+      earnedGRPoints: "28",
+      remarks: "E,C"
+    },
+    {
+      paperCode: "19201638-A",
+      paperName: "Mathematics Paper-XVI-A",
+      credits: "4.00",
+      gradeObtained: "A",
+      gradePoint: "8",
+      earnedGRPoints: "32",
+      remarks: "E,C"
+    },
+    {
+      paperCode: "19201639",
+      paperName: "Mathematics Practical-I",
+      credits: "4.00",
+      gradeObtained: "A+",
+      gradePoint: "9",
+      earnedGRPoints: "36",
+      remarks: "E,C"
+    },
+    {
+      paperCode: "19201640",
+      paperName: "Mathematics Practical-II",
+      credits: "4.00",
+      gradeObtained: "A+",
+      gradePoint: "9",
+      earnedGRPoints: "36",
+      remarks: "E,C"
+    },
+    {
+      paperCode: "19201641",
+      paperName: "Mathematics Practical-III",
+      credits: "4.00",
+      gradeObtained: "A+",
+      gradePoint: "9",
+      earnedGRPoints: "36",
+      remarks: "E,C"
+    },
+    {
+      paperCode: "19201642",
+      paperName: "Mathematics Practical-IV",
+      credits: "4.00",
+      gradeObtained: "O",
+      gradePoint: "10",
+      earnedGRPoints: "40",
+      remarks: "E,C"
+    }
+  ]
+}];
+
+export const solMarksheet202301058070128: ISolMarksheet[] = [{
+  examEvent: "MAR-2024",
+  barcode: "", // Not provided in the PDF
+  studentName: "CHAVAN RAVIRAJ SHIVAJI (NALINI)",
+  studentPhoto: "", // Not provided
+  totalMarks: 200, // Sum of credits (20+20 for Sem-V and Sem-VI)
+  totalObtainMarks: 128, // Total EGP
+  percentage: "32%", // Calculated as (Total EGP / Total Marks) * 100
+  DBOEESignature: "",
+  specialization: "", // Not provided
+  courseFullName: "LL.B.-III Sem-VI",
+  prnNo: "202301058070128",
+  resultDate: "28-Aug-2024",
+  collegeName: "Karmaveer Audumbar Patil Law College, Pandharpur (KAPLC)",
+  examCenter: "Karmveer Bhaurao Patil Mahavidyalay, Pandharpur (KBP)",
+  finalGrade: "", // Not explicitly provided
+  seatNo: "329812",
+  courseName: "LL.B.-III Sem-VI",
+  examination: "LL.B.-III",
+  ECAMark: "", // Not available
+  totalCredit: "40", // Total credits for Sem-V and Sem-VI
+  totalEgp: "128.00", // EGP for Sem-V and Sem-VI combined
+  subjectName: "", // General subject name
+  sgpa: "3.20",
+  status: "Fail",
+  evenSemesterCredits: [
+    {
+      semesterName: "Sem-VI",
+      credits: 20,
+      egp: "44.00",
+      sgpa: "2.20",
+      status: "Fail",
+      seatNo: "329812",
+      examEvent: "MAR-2024"
+    }
+  ],
+  oddSemesterCredits: [
+    {
+      semesterName: "Sem-V",
+      credits: 20,
+      egp: "84.00",
+      sgpa: "4.20",
+      status: "Fail",
+      seatNo: "329812",
+      examEvent: "MAR-2024"
+    }
+  ],
+  ordinance: "NA", // Provided in the PDF
+  statementNo: "2931430",
+  examMonthAndYear: "MAR-2024",
+  previousYearData: [], // Not available in the current PDF
+  oddSemesterSubjects: [
+    {
+      paperCode: "19602501",
+      paperName: "Law of Crimes-II (Cr. P.C.)",
+      credits: "4.00",
+      gradeObtained: "A",
+      gradePoint: "8",
+      earnedGRPoints: "32",
+      remarks: "E,C"
+    },
+    {
+      paperCode: "19602502",
+      paperName: "Law of Evidence",
+      credits: "4.00",
+      gradeObtained: "F",
+      gradePoint: "0",
+      earnedGRPoints: "0",
+      remarks: "FC,C"
+    },
+    {
+      paperCode: "19602503",
+      paperName: "Civil Procedure Code and Limitation Act",
+      credits: "4.00",
+      gradeObtained: "B",
+      gradePoint: "6",
+      earnedGRPoints: "24",
+      remarks: "E,C"
+    },
+    {
+      paperCode: "19602504",
+      paperName: "Principles of Taxation Law",
+      credits: "4.00",
+      gradeObtained: "F",
+      gradePoint: "0",
+      earnedGRPoints: "0",
+      remarks: "FC,C"
+    },
+    {
+      paperCode: "19602505",
+      paperName: "Company Law",
+      credits: "4.00",
+      gradeObtained: "B+",
+      gradePoint: "7",
+      earnedGRPoints: "28",
+      remarks: "E,C"
+    }
+  ],
+  evenSemesterSubjects: [
+    {
+      paperCode: "19602601",
+      paperName: "Drafting, Pleading & Conveyance (Clinical Course)",
+      credits: "4.00",
+      gradeObtained: "F",
+      gradePoint: "0",
+      earnedGRPoints: "0",
+      remarks: "FR,C"
+    },
+    {
+      paperCode: "19602602",
+      paperName: "Moot Court, Exercise and Internship (Clinical Course)",
+      credits: "4.00",
+      gradeObtained: "F",
+      gradePoint: "0",
+      earnedGRPoints: "0",
+      remarks: "FC,C"
+    },
+    {
+      paperCode: "19602604",
+      paperName: "Equity & Trust",
+      credits: "4.00",
+      gradeObtained: "F",
+      gradePoint: "0",
+      earnedGRPoints: "0",
+      remarks: "FC,C"
+    },
+    {
+      paperCode: "19602605",
+      paperName: "Land Laws Including Tenure & Tenancy System",
+      credits: "4.00",
+      gradeObtained: "C+",
+      gradePoint: "5",
+      earnedGRPoints: "20",
+      remarks: "FC,C"
+    },
+    {
+      paperCode: "19602608",
+      paperName: "International Human Rights",
+      credits: "4.00",
+      gradeObtained: "B",
+      gradePoint: "6",
+      earnedGRPoints: "24",
+      remarks: "E,C"
+    }
+  ]
+}];
+
+

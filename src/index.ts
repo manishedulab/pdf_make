@@ -41,7 +41,7 @@ import solHallticket from "./solHallticket";
 import solExamForm from "./solapurExamForm";
 import attendanceSheet from "./attendance";
 import solapurExamTimeTable from "./solapurTimeTable";
-import { marksheet202201020041544, marksheet202301020072198, marksheet202301042071717, marksheet202301075074441 } from "./solapur-marksheet-data";
+import { marksheet202201020041544, marksheet202301020072198, marksheet202301042071717, marksheet202301075074441, solMarksheet202201023042006, solMarksheet202301020072275, solMarksheet202301058070128 } from "./solapur-marksheet-data";
 import resultReport from "./resultReport";
 // const contentDefinition = require('./pdf');
 // const Hallticket = require('./hallTicket');
@@ -1275,7 +1275,7 @@ app.get("/questions", async (req, res) => {
 
 app.get("/sol-marksheet", async (req: Request, res: Response) => {
   const pdfDocGenerator = pdfmake.createPdfKitDocument(
-    solMarksheet(marksheet202201020041544)
+    solMarksheet(solMarksheet202301058070128)
   );
   res.setHeader("Content-Type", "application/pdf");
   res.setHeader("Content-Disposition", "inline");
