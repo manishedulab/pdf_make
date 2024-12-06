@@ -22,7 +22,10 @@ import admissionForm from "./admission";
 import {
   IAddmission,
   IAttendanceSheet,
+  IDayWiseCenterWisePaperWiseStudentCountReportInRange,
   IExamFormPdf,
+  IPaperWiseAttendanceSheet,
+  IPaperWiseSeatSummary,
   IReassessmentFeeSlip,
   IResultReport,
   ISolapurHallticketPdf,
@@ -41,8 +44,11 @@ import solHallticket from "./solHallticket";
 import solExamForm from "./solapurExamForm";
 import attendanceSheet from "./attendance";
 import solapurExamTimeTable from "./solapurTimeTable";
-import { marksheet202201020041544, marksheet202301020072198, marksheet202301042071717, marksheet202301075074441, solMarksheet202201023042006, solMarksheet202301020072275, solMarksheet202301058070128 } from "./solapur-marksheet-data";
+import { solMarksheet202301014074115 } from "./solapur-marksheet-data";
 import resultReport from "./resultReport";
+import paperWiseSeatSummary from "./solapur_paper_wise_test_summary";
+import { DayWiseCenterWisePaperWiseStudentCountReportInRangeExcelGeneration } from "./day_wise_paper_wise_student_count_report_rang";
+import { paperWiseAttendanceSheet } from "./paperWiseAttendanceSheet";
 // const contentDefinition = require('./pdf');
 // const Hallticket = require('./hallTicket');
 // const Certificate = require('./certificate');
@@ -1275,13 +1281,186 @@ app.get("/questions", async (req, res) => {
 
 app.get("/sol-marksheet", async (req: Request, res: Response) => {
   const pdfDocGenerator = pdfmake.createPdfKitDocument(
-    solMarksheet(solMarksheet202301058070128)
+    solMarksheet(solMarksheet202301014074115)
   );
   res.setHeader("Content-Type", "application/pdf");
   res.setHeader("Content-Disposition", "inline");
   pdfDocGenerator.pipe(res);
   pdfDocGenerator.end();
 });
+
+export const mockPaperWiseAttendanceSheet: IPaperWiseAttendanceSheet = {
+  requestType: "Attendance",
+  collegeName: "ABC College of Science",
+  centerName: "XYZ Exam Center",
+  course: "Bachelor of Science",
+  courseDetails: "Physics - Semester 3",
+  totalStudents: "10",
+  examName: "BSc Semester 3 Physics Exam",
+  examTime: "10:00 AM - 1:00 PM",
+  paperCode: "PHY301",
+  examDate: "2024-11-25",
+  blockNumber: 2,
+  seatAndDeskNumber: [
+    {
+      seatNo: "1001",
+      studentName: "John Doe fgh ghjkl hjkllkjhn jklkjhcvbn vvbnjkhb fghujytdfvbnnjk hjnkm",
+      barcodeNo: "B123456789",
+      studentSignature: `${process.cwd()}/public/collegeLogo/xyz.png`,
+      studentPhoto: `${process.cwd()}/public/collegeLogo/123.png`,
+    },
+    {
+      seatNo: "1002",
+      studentName: "Jane Smith",
+      barcodeNo: "B987654321",
+      studentSignature: `${process.cwd()}/public/collegeLogo/xyz.png`,
+      studentPhoto: `${process.cwd()}/public/collegeLogo/123.png`,
+    },
+    {
+      seatNo: "1003",
+      studentName: "Alice Brown",
+      barcodeNo: "B112233445",
+      studentSignature: `${process.cwd()}/public/collegeLogo/xyz.png`,
+      studentPhoto: `${process.cwd()}/public/collegeLogo/123.png`,
+    },
+    {
+      seatNo: "1004",
+      studentName: "Bob Johnson",
+      barcodeNo: "B667788990",
+      studentSignature: `${process.cwd()}/public/collegeLogo/xyz.png`,
+      studentPhoto: `${process.cwd()}/public/collegeLogo/123.png`,
+    },
+    {
+      seatNo: "1005",
+      studentName: "Charlie Davis",
+      barcodeNo: "B102938475",
+      studentSignature: `${process.cwd()}/public/collegeLogo/xyz.png`,
+      studentPhoto: `${process.cwd()}/public/collegeLogo/123.png`,
+    },
+    {
+      seatNo: "1006",
+      studentName: "Diana Evans",
+      barcodeNo: "B564738291",
+      studentSignature: `${process.cwd()}/public/collegeLogo/xyz.png`,
+      studentPhoto: `${process.cwd()}/public/collegeLogo/123.png`,
+    },
+    {
+      seatNo: "1007",
+      studentName: "Edward Wilson",
+      barcodeNo: "B112358132",
+      studentSignature: `${process.cwd()}/public/collegeLogo/xyz.png`,
+      studentPhoto: `${process.cwd()}/public/collegeLogo/123.png`,
+    },
+    {
+      seatNo: "1008",
+      studentName: "Fiona Taylor",
+      barcodeNo: "B998877665",
+      studentSignature: `${process.cwd()}/public/collegeLogo/xyz.png`,
+      studentPhoto: `${process.cwd()}/public/collegeLogo/123.png`,
+    },
+    {
+      seatNo: "1009",
+      studentName: "George Harris",
+      barcodeNo: "B556677889",
+      studentSignature: `${process.cwd()}/public/collegeLogo/xyz.png`,
+      studentPhoto: `${process.cwd()}/public/collegeLogo/123.png`,
+    },
+    {
+      seatNo: "1010",
+      studentName: "Hannah Clark",
+      barcodeNo: "B334455667",
+      studentSignature: `${process.cwd()}/public/collegeLogo/xyz.png`,
+      studentPhoto: `${process.cwd()}/public/collegeLogo/123.png`,
+    },
+  ],
+  userName: "ExamAdmin1",
+};
+
+app.get("/paper-wise-attendance-sheet", async (req: Request, res: Response) => {
+  const pdfDocGenerator = pdfmake.createPdfKitDocument(
+    paperWiseAttendanceSheet([mockPaperWiseAttendanceSheet])
+  );
+  res.setHeader("Content-Type", "application/pdf");
+  res.setHeader("Content-Disposition", "inline");
+  pdfDocGenerator.pipe(res);
+  pdfDocGenerator.end();
+});
+
+const mockPaperWiseSeatSummary: IPaperWiseSeatSummary = {
+  requestType: "ExamSeatAllocation",
+  collegeName: "Greenwood College of Engineering",
+  centerName: "Main Examination Center",
+  course: "B.Tech Computer Science",
+  examName: "Semester Final Exam",
+  paperCode: "CS301",
+  examDate: "2024-10-20",
+  examTime: "10:00 AM - 01:00 PM",
+  blockNumber: "A1",
+  seatAndDeskNumber: ["S1-D1", "S2-D2", "S3-D3", "S4-D4", "S5-D5", "S1-D1", "S2-D2", "S3-D3", "S4-D4", "S5-D5", "S1-D1", "S2-D2"],
+  totalStudents: "30",
+  userName: "examAdmin01"
+};
+
+export const reportData: IDayWiseCenterWisePaperWiseStudentCountReportInRange[] = [{
+  requestType: "DayWiseCenterWisePaperWiseStudentCount",
+  username: "examAdmin123",
+  examDetails: [
+    {
+      collegeName: "ABC College of Engineering",
+      collegeCode: "C123",
+      centerName: "XYZ Exam Center",
+      centerCode: "X567",
+      course: "B.Tech",
+      paperCode: "BTE101",
+      examDate: "2024-10-25",
+      examTime: "10:00 AM - 1:00 PM",
+      totalStudents: "150",
+      blockNumber: "Block A"
+    },
+    {
+      collegeName: "XYZ College of Commerce",
+      collegeCode: "C456",
+      centerName: "XYZ Exam Center",
+      centerCode: "X567",
+      course: "B.Com",
+      paperCode: "BCM202",
+      examDate: "2024-10-25",
+      examTime: "2:00 PM - 5:00 PM",
+      totalStudents: "120",
+      blockNumber: "Block B"
+    },
+    {
+      collegeName: "PQR Institute of Technology",
+      collegeCode: "C789",
+      centerName: "XYZ Exam Center",
+      centerCode: "X567",
+      course: "M.Tech",
+      paperCode: "MTE303",
+      examDate: "2024-10-26",
+      examTime: "10:00 AM - 1:00 PM",
+      totalStudents: "80",
+      blockNumber: "Block C"
+    }
+  ]
+}];
+
+app.get("/day-wise-center-wise-paper-wise-student-count", async (req: Request, res: Response) => {
+  DayWiseCenterWisePaperWiseStudentCountReportInRangeExcelGeneration(process.cwd(), reportData)
+  res.send("Excel file generated successfully");
+});
+
+
+
+app.get("/paper-wise-seat-summary", async (req: Request, res: Response) => {
+  const pdfDocGenerator = pdfmake.createPdfKitDocument(
+    paperWiseSeatSummary([mockPaperWiseSeatSummary])
+  );
+  res.setHeader("Content-Type", "application/pdf");
+  res.setHeader("Content-Disposition", "inline");
+  pdfDocGenerator.pipe(res);
+  pdfDocGenerator.end();
+});
+
 
 export const mockResultReport: IResultReport = {
   examEvent: "Winter 2023",
@@ -2023,48 +2202,276 @@ app.get("/sol-ledger", async (req: Request, res: Response) => {
   pdfDocGenerator.end();
 });
 
-const hallticketmockData: ISolapurHallticketPdf = {
-  collegeName: "Solapur University",
-  examMonthAndYear: "April 2024",
-  studentName: "John Doe",
-  fatherName: "Michael Doe",
-  studentPhoto: `${process.cwd()}/public/collegeLogo/123.png`,
-  studentSignature: `${process.cwd()}/public/collegeLogo/xyz.png`,
-  prnNo: "1234567890",
+const mockSolapurHallticketPdf: ISolapurHallticketPdf = {
+  collegeName: "Solapur University College of Engineering",
+  examMonthAndYear: "December 2024",
+  studentName: "Rahul Deshmukh",
+  fatherName: "Vinayak Deshmukh",
+  studentPhoto: "",
+  studentSignature: "",
+  prnNo: "PRN123456789",
   gender: "Male",
   physicallyChallenged: "No",
   medium: "English",
-  division: "First",
-  rollNumber: "A123",
-  seatNumber: "101",
-  examCenter: "Solapur",
-  courseAbbreviation: "B.com",
+  division: "A",
+  rollNumber: "22CS101",
+  seatNumber: "10123",
+  examCenter: "Solapur University Main Campus",
+  courseName: "Bachelor of Technology in Computer Science",
+  courseAbbreviation: "B.Tech(CS)",
   examType: "Regular",
-  examPattern: "CBCS Pattern 2022",
-  semesterName: "Sem-II",
-  subjects: [
+  examPattern: "CBCS",
+  semesterName: "Semester 5",
+  semesters: [
     {
-      paperCode: "101",
-      paperName: "Mathematics",
-      date: "15th April 2024",
-      time: "10:00 AM - 1:00 PM",
-      subjectType: "Theory",
-      assessment: "Written",
+      examName: "B.Tech Computer Science Semester 3 Exam",
+      seatNumber: "10123",
+      division: "A",
+      rollNumber: "22CS101",
+      examCenter: "Solapur University Main Campus",
+      subjects: [
+        {
+          paperCode: "CS301",
+          paperName: "Discrete Mathematics",
+          date: "2024-12-05",
+          time: "10:00 AM - 1:00 PM",
+          subjectType: "Theory",
+          assessment: "End-Semester"
+        },
+        {
+          paperCode: "CS302",
+          paperName: "Computer Architecture",
+          date: "2024-12-07",
+          time: "10:00 AM - 1:00 PM",
+          subjectType: "Theory",
+          assessment: "End-Semester"
+        },
+        {
+          paperCode: "CS303",
+          paperName: "Object-Oriented Programming",
+          date: "2024-12-09",
+          time: "10:00 AM - 1:00 PM",
+          subjectType: "Theory",
+          assessment: "End-Semester"
+        },
+        {
+          paperCode: "CS301",
+          paperName: "Discrete Mathematics",
+          date: "2024-12-05",
+          time: "10:00 AM - 1:00 PM",
+          subjectType: "Theory",
+          assessment: "End-Semester"
+        },
+        {
+          paperCode: "CS302",
+          paperName: "Computer Architecture",
+          date: "2024-12-07",
+          time: "10:00 AM - 1:00 PM",
+          subjectType: "Theory",
+          assessment: "End-Semester"
+        },
+        {
+          paperCode: "CS303",
+          paperName: "Object-Oriented Programming",
+          date: "2024-12-09",
+          time: "10:00 AM - 1:00 PM",
+          subjectType: "Theory",
+          assessment: "End-Semester"
+        },
+        {
+          paperCode: "CS301",
+          paperName: "Discrete Mathematics",
+          date: "2024-12-05",
+          time: "10:00 AM - 1:00 PM",
+          subjectType: "Theory",
+          assessment: "End-Semester"
+        },
+        {
+          paperCode: "CS302",
+          paperName: "Computer Architecture",
+          date: "2024-12-07",
+          time: "10:00 AM - 1:00 PM",
+          subjectType: "Theory",
+          assessment: "End-Semester"
+        },
+        {
+          paperCode: "CS303",
+          paperName: "Object-Oriented Programming",
+          date: "2024-12-09",
+          time: "10:00 AM - 1:00 PM",
+          subjectType: "Theory",
+          assessment: "End-Semester"
+        }
+      ]
     },
     {
-      paperCode: "102",
-      paperName: "Science",
-      date: "17th April 2024",
-      time: "10:00 AM - 1:00 PM",
-      subjectType: "Theory",
-      assessment: "Written",
+      examName: "B.Tech Computer Science Semester 4 Exam",
+      seatNumber: "10123",
+      division: "A",
+      rollNumber: "22CS101",
+      examCenter: "Solapur University Main Campus",
+      subjects: [
+        {
+          paperCode: "CS401",
+          paperName: "Software Engineering",
+          date: "2024-12-11",
+          time: "10:00 AM - 1:00 PM",
+          subjectType: "Theory",
+          assessment: "End-Semester"
+        },
+        {
+          paperCode: "CS402",
+          paperName: "Computer Graphics",
+          date: "2024-12-13",
+          time: "10:00 AM - 1:00 PM",
+          subjectType: "Theory",
+          assessment: "End-Semester"
+        },
+        {
+          paperCode: "CS403",
+          paperName: "Artificial Intelligence",
+          date: "2024-12-15",
+          time: "10:00 AM - 1:00 PM",
+          subjectType: "Theory",
+          assessment: "End-Semester"
+        },
+        {
+          paperCode: "CS301",
+          paperName: "Discrete Mathematics",
+          date: "2024-12-05",
+          time: "10:00 AM - 1:00 PM",
+          subjectType: "Theory",
+          assessment: "End-Semester"
+        },
+        {
+          paperCode: "CS302",
+          paperName: "Computer Architecture",
+          date: "2024-12-07",
+          time: "10:00 AM - 1:00 PM",
+          subjectType: "Theory",
+          assessment: "End-Semester"
+        },
+        {
+          paperCode: "CS303",
+          paperName: "Object-Oriented Programming",
+          date: "2024-12-09",
+          time: "10:00 AM - 1:00 PM",
+          subjectType: "Theory",
+          assessment: "End-Semester"
+        }
+      ]
     },
-  ],
+    {
+      examName: "B.Tech Computer Science Semester 5 Exam",
+      seatNumber: "10123",
+      division: "A",
+      rollNumber: "22CS101",
+      examCenter: "Solapur University Main Campus",
+      subjects: [
+        {
+          paperCode: "CS501",
+          paperName: "Data Structures and Algorithms",
+          date: "2024-12-17",
+          time: "10:00 AM - 1:00 PM",
+          subjectType: "Theory",
+          assessment: "End-Semester"
+        },
+        {
+          paperCode: "CS502",
+          paperName: "Database Management Systems",
+          date: "2024-12-19",
+          time: "10:00 AM - 1:00 PM",
+          subjectType: "Theory",
+          assessment: "End-Semester"
+        },
+        {
+          paperCode: "CS503",
+          paperName: "Operating Systems",
+          date: "2024-12-21",
+          time: "10:00 AM - 1:00 PM",
+          subjectType: "Theory",
+          assessment: "End-Semester"
+        },
+        {
+          paperCode: "CS301",
+          paperName: "Discrete Mathematics",
+          date: "2024-12-05",
+          time: "10:00 AM - 1:00 PM",
+          subjectType: "Theory",
+          assessment: "End-Semester"
+        },
+        {
+          paperCode: "CS302",
+          paperName: "Computer Architecture",
+          date: "2024-12-07",
+          time: "10:00 AM - 1:00 PM",
+          subjectType: "Theory",
+          assessment: "End-Semester"
+        },
+        {
+          paperCode: "CS303",
+          paperName: "Object-Oriented Programming",
+          date: "2024-12-09",
+          time: "10:00 AM - 1:00 PM",
+          subjectType: "Theory",
+          assessment: "End-Semester"
+        },
+        {
+          paperCode: "CS501",
+          paperName: "Data Structures and Algorithms",
+          date: "2024-12-17",
+          time: "10:00 AM - 1:00 PM",
+          subjectType: "Theory",
+          assessment: "End-Semester"
+        },
+        {
+          paperCode: "CS502",
+          paperName: "Database Management Systems",
+          date: "2024-12-19",
+          time: "10:00 AM - 1:00 PM",
+          subjectType: "Theory",
+          assessment: "End-Semester"
+        },
+        {
+          paperCode: "CS503",
+          paperName: "Operating Systems",
+          date: "2024-12-21",
+          time: "10:00 AM - 1:00 PM",
+          subjectType: "Theory",
+          assessment: "End-Semester"
+        },
+        {
+          paperCode: "CS301",
+          paperName: "Discrete Mathematics",
+          date: "2024-12-05",
+          time: "10:00 AM - 1:00 PM",
+          subjectType: "Theory",
+          assessment: "End-Semester"
+        },
+        {
+          paperCode: "CS302",
+          paperName: "Computer Architecture",
+          date: "2024-12-07",
+          time: "10:00 AM - 1:00 PM",
+          subjectType: "Theory",
+          assessment: "End-Semester"
+        },
+        {
+          paperCode: "CS303",
+          paperName: "Object-Oriented Programming",
+          date: "2024-12-09",
+          time: "10:00 AM - 1:00 PM",
+          subjectType: "Theory",
+          assessment: "End-Semester"
+        },
+      ]
+    }
+  ]
 };
 
 app.get("/sol-hallticket", async (req: Request, res: Response) => {
   const pdfDocGenerator = pdfmake.createPdfKitDocument(
-    solHallticket([hallticketmockData])
+    solHallticket([mockSolapurHallticketPdf])
   );
   res.setHeader("Content-Type", "application/pdf");
   res.setHeader("Content-Disposition", "inline");

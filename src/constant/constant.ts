@@ -109,3 +109,10 @@ export const TIMETAKENFORSUB = {
 };
 
 export const DBOEE_SIGN = `${process.cwd()}/public/collegeLogo/DBOEE_Blue_Sign.png`;
+
+
+export async function createFolderIfNotExists(folder: string) {
+  if (!fs.existsSync(folder)) {
+    fs.mkdirSync(folder, { recursive: true });
+  }
+}

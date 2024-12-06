@@ -345,6 +345,7 @@ export interface IReassessmentFeeSlip {
     totalCredits: string;
     egp: string;
     sgpa: string;
+    status: string
   }
   
   export interface IOddSemesterSubjects {
@@ -610,7 +611,6 @@ export interface IExamFormPdf {
     }[];
   }
 }
-
 export interface ISolapurHallticketPdf {
   collegeName:string;
   examMonthAndYear:string;
@@ -626,10 +626,20 @@ export interface ISolapurHallticketPdf {
   rollNumber:string;
   seatNumber:string;
   examCenter:string;
+  courseName:string
   courseAbbreviation:string;
   examType:string;
   examPattern:string;
   semesterName:string;
+  semesters: IHallticketSemesters[];
+}
+
+export interface IHallticketSemesters {
+  examName: string;
+  seatNumber: string;
+  division:string;
+  rollNumber:string;
+  examCenter:string;
   subjects:{
     paperCode:string;
     paperName:string;
@@ -638,4 +648,60 @@ export interface ISolapurHallticketPdf {
     subjectType:string;
     assessment:string;
   }[];
+}[];
+
+export interface IPaperWiseSeatSummary {
+  requestType:string;
+  collegeName:string;
+  centerName:string;
+  course:string;
+  examName:string;
+  paperCode:string;
+  examDate:string;
+  examTime:string;
+  blockNumber:string;
+  seatAndDeskNumber:string[];
+  totalStudents:string;
+  userName:string;
+}
+
+export interface IDayWiseCenterWisePaperWiseStudentCountReportInRange {
+  requestType:string;
+  username:string;
+  examDetails: {
+    collegeName:string;
+    collegeCode:string;
+    centerName:string;
+    centerCode:string;
+    course:string;
+    paperCode:string;
+    examDate:string;
+    examTime:string;
+    totalStudents:string;
+    blockNumber:string;
+  }[];
+}
+
+export interface IStudentInfo {
+  seatNo: string;
+  studentName: string;
+  barcodeNo?: string;
+  studentSignature: string;
+  studentPhoto: string;
+}
+
+export interface IPaperWiseAttendanceSheet {
+  requestType: string;
+  collegeName: string;
+  centerName: string;
+  course: string;
+  courseDetails: string;
+  totalStudents: string;
+  examName:string;
+  examTime:string;
+  paperCode: string;
+  examDate: string;
+  blockNumber: number;
+  seatAndDeskNumber: IStudentInfo[]; // Array of IPaperDetail objects
+  userName: string;
 }

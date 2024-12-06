@@ -1,16 +1,19 @@
+import { PDF } from "./constant";
 import { SolapurPdf } from "./constant/constant";
-import { ISolapurHallticketPdf, ISolMarksheet } from "./types";
+import { IHallticketSemesters, ISolapurHallticketPdf, ISolMarksheet } from "./types";
 import moment from "moment";
 
- function solHallticket(data: ISolapurHallticketPdf[]) {
+function solHallticket(data: ISolapurHallticketPdf[]) {
+  // console.log('data',data[0])
 
   const contentDefinition: any = {
     pageSize: 'A4',
-    pageMargins: [10, 10, 10, 10],
+    pageMargins: [10, 10, 10, 20],
     content: [],
   };
 
   for (let i = 0; i < data.length; i++) {
+    
     const table1 = {
         widths: [90, 365, 90],
         headerRows: 1,
@@ -79,7 +82,7 @@ import moment from "moment";
                 }
             ],
             {
-                image: data[i].studentPhoto || SolapurPdf.defaultPhoto,
+                image: data[i].studentPhoto || PDF.defaultPhoto,
                 width: 70,
                 alignment: 'center',
             }
@@ -127,7 +130,7 @@ import moment from "moment";
                 text: "",
             },
             {
-                image: data[i].studentSignature || SolapurPdf.defaultPhoto,
+                image: data[i].studentSignature || PDF.defaultPhoto,
                 width: 60,
                 height: 22,
                 alignment: 'center',
@@ -136,7 +139,7 @@ import moment from "moment";
           ],
           [
             {
-              text: `PRN: ${data[i].prnNo}`,
+              text: `PRN: ${data[i].prnNo || '-'}`,
             },
             {
               text: [
@@ -152,10 +155,10 @@ import moment from "moment";
             {
               text: [
                 {
-                    text: 'Phy. Challenge:'
+                    text: 'Phy. Challenged:'
                 },
                 {
-                    text: ` ${data[i].physicallyChallenged}`,
+                    text: ` ${data[i].physicallyChallenged || '-'}`,
                     bold: true,
                 }
               ],
@@ -166,7 +169,7 @@ import moment from "moment";
                     text: 'Medium:'
                 },
                 {
-                    text: ` ${data[i].medium}`,
+                    text: ` ${data[i].medium || 'English'}`,
                     bold: true,
                 }
               ],
@@ -178,114 +181,132 @@ import moment from "moment";
         ],
     };
 
-    const table3 = {
-        widths: [249, 305],
-        headerRows: 1,
-        body: [
-          [
-            {
-              text: [
-                {
-                    text: `${data[i].courseAbbreviation} (With Credits) - ${data[i].examType} - ${data[i].examPattern} - ${data[i].semesterName}`,
-                    bold: true,
-                },
-              ],
-              border: [true, true, true, true],
-              margin: [0, 0, 0, 0],
-            },
-            {
-              text:[
-                {
-                    text: 'Division:'
-                },
-                {
-                    text: ` ${data[i].division || "-"}, `,
-                    bold: true,
-                },
-                {
-                    text: 'RollNo:'
-                },
-                {
-                    text: ` ${data[i].rollNumber || "-"}`,
-                    bold: true,
-                }
-              ],
-            },
-          ],
-          [
-            {
-              text: [
-                {
-                    text: 'Seat Number:'
-                },
-                {
-                    text: ` ${data[i].seatNumber || "-"}`,
-                    bold: true,
-                }
-              ],
-            },
-            {
-                text:  [
-                    {
-                        text: 'Exam Center:'
-                    },
-                    {
-                        text: ` ${data[i].examCenter || "-"},`,
-                        bold: true,
-                    },
-                  ],
-            }
-          ],
-        ],
-      };
-
     const table4 = {
-        widths: [19, 60, 131, 30, 30, 65, 65, 100],
-        headerRows: 1,
+        widths: [19, 60, 131, 30, 35, 65, 65, 95],
+        // headerRows: 1, // Repeats the main header row at the top of each page
         body: [
-            ...data[i].subjects.map((value: any , index: number) => [
-                {
-                    text: index +1,
-                    alignment: "center",
-                    border: [true, false, true, true],
-                },
-                {
-                  text: `${value.paperCode || '-'}`,
-                  alignment: "center",
-                  border: [true, false, true, true],
-                },
-                {
-                  text: `${value.paperName || '-'}`,
-                  alignment: "left",
-                  border: [true, false, true, true],
-                },
-                {
-                  text: `${value.subjectType || '-'}`,
-                  alignment: "center",
-                  border: [true, false, true, true],
-                },
-                {
-                  text:`${value.assessment || '-'}`,
-                  alignment: "center",
-                  border: [true, false, true, true],
-                },
-                {
-                  text: `${value.date || '-'}`,
-                  alignment: "center",
-                  border: [true, false, true, true],
-                },
-                {
-                  text: `${value.time || '-'}`,
-                  alignment: "center",
-                  border: [true, false, true, true],
-                },
-                {
-                    text: '',
-                    alignment: "center",
-                    border: [true, false, true, true],
-                },
-              ])
-        ]};
+          // Add semester-specific headers and data
+          ...data[i].semesters.flatMap((semester: IHallticketSemesters, semesterIndex: number) => [
+            // Semester-specific header row
+            [
+                      {
+                        text: [
+                          {
+                              text: `${semester.examName}`,
+                              bold: true,
+                          },
+                        ],
+                        colSpan:4,
+                        border: [true, true, true, true],
+                        margin: [0, 0, 0, 0],
+                      },
+                      {},{},{},
+                      {
+                        text:[
+                          {
+                              text: 'Division:'
+                          },
+                          {
+                              text: ` ${data[i].division || " "}, `,
+                              bold: true,
+                          },
+                          {
+                              text: 'RollNo:'
+                          },
+                          {
+                              text: ` ${data[i].rollNumber || " "}`,
+                              bold: true,
+                          }
+                        ],
+                        colSpan:4
+                      },
+                      {},{},{}
+                    ],
+                    [
+                      {
+                        text: [
+                          {
+                              text: 'Seat Number:'
+                          },
+                          {
+                              text: ` ${data[i].seatNumber || "-"}`,
+                              bold: true,
+                          }
+                        ],
+                        colSpan:4
+                      },
+                      {},{},{},
+                      {
+                          text:  [
+                              {
+                                  text: 'Exam Center:'
+                              },
+                              {
+                                  text: ` ${data[i].examCenter || "-"}`,
+                                  bold: true,
+                              },
+                            ],
+                            colSpan:4
+                      },
+                      {},{},{},
+                    ],
+            // Repeat the main headers for the semester
+            [
+              { text: "Sr. No.", alignment: "center", bold: true, border: [true, true, true, true] },
+              { text: "Paper Code", alignment: "center", bold: true, border: [true, true, true, true] },
+              { text: "Paper Name", alignment: "center", bold: true, border: [true, true, true, true] },
+              { text: "Subject Type", alignment: "center", bold: true, border: [true, true, true, true] },
+              { text: "Assessment", alignment: "center", bold: true, border: [true, true, true, true] },
+              { text: "Date", alignment: "center", bold: true, border: [true, true, true, true] },
+              { text: "Time", alignment: "center", bold: true, border: [true, true, true, true] },
+              { text: "Jr. Supervisor's Sign", alignment: "center", bold: true, border: [true, true, true, true] }
+            ],
+            // Subject rows for the semester
+            ...semester.subjects.map((subject: any, subjectIndex: number) => [
+              {
+                text: subjectIndex + 1,
+                alignment: "center",
+                border: [true, false, true, true],
+              },
+              {
+                text: subject.paperCode || '-',
+                alignment: "center",
+                border: [true, false, true, true],
+              },
+              {
+                text: subject.paperName || '-',
+                alignment: "left",
+                border: [true, false, true, true],
+              },
+              {
+                text: subject.subjectType || '-',
+                alignment: "center",
+                border: [true, false, true, true],
+              },
+              {
+                text: subject.assessment || '-',
+                alignment: "center",
+                border: [true, false, true, true],
+              },
+              {
+                text: subject.date || '-',
+                alignment: "center",
+                border: [true, false, true, true],
+              },
+              {
+                text: subject.time || '-',
+                alignment: "center",
+                border: [true, false, true, true],
+              },
+              {
+                text: '',
+                alignment: "center",
+                border: [true, false, true, true],
+              },
+            ])
+          ])
+        ]
+      };
 
     function pdf() {
         const table = [
@@ -297,64 +318,12 @@ import moment from "moment";
                 fontSize: 7,
             },
             {
-                table: table3,
-                fontSize: 7,
-            },
-            {
-                table: {
-                    widths: [19, 60, 100, 100, 65, 65, 100],
-                    headerRows: 1,
-                    body: [
-                      [
-                        {
-                            text: `SN`,
-                            alignment: "center",
-                            bold: true,
-                        },
-                        {
-                          text: `Paper Code`,
-                          alignment: "center",
-                          bold: true,
-                        },
-                        {
-                          text:  `Paper Name`,
-                          bold: true,
-                          border: [true, true, false, true],
-                          alignment: "center",
-                        },
-                        {
-                            text:  `(UA-University Assessment, CA-College Assessment, ISE - In Semester Exam, ESE - End Semester Exam, ICA - Internal Cont inuous Assessment, POE - Practical Onli ne Examination)`,
-                            border: [false, true, true, true],
-                            alignment: "center",
-                            bold: true,
-                        },
-                        {
-                          text: `Date`,
-                          alignment: "center",
-                          bold: true,
-                        },
-                        {
-                          text: `Time`,
-                          alignment: "center",
-                          bold: true,
-                        },
-                        {
-                          text: `Jr. Supervisor's Sign.`,
-                          alignment: "center",
-                          bold: true,
-                        },
-                      ],
-                    ],
-                  },
-                fontSize: 7,
-            },
-            {
                 table: table4,
                 fontSize: 7,
             },
             {
                 table: {
-                    widths: [267, 104, 174],
+                    widths: [267, 109, 169],
                     headerRows: 1,
                     body: [
                       [
@@ -388,10 +357,9 @@ import moment from "moment";
                     body: [
                      [
                         {
-                            text: `Note. for All Students: Please Keep any ID Proof with you While Entering the Examination Hall.
-                            Note. for All Students: Refer the Time-Table of Respective PATTERN for Date and Time of Exam Available on Website.
-                            Note. Candidates note that Democracy, Elections and Good Governance Examination will be conducted in their Parent (home) College.
-                            Note. Exam Center for First Year Sem I & II Fresh and Repeater Students will be their Home Colleges.`,
+                            text: `Note. For All Students: Please Keep any ID Proof with you While Entering the Examination Hall.
+                            Note. For All Students: Refer the Time-Table of Respective PATTERN for Date and Time of Exam Available on Website.
+                            Note. UA-University Assessment, CA-College Assessment, ISE - In Semester Exam, ESE - End Semester Exam, ICA - Internal Continuous Assessment, POE - Practical Online Examination`,
                             border: [false, false, false, true],
                             bold: true
                         }

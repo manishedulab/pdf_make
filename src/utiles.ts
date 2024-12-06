@@ -140,9 +140,6 @@ export const getBarcodeByPrnNo = async (prnNo: string) => {
   return dataURL;
 };
 
-
-
-
 export const  pdfFunctionForTableCreation = (student:any) => {
   
   let oddMarkTheory = 0
@@ -205,7 +202,7 @@ export const  pdfFunctionForTableCreation = (student:any) => {
     let ms = [];
     const value = student.oddSemesterdata.marks[l]
      ms.push({ text: `${value.code || "-"}`, alignment: "center", margin: [0, 0, 0, 0], border: l == markLength-1 ? [true, false, true, true] : [true, false, true, false]})
-     ms.push({ text: `${'Theory' || "-"}`, alignment: "center", margin: [0, 0, 0, 0], border:  l == markLength-1 ? [false, false, true, true] : [false, false, true, false]})
+     ms.push({ text: `${'Theory'}`, alignment: "center", margin: [0, 0, 0, 0], border:  l == markLength-1 ? [false, false, true, true] : [false, false, true, false]})
     
      for(let w = 0; w < oddMarkTheory; w++) {
        ms.push({ text: value.theory[w].AssessmentTypeMin || '-', alignment: 'center', margin: [0,0,0,0],border:  l == markLength-1 ? [false, false, true, true] : [false, false, true, false], })
@@ -216,7 +213,7 @@ export const  pdfFunctionForTableCreation = (student:any) => {
         ms.push({ text: value.theory[l].totalObt || '-', alignment: 'center', margin: [0,0,0,0],border:  l == markLength-1 ? [false, false, true, true] : [false, false, true, false], })
      
 
-     ms.push({ text: `${'Practical' || "-"}`, alignment: "center", margin: [0, 0, 0, 0], border:  l == markLength-1 ? [false, false, true, true] : [false, false, true, false]})
+     ms.push({ text: `${'Practical'}`, alignment: "center", margin: [0, 0, 0, 0], border:  l == markLength-1 ? [false, false, true, true] : [false, false, true, false]})
 
      for(let x = 0; x < oddMarkPractical; x++) {
        ms.push({ text: value.practical[x].AssessmentTypeMin || '-', alignment: 'center', margin: [0,0,0,0],border:  l == markLength-1 ? [false, false, true, true] : [false, false, true, false], })
@@ -292,4 +289,13 @@ export const  pdfFunctionForTableCreation = (student:any) => {
   table10.body[1].push({ text: `RMK`, alignment: "center", bold: true, margin: [0, 0, 0, 0], border: [false, false, true, true]})
 
 
+}
+
+// Helper function to chunk the array
+export function chunkArray<T>(array: T[], size: number): T[][] {
+  const chunks: T[][] = [];
+  for (let i = 0; i < array.length; i += size) {
+    chunks.push(array.slice(i, i + size));
+  }
+  return chunks;
 }

@@ -448,7 +448,7 @@ for (let i = 0; i < data.length; i++) {
             border: [true, false, true, true],
           },
           {
-            text:  `Status: ${data[i].status}`,
+            text:  `Status: ${value.status}`,
             bold: true,
             
             borderColor: ['#6b7280', '#6b7280', '#6b7280', '#6b7280'],
@@ -539,8 +539,9 @@ for (let i = 0; i < data.length; i++) {
             stack:[
               {
                 // text:`Statement of Grade for ${data[i].courseName || '-'} Choice Based Credit System`,
-                text:`Statement of Grade for (with Credits) - Regular - CBCS Pattern 2019 -
-                      LL.B.-III Sem-VI`,
+                text:`Statement of Grade for Faculty of Humanities:-
+Bachelor of Arts (Hons) B.A (with Credits) - Regular - CBCS Pattern 2019
+- B.A. -III Sem-VI`,
                 bold:true,
                 alignment: 'center',
                 margin: [-10, 0, 0, 0],
